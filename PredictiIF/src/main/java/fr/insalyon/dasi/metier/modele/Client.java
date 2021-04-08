@@ -6,12 +6,18 @@
 package fr.insalyon.dasi.metier.modele;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -27,18 +33,21 @@ public class Client implements Serializable {
     @Column(unique=true)
     private String mail;
     private String motDePasse;
-    private String dateDeNaissance;
+    @Temporal(TemporalType.DATE)
+    private Date dateDeNaissance;
     private String prenom;
     private String nom;
     private String adressePostale;
     private String numeroDeTelephone;
     @OneToOne
     private ProfilAstral profilAstral;
+    @OneToMany(mappedBy="client")
+    private List<Consultation> consultations;
 
     public Client() {
     }
 
-    public Client(String mail, String motDePasse, String dateDeNaissance, String prenom, String nom, String adressePostale, String numeroDeTelephone) {
+    public Client(String mail, String motDePasse, Date dateDeNaissance, String prenom, String nom, String adressePostale, String numeroDeTelephone) {
         this.mail = mail;
         this.motDePasse = motDePasse;
         this.dateDeNaissance = dateDeNaissance;
@@ -46,6 +55,7 @@ public class Client implements Serializable {
         this.nom = nom;
         this.adressePostale = adressePostale;
         this.numeroDeTelephone = numeroDeTelephone;
+        this.consultations = new ArrayList<Consultation>();
     }
     
     @Override
@@ -93,7 +103,7 @@ public class Client implements Serializable {
         this.motDePasse = motDePasse;
     }
 
-    public void setDateDeNaissance(String dateDeNaissance) {
+    public void setDateDeNaissance(Date dateDeNaissance) {
         this.dateDeNaissance = dateDeNaissance;
     }
 
@@ -107,6 +117,10 @@ public class Client implements Serializable {
 
     public void setProfilAstral(ProfilAstral profilAstral) {
         this.profilAstral = profilAstral;
+    }
+
+    public void setConsultations(List<Consultation> consultations) {
+        this.consultations = consultations;
     }
     
     public Long getId() {
@@ -129,7 +143,7 @@ public class Client implements Serializable {
         return motDePasse;
     }
 
-    public String getDateDeNaissance() {
+    public Date getDateDeNaissance() {
         return dateDeNaissance;
     }
 
@@ -144,5 +158,12 @@ public class Client implements Serializable {
     public ProfilAstral getProfilAstral() {
         return profilAstral;
     }
-    
+
+    public List<Consultation> getConsultations() {
+        return consultations;
+    }
+
+    public void ajouterConsultation(Consultation consultation) {
+        this.consultations.add(consultation);
+    }
 }

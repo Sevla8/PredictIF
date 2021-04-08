@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -25,14 +27,20 @@ public class Consultation implements Serializable {
     private String dateConsultation;
     private String commentaire;
     private Integer note;
+    @ManyToOne
+    private Medium medium;
+    @ManyToOne
+    private Client client;
+    @ManyToOne
+    private Employe employe;
 
     public Consultation() {
     }
 
-    public Consultation(String dateConsultation, String commentaire, Integer note) {
-        this.dateConsultation = dateConsultation;
-        this.commentaire = commentaire;
-        this.note = note;
+    public Consultation(Medium medium, Client client, Employe employe) {
+        this.medium = medium;
+        this.client = client;
+        this.employe = employe;
     }
     
     public String getDateConsultation() {
@@ -47,6 +55,14 @@ public class Consultation implements Serializable {
         return note;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public Medium getMedium() {
+        return medium;
+    }
+
     public void setDateConsultation(String dateConsultation) {
         this.dateConsultation = dateConsultation;
     }
@@ -57,6 +73,14 @@ public class Consultation implements Serializable {
 
     public void setNote(Integer note) {
         this.note = note;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setMedium(Medium medium) {
+        this.medium = medium;
     }
 
 }

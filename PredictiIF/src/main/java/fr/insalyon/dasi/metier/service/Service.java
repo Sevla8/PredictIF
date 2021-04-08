@@ -6,24 +6,27 @@
 package fr.insalyon.dasi.metier.service;
 
 import fr.insalyon.dasi.dao.ClientDao;
+import fr.insalyon.dasi.dao.ConsultationDao;
+import fr.insalyon.dasi.dao.EmployeDao;
 import fr.insalyon.dasi.dao.JpaUtil;
 import fr.insalyon.dasi.dao.MediumDao;
 import fr.insalyon.dasi.dao.ProfilAstralDao;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import fr.insalyon.dasi.metier.modele.Astrologue;
 import fr.insalyon.dasi.metier.modele.Cartomancien;
 import fr.insalyon.dasi.metier.modele.Client;
+import fr.insalyon.dasi.metier.modele.Consultation;
+import fr.insalyon.dasi.metier.modele.Employe;
 import fr.insalyon.dasi.metier.modele.Medium;
 import fr.insalyon.dasi.metier.modele.ProfilAstral;
 import fr.insalyon.dasi.metier.modele.Spirite;
 import fr.insalyon.dasi.util.AstroTest;
 import fr.insalyon.dasi.util.Message;
+import java.io.IOException;
 
 /**
  *
@@ -32,7 +35,9 @@ import fr.insalyon.dasi.util.Message;
 public class Service {
     private final ClientDao clientDao = new ClientDao();
     private final MediumDao mediumDao = new MediumDao();
+    private final EmployeDao employeDao = new EmployeDao();
     private final ProfilAstralDao profilAstralDao = new ProfilAstralDao();
+    private final ConsultationDao consultationDao = new ConsultationDao();
     private final AstroTest astroApi = new AstroTest();
     
     public void init() {
@@ -46,6 +51,12 @@ public class Service {
         Medium medium8 = new Cartomancien("denomination8", "genre8", "presentation8");
         Medium medium9 = new Cartomancien("denomination9", "genre9", "presentation9");
 
+        Employe employe1 = new Employe("nom1", "prenom1", "genre1", "motDePasse1", "numeroDeTelephone1", "mail1");
+        Employe employe2 = new Employe("nom2", "prenom2", "genre2", "motDePasse2", "numeroDeTelephone2", "mail2");
+        Employe employe3 = new Employe("nom3", "prenom3", "genre3", "motDePasse3", "numeroDeTelephone3", "mail3");
+        Employe employe4 = new Employe("nom4", "prenom4", "genre4", "motDePasse4", "numeroDeTelephone4", "mail4");
+        Employe employe5 = new Employe("nom5", "prenom5", "genre5", "motDePasse5", "numeroDeTelephone5", "mail5");
+        
         try {
             JpaUtil.creerContextePersistance();
             JpaUtil.ouvrirTransaction();
@@ -59,6 +70,12 @@ public class Service {
             mediumDao.creer(medium7);
             mediumDao.creer(medium8);
             mediumDao.creer(medium9);
+            
+            employeDao.creer(employe1);
+            employeDao.creer(employe2);
+            employeDao.creer(employe3);
+            employeDao.creer(employe4);
+            employeDao.creer(employe5);
 
             JpaUtil.validerTransaction();
             Logger.getAnonymousLogger().log(Level.INFO, "succès");
@@ -74,53 +91,53 @@ public class Service {
 
     public Long inscrireClient(Client client) {
         Long id;
+        List<String> list;
         try {
             JpaUtil.creerContextePersistance();
-            JpaUtil.ouvrirTransaction();
             
-            clientDao.creer(client);
-            
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            Date d = sdf.parse(client.getDateDeNaissance());
-            List<String> list = astroApi.getProfil(client.getPrenom(), d);
+            list = astroApi.getProfil(client.getPrenom(), client.getDateDeNaissance());
             client.setProfilAstral(new ProfilAstral(list.get(0), list.get(1), list.get(2), list.get(3)));
+
+            JpaUtil.ouvrirTransaction();
            
             profilAstralDao.creer(client.getProfilAstral());
-            
-            StringWriter corps = new StringWriter();
-            PrintWriter mailWriter = new PrintWriter(corps);
-            mailWriter.println("Bonjour,");
-            mailWriter.println();
-            mailWriter.println("Validation acceptée !");
-            mailWriter.println();
-            mailWriter.println("À bientôt sur Predict'IF,");
-            mailWriter.println();
-            mailWriter.println("L'équipe de Predict'IF");
-            Message.envoyerMail(
-                    "noreply@predictif.fr",
-                    client.getMail(),
-                    "Bienvenue sur Predict'IF",
-                    corps.toString()
-                );
-
-            StringWriter message = new StringWriter();
-            PrintWriter notificationWriter = new PrintWriter(message);
-            notificationWriter.println("Ceci est une notification pour prévenir de 2 choses:");
-            notificationWriter.println("1) NE PAS oublier le poly");
-            notificationWriter.println("2) TESTER au fur et à mesure du développement");
-            Message.envoyerNotification(
-                    "0988776655",
-                    message.toString()
-                );
+            clientDao.creer(client);
             
             JpaUtil.validerTransaction();
             Logger.getAnonymousLogger().log(Level.INFO, "succès");
+                        
+            StringWriter corps = new StringWriter();
+            PrintWriter mailWriter = new PrintWriter(corps);            // faire classe util mail
+            mailWriter.print("Bonjour ");
+            mailWriter.print(client.getPrenom());
+            mailWriter.println(", nous vous confirmons votre inscription au service PREDICT'IF.");
+            mailWriter.println("Rendez-vous vite sur notre site pour consulter votre profil astrologique et profiter des dons incroyables de nos mediums.");
+            Message.envoyerMail(
+                "contact@predict.if",
+                client.getMail(),
+                "Bienvenue chez PREDICT'IF",
+                corps.toString()
+            );
             
             id = client.getId();
         }
         catch (Exception ex) {
+            StringWriter corps = new StringWriter();
+            PrintWriter mailWriter = new PrintWriter(corps);
+            mailWriter.print("Bonjour ");
+            mailWriter.print(client.getPrenom());
+            mailWriter.println(",  votre inscription au service PREDICT’IF a malencontreusement échoué...");
+            mailWriter.println("Merci de recommencer ultérieurement.");
+            Message.envoyerMail(
+                "contact@predict.if",
+                client.getMail(),
+                "Echec de l’inscription chez PREDICT’IF",
+                corps.toString()
+            );
+            
             Logger.getAnonymousLogger().log(Level.SEVERE, "Erreur !", ex);
             JpaUtil.annulerTransaction();
+            
             id = null;
         }
         finally {
@@ -129,32 +146,33 @@ public class Service {
         return id;
     }
     
-    public Boolean authentifierClient(String mail, String mdp) {
-        Client client;
-        Boolean authentificationReussie = false;
+    public Client authentifierClient(String mail, String mdp) {
+        Client resultat = null;
+        JpaUtil.creerContextePersistance();
         try {
-            JpaUtil.creerContextePersistance();
-            client = clientDao.chercherParMail(mail);
-            if (client != null && client.getMotDePasse().equals(mdp)) {
-                authentificationReussie = true;
+            Client client = clientDao.chercherParMail(mail);
+            if (client != null) {
+                if (client.getMotDePasse().equals(mdp)) {
+                    resultat = client;
+                }
             }
             Logger.getAnonymousLogger().log(Level.INFO, "succès");
         }
         catch (Exception ex) {
+            resultat = null;
             Logger.getAnonymousLogger().log(Level.SEVERE, "Erreur !", ex);
         }
         finally {
             JpaUtil.fermerContextePersistance();
         }
-        return authentificationReussie;
+        return resultat;
     }
     
     public Client trouverClientParId(Long id) {
         Client client;
-        ClientDao clientDAO = new ClientDao();
         try {
             JpaUtil.creerContextePersistance();
-            client = clientDAO.chercherParId(id);
+            client = clientDao.chercherParId(id);
             Logger.getAnonymousLogger().log(Level.INFO, "succès");
         }
         catch (Exception ex) {
@@ -167,7 +185,7 @@ public class Service {
         return client;
     }
     
-    public List<Client> listerTousClients() {
+    public List<Client> listerClients() {
         List<Client> clients;
         ClientDao clientDAO = new ClientDao();
         try {
@@ -184,4 +202,33 @@ public class Service {
         }
         return clients;
     }
+    
+//    public List<Medium> listerMedium() {
+//        
+//    }
+    
+//    public Consultation obtenirConsultation(Client client, Medium medium) {
+//        Employe employe = this.obtenirEmploye(medium);
+//        Consultation consultation = new Consultation(medium, client, employe);
+//        try {
+//            JpaUtil.creerContextePersistance();
+//            consultationDao.creer(consultation);
+//            client.ajouterConsultation(consultation);
+//            Logger.getAnonymousLogger().log(Level.INFO, "succès");
+//        }
+//        catch (Exception ex) {
+//            Logger.getAnonymousLogger().log(Level.SEVERE, "Erreur !", ex);
+//            consultation = null;
+//        }
+//        finally {
+//            JpaUtil.fermerContextePersistance();
+//        }
+//        return consultation;
+//    }
+//
+//    private Employe obtenirEmploye(Medium medium) {
+//        Employe resultat;
+//        
+//        return resultat;
+//    }
 }

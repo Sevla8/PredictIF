@@ -8,6 +8,11 @@ package fr.insalyon.dasi.ihm.tests;
 import fr.insalyon.dasi.dao.JpaUtil;
 import fr.insalyon.dasi.metier.modele.Client;
 import fr.insalyon.dasi.metier.service.Service;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -26,36 +31,45 @@ public class Main {
     
     public static void testerInscriptionClient() {
         Long c;
-
-        Client client1 = new Client("marie.curie@email.com", 
-                                    "12345", 
-                                    "7/11/1867", 
-                                    "Marie", "Curie", 
-                                    "1 rue Pierre et Marie Curie, 75005 Paris, France", 
-                                    "0123456789");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date d;
+        Client client1;
+        try {
+            d = sdf.parse("7/11/1867");
+            client1 = new Client("marie.curie@email.com", 
+                                "12345", 
+                                d, 
+                                "Marie", "Curie", 
+                                "1 rue Pierre et Marie Curie, 75005 Paris, France", 
+                                "0123456789");
+            
+            c = serviceClient.inscrireClient(client1);
+            if (c != null) {
+                System.out.println("> Succès inscription");
+            }
+            else {
+                System.out.println("> Echec inscription");
+            }
         
-        c = serviceClient.inscrireClient(client1);
-        if (c != null) {
-            System.out.println("> Succès inscription");
-        }
-        else {
+        } catch (ParseException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("> Echec inscription");
         }
     }
     
     public static void testerAuthentificationClient() {
-        Boolean authentificationReussie;
+        Client client;
         
-        authentificationReussie = serviceClient.authentifierClient("marie.curie@email.com", "12345");
-        if (authentificationReussie) {
+        client = serviceClient.authentifierClient("marie.curie@email.com", "12345");
+        if (client != null) {
             System.out.println("> authentification reussie");
         }
         else {
             System.out.println("> authentification faillie");
         }
         
-        authentificationReussie = serviceClient.authentifierClient("pierre.dupont@mail.com", "grrrr");
-        if (authentificationReussie) {
+        client = serviceClient.authentifierClient("pierre.dupont@mail.com", "grrrr");
+        if (client != null) {
             System.out.println("> authentification reussie"); 
         }
         else {
