@@ -7,10 +7,12 @@ package fr.insalyon.dasi.ihm.tests;
 
 import fr.insalyon.dasi.dao.JpaUtil;
 import fr.insalyon.dasi.metier.modele.Client;
+import fr.insalyon.dasi.metier.modele.Consultation;
+import fr.insalyon.dasi.metier.modele.Medium;
 import fr.insalyon.dasi.metier.service.Service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,24 +28,42 @@ public class Main {
         serviceClient.init();
         testerInscriptionClient();
         testerAuthentificationClient();
+        testerObtenirConsultation();
         JpaUtil.destroy();
     }
     
     public static void testerInscriptionClient() {
         Long c;
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        Date d;
-        Client client1;
         try {
-            d = sdf.parse("7/11/1867");
-            client1 = new Client("marie.curie@email.com", 
-                                "12345", 
-                                d, 
-                                "Marie", "Curie", 
-                                "1 rue Pierre et Marie Curie, 75005 Paris, France", 
-                                "0123456789");
+            Client client1 = new Client("12345", 
+                    "Marie", 
+                    "Curie", 
+                    "1 rue Pierre et Marie Curie, 75005 Paris, France", 
+                    "0123456789", 
+                    Boolean.FALSE, 
+                    "marie.curie@email.com", 
+                    (new SimpleDateFormat("dd/MM/yyyy").parse("7/11/1867"))); 
             
             c = serviceClient.inscrireClient(client1);
+            
+            if (c != null) {
+                System.out.println("> Succès inscription");
+            }
+            else {
+                System.out.println("> Echec inscription");
+            }
+            
+            Client client2 = new Client("12345", 
+                    "Marie", 
+                    "Curie", 
+                    "1 rue Pierre et Marie Curie, 75005 Paris, France", 
+                    "0123456789", 
+                    Boolean.FALSE, 
+                    "marie.curie@email.com", 
+                    (new SimpleDateFormat("dd/MM/yyyy").parse("7/11/1867"))); 
+            
+            c = serviceClient.inscrireClient(client2); // probleme
+            
             if (c != null) {
                 System.out.println("> Succès inscription");
             }
@@ -63,17 +83,28 @@ public class Main {
         client = serviceClient.authentifierClient("marie.curie@email.com", "12345");
         if (client != null) {
             System.out.println("> authentification reussie");
+            System.out.println(client);
         }
         else {
             System.out.println("> authentification faillie");
         }
         
-        client = serviceClient.authentifierClient("pierre.dupont@mail.com", "grrrr");
+        client = serviceClient.authentifierClient("marie.curie@email.com", "grrrr");
         if (client != null) {
             System.out.println("> authentification reussie"); 
         }
         else {
             System.out.println("> authentification faillie");
         }
+    }
+
+    private static void testerObtenirConsultation() {
+        Client client = serviceClient.authentifierClient("marie.curie@email.com", "12345");
+        List<Medium> mediums = (List<Medium>) serviceClient.listerMediums();
+        Medium medium = mediums.get(0);
+        
+        Consultation consultation = serviceClient.obtenirConsultation(client, medium);
+        
+        System.out.println(consultation);
     }
 }

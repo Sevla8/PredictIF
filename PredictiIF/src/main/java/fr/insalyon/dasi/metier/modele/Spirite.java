@@ -18,12 +18,17 @@ public class Spirite extends Medium implements Serializable {
     private static final long serialVersionUID = 1L;
     private String support;
 
-    public Spirite(String support, String denomination, String genre, String presentation) {
+    public Spirite(String support, String denomination, Boolean genre, String presentation) {
         super(denomination, genre, presentation);
         this.support = support;
     }
 
     public Spirite() {
+    }
+
+    @Override
+    public String toString() {
+        return "Spirite{" + "support=" + support + '}';
     }
     
     public String getSupport() {
@@ -33,5 +38,4 @@ public class Spirite extends Medium implements Serializable {
     public void setSupport(String support) {
         this.support = support;
     }
-
 }

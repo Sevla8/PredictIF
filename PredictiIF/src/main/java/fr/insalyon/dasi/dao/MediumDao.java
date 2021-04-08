@@ -6,6 +6,8 @@
 package fr.insalyon.dasi.dao;
 
 import fr.insalyon.dasi.metier.modele.Medium;
+import java.util.List;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -17,4 +19,16 @@ public class MediumDao {
         JpaUtil.obtenirContextePersistance().persist(medium);
     }
     
+    public List<Medium> chercherParGenre(Boolean genre){
+        String s = "select m from Medium m where m.genre = :genre";
+        TypedQuery query = JpaUtil.obtenirContextePersistance().createQuery(s, Medium.class);
+        query.setParameter("genre", genre);
+        return query.getResultList();
+    }
+    
+    public List<Medium> chercherTous(){
+        String s ="select m from Medium m order by m.denomination asc";
+        TypedQuery query = JpaUtil.obtenirContextePersistance().createQuery(s, Medium.class);
+        return query.getResultList();
+    }
 }

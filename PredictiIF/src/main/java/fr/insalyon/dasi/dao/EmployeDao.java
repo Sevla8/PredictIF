@@ -6,6 +6,7 @@
 package fr.insalyon.dasi.dao;
 
 import fr.insalyon.dasi.metier.modele.Employe;
+import java.util.List;
 import javax.persistence.TypedQuery;
 
 /**
@@ -18,16 +19,17 @@ public class EmployeDao {
         JpaUtil.obtenirContextePersistance().persist(employe);
     }
     
-//    public Employe chercherParGenreEtDisponibilite(Boolean genre, Boolean estDisponible) {
-//        String s = "SELECT e FROM Employe e WHERE e.genre = : ORDER BY e.nbConsultations ASC";
-//        TypedQuery query = JpaUtil.obtenirContextePersistance().createQuery(s, Employe.class);
-//        Employe employe;
-//        try {
-//            employe = (Employe) query.getSingleResult();
-//        }
-//        catch (javax.persistence.NoResultException e) {
-//            employe = null;
-//        }
-//        return employe;
-//    }
+    public Employe chercherParGenreEtDisponibilite(Boolean genre) {
+        String s = "SELECT e FROM Employe e WHERE e.genre = :genre AND e.estDisponible = :dispo ORDER BY e.nbConsultations ASC";
+        TypedQuery query = JpaUtil.obtenirContextePersistance().createQuery(s, Employe.class);
+        query.setParameter("genre", genre);
+        query.setParameter("dispo", true);
+        
+        Employe employe = null;
+        List<Employe> employes = query.getResultList();
+        if (employes.size() > 0) {
+            employe = employes.get(0);
+        }
+        return employe;
+    }
 }

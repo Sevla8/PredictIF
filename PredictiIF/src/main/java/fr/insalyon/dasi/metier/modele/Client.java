@@ -6,7 +6,6 @@
 package fr.insalyon.dasi.metier.modele;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -30,15 +29,16 @@ public class Client implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(unique=true)
-    private String mail;
     private String motDePasse;
-    @Temporal(TemporalType.DATE)
-    private Date dateDeNaissance;
     private String prenom;
     private String nom;
     private String adressePostale;
     private String numeroDeTelephone;
+    private Boolean genre;
+    @Column(unique=true)
+    private String mail;
+    @Temporal(TemporalType.DATE)
+    private Date dateDeNaissance;
     @OneToOne
     private ProfilAstral profilAstral;
     @OneToMany(mappedBy="client")
@@ -47,15 +47,15 @@ public class Client implements Serializable {
     public Client() {
     }
 
-    public Client(String mail, String motDePasse, Date dateDeNaissance, String prenom, String nom, String adressePostale, String numeroDeTelephone) {
-        this.mail = mail;
+    public Client(String motDePasse, String prenom, String nom, String adressePostale, String numeroDeTelephone, Boolean genre, String mail, Date dateDeNaissance) {
         this.motDePasse = motDePasse;
-        this.dateDeNaissance = dateDeNaissance;
         this.prenom = prenom;
         this.nom = nom;
         this.adressePostale = adressePostale;
         this.numeroDeTelephone = numeroDeTelephone;
-        this.consultations = new ArrayList<Consultation>();
+        this.genre = genre;
+        this.mail = mail;
+        this.dateDeNaissance = dateDeNaissance;
     }
     
     @Override
@@ -80,9 +80,9 @@ public class Client implements Serializable {
 
     @Override
     public String toString() {
-        return "dasi.PredictIF.Client[ id=" + id + " ]";
+        return "Client{" + "id=" + id + ", motDePasse=" + motDePasse + ", prenom=" + prenom + ", nom=" + nom + ", adressePostale=" + adressePostale + ", numeroDeTelephone=" + numeroDeTelephone + ", genre=" + genre + ", mail=" + mail + ", dateDeNaissance=" + dateDeNaissance + ", profilAstral=" + profilAstral + '}';
     }
-
+ 
     public void setId(Long id) {
         this.id = id;
     }
@@ -109,6 +109,10 @@ public class Client implements Serializable {
 
     public void setAdressePostale(String adressePostale) {
         this.adressePostale = adressePostale;
+    }
+
+    public void setGenre(Boolean genre) {
+        this.genre = genre;
     }
 
     public void setNumeroDeTelephone(String numeroDeTelephone) {
@@ -149,6 +153,10 @@ public class Client implements Serializable {
 
     public String getAdressePostale() {
         return adressePostale;
+    }
+
+    public Boolean getGenre() {
+        return genre;
     }
 
     public String getNumeroDeTelephone() {

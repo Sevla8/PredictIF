@@ -6,6 +6,7 @@
 package fr.insalyon.dasi.metier.modele;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Entity;
 
 /**
@@ -19,10 +20,15 @@ public class Astrologue extends Medium implements Serializable {
     private String formation;
     private String promotion;
 
-    public Astrologue(String formation, String promotion, String denomination, String genre, String presentation) {
+    public Astrologue(String formation, String promotion, String denomination, Boolean genre, String presentation) {
         super(denomination, genre, presentation);
         this.formation = formation;
         this.promotion = promotion;
+    }
+
+    @Override
+    public String toString() {
+        return "Astrologue{" + "formation=" + formation + ", promotion=" + promotion + '}';
     }
 
     public Astrologue() {

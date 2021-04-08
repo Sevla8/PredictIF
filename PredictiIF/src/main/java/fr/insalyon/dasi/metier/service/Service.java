@@ -26,7 +26,7 @@ import fr.insalyon.dasi.metier.modele.ProfilAstral;
 import fr.insalyon.dasi.metier.modele.Spirite;
 import fr.insalyon.dasi.util.AstroTest;
 import fr.insalyon.dasi.util.Message;
-import java.io.IOException;
+import fr.insalyon.dasi.util.UtilMessage;
 
 /**
  *
@@ -40,25 +40,23 @@ public class Service {
     private final ConsultationDao consultationDao = new ConsultationDao();
     private final AstroTest astroApi = new AstroTest();
     
-    public void init() {
-        Medium medium1 = new Spirite("support1", "denomination1", "genre1", "presentation1");
-        Medium medium2 = new Spirite("support2", "denomination2", "genre2", "presentation2");
-        Medium medium3 = new Spirite("support3", "denomination3", "genre3", "presentation3");
-        Medium medium4 = new Astrologue("formation4", "promotion4", "denomination4", "genre4", "presentation4");
-        Medium medium5 = new Astrologue("formation5", "promotion5", "denomination5", "genre5", "presentation5");
-        Medium medium6 = new Astrologue("formation6", "promotion6", "denomination6", "genre6", "presentation6");
-        Medium medium7 = new Cartomancien("denomination7", "genre7", "presentation7");
-        Medium medium8 = new Cartomancien("denomination8", "genre8", "presentation8");
-        Medium medium9 = new Cartomancien("denomination9", "genre9", "presentation9");
+    public void init() { // des mediums avec plusieurs supports... que fait on ? string ou list<string>
+        Medium medium1 = new Spirite("Boule de cristal", "Gwenaelle", false, "Spécialiste des grandes conversations au-delà de TOUTES les frontières.");
+        Medium medium2 = new Spirite("Marc de café, boule de cristal, oreilles de lapin", "Professeur Tran", true, "Votre avenir est devant vous : regardons-le ensemble !");
+        Medium medium3 = new Astrologue("École Normale Supérieure d’Astrologie (ENS-Astro)", "2006", "Serena", false, "Basée à Champigny-sur-Marne, Serena vous révèlera votre avenir pour éclairer votre passé.");
+        Medium medium4 = new Astrologue("Institut des Nouveaux Savoirs Astrologiques", "2010", "Mr M", true, "Avenir, avenir, que nous réserves-tu ? N'attendez plus, demandez à me consulter!");
+        Medium medium5 = new Cartomancien("Mme Irma", false, "Comprenez votre entourage grâce à mes cartes ! Résultats rapides.");
+        Medium medium6 = new Cartomancien("Endora", false, "Mes cartes répondront à toutes vos questions personnelles.");
 
-        Employe employe1 = new Employe("nom1", "prenom1", "genre1", "motDePasse1", "numeroDeTelephone1", "mail1");
-        Employe employe2 = new Employe("nom2", "prenom2", "genre2", "motDePasse2", "numeroDeTelephone2", "mail2");
-        Employe employe3 = new Employe("nom3", "prenom3", "genre3", "motDePasse3", "numeroDeTelephone3", "mail3");
-        Employe employe4 = new Employe("nom4", "prenom4", "genre4", "motDePasse4", "numeroDeTelephone4", "mail4");
-        Employe employe5 = new Employe("nom5", "prenom5", "genre5", "motDePasse5", "numeroDeTelephone5", "mail5");
-        
+        Employe employe1 = new Employe("BORROTI MATIAS DANTAS", "Raphaël", true, "12345", "0328178508", "rborrotimatiasdantas4171@free.fr");
+        Employe employe2 = new Employe("OLMEADA MARAIS", "Nor", false, "12345", "0418932546", "nolmeadamarais1551@gmail.com");
+        Employe employe3 = new Employe("RAYES GEMEZ", "Olena", false, "12345", "0532731620", "orayesgemez5313@outlook.com");
+        Employe employe4 = new Employe("SING", "Ainhoa", false, "12345", "0705224200", "asing8183@free.fr");
+        Employe employe5 = new Employe("ABDIULLINA", "David Alexander", true, "12345", "0590232772", "david-alexander.abdiullina@laposte.net");
+
+        JpaUtil.creerContextePersistance();
+
         try {
-            JpaUtil.creerContextePersistance();
             JpaUtil.ouvrirTransaction();
             
             mediumDao.creer(medium1);
@@ -67,9 +65,6 @@ public class Service {
             mediumDao.creer(medium4);
             mediumDao.creer(medium5);
             mediumDao.creer(medium6);
-            mediumDao.creer(medium7);
-            mediumDao.creer(medium8);
-            mediumDao.creer(medium9);
             
             employeDao.creer(employe1);
             employeDao.creer(employe2);
@@ -78,7 +73,6 @@ public class Service {
             employeDao.creer(employe5);
 
             JpaUtil.validerTransaction();
-            Logger.getAnonymousLogger().log(Level.INFO, "succès");
         }
         catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.SEVERE, "Erreur !", ex);
@@ -92,9 +86,8 @@ public class Service {
     public Long inscrireClient(Client client) {
         Long id;
         List<String> list;
+        JpaUtil.creerContextePersistance();
         try {
-            JpaUtil.creerContextePersistance();
-            
             list = astroApi.getProfil(client.getPrenom(), client.getDateDeNaissance());
             client.setProfilAstral(new ProfilAstral(list.get(0), list.get(1), list.get(2), list.get(3)));
 
@@ -104,35 +97,22 @@ public class Service {
             clientDao.creer(client);
             
             JpaUtil.validerTransaction();
-            Logger.getAnonymousLogger().log(Level.INFO, "succès");
                         
-            StringWriter corps = new StringWriter();
-            PrintWriter mailWriter = new PrintWriter(corps);            // faire classe util mail
-            mailWriter.print("Bonjour ");
-            mailWriter.print(client.getPrenom());
-            mailWriter.println(", nous vous confirmons votre inscription au service PREDICT'IF.");
-            mailWriter.println("Rendez-vous vite sur notre site pour consulter votre profil astrologique et profiter des dons incroyables de nos mediums.");
             Message.envoyerMail(
-                "contact@predict.if",
+                UtilMessage.getMailExpediteur(),
                 client.getMail(),
-                "Bienvenue chez PREDICT'IF",
-                corps.toString()
+                UtilMessage.getMailObjetSucces(),
+                UtilMessage.getMailCorpsSucces(client.getPrenom())
             );
             
             id = client.getId();
         }
         catch (Exception ex) {
-            StringWriter corps = new StringWriter();
-            PrintWriter mailWriter = new PrintWriter(corps);
-            mailWriter.print("Bonjour ");
-            mailWriter.print(client.getPrenom());
-            mailWriter.println(",  votre inscription au service PREDICT’IF a malencontreusement échoué...");
-            mailWriter.println("Merci de recommencer ultérieurement.");
             Message.envoyerMail(
-                "contact@predict.if",
+                UtilMessage.getMailExpediteur(),
                 client.getMail(),
-                "Echec de l’inscription chez PREDICT’IF",
-                corps.toString()
+                UtilMessage.getMailObjetEchec(),
+                UtilMessage.getMailCorpsEchec(client.getPrenom())
             );
             
             Logger.getAnonymousLogger().log(Level.SEVERE, "Erreur !", ex);
@@ -156,7 +136,6 @@ public class Service {
                     resultat = client;
                 }
             }
-            Logger.getAnonymousLogger().log(Level.INFO, "succès");
         }
         catch (Exception ex) {
             resultat = null;
@@ -170,10 +149,9 @@ public class Service {
     
     public Client trouverClientParId(Long id) {
         Client client;
+        JpaUtil.creerContextePersistance();
         try {
-            JpaUtil.creerContextePersistance();
             client = clientDao.chercherParId(id);
-            Logger.getAnonymousLogger().log(Level.INFO, "succès");
         }
         catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.SEVERE, "Erreur !", ex);
@@ -188,10 +166,9 @@ public class Service {
     public List<Client> listerClients() {
         List<Client> clients;
         ClientDao clientDAO = new ClientDao();
+        JpaUtil.creerContextePersistance();
         try {
-            JpaUtil.creerContextePersistance();
             clients = clientDAO.chercherTousOrdonnee();
-            Logger.getAnonymousLogger().log(Level.INFO, "succès");
         }
         catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.SEVERE, "Erreur !", ex);
@@ -203,32 +180,108 @@ public class Service {
         return clients;
     }
     
-//    public List<Medium> listerMedium() {
-//        
-//    }
+    public List<Medium> listerMediums(){
+        List<Medium> mediums;
+        JpaUtil.creerContextePersistance();
+        try{
+            mediums = mediumDao.chercherTous();
+        }
+        catch(Exception ex){
+            mediums = null;
+        }
+        finally{
+            JpaUtil.fermerContextePersistance();
+        }
+        return mediums;
+    }
     
-//    public Consultation obtenirConsultation(Client client, Medium medium) {
-//        Employe employe = this.obtenirEmploye(medium);
-//        Consultation consultation = new Consultation(medium, client, employe);
-//        try {
-//            JpaUtil.creerContextePersistance();
-//            consultationDao.creer(consultation);
-//            client.ajouterConsultation(consultation);
-//            Logger.getAnonymousLogger().log(Level.INFO, "succès");
-//        }
-//        catch (Exception ex) {
-//            Logger.getAnonymousLogger().log(Level.SEVERE, "Erreur !", ex);
-//            consultation = null;
-//        }
-//        finally {
-//            JpaUtil.fermerContextePersistance();
-//        }
-//        return consultation;
-//    }
-//
-//    private Employe obtenirEmploye(Medium medium) {
-//        Employe resultat;
-//        
-//        return resultat;
-//    }
+    public List<Medium> listerMediumsParGenre(Boolean genre){
+        List<Medium> mediums;
+        JpaUtil.creerContextePersistance();
+        try{
+            mediums = mediumDao.chercherParGenre(genre);
+        }
+        catch(Exception ex){
+            mediums = null;
+        }
+        finally{
+            JpaUtil.fermerContextePersistance();
+        }
+        return mediums;
+    }
+    
+    public void confirmerConsultation(Consultation consultation) {
+        // employe.estDisponible = false;
+    }
+    
+    public void debuterConsultation(Consultation consultation) {
+        // consultation.dateDebut = now;
+    }
+    
+    public void finirConsultation(Consultation consultation) {
+        // client.nbConsultations += 1;
+        // employe.nbConsultations += 1;
+        // consultation.duree = now - consultation.dateDebut;
+        // employe.estDisponible = true;
+    }
+    
+    public Consultation obtenirConsultation(Client client, Medium medium) {
+        Employe employe = this.obtenirEmploye(medium);
+        
+        StringWriter message = new StringWriter();
+        PrintWriter notificationWriter = new PrintWriter(message);
+        
+        notificationWriter.print("Pour : " + employe.getPrenom() + " " + employe.getNom().toUpperCase());
+        notificationWriter.println(", Tel : " + employe.getNumeroDeTelephone());
+        notificationWriter.print("Message : Bonjour " + employe.getPrenom() + ".");
+        notificationWriter.print("Consultation requise pour " + client.getPrenom() + " ");
+        notificationWriter.println(client.getNom().toUpperCase() + ". Médium à incarner : " + medium.getDenomination());
+
+        Message.envoyerNotification(
+                employe.getNumeroDeTelephone(),
+                UtilMessage.getNotification(employe.getPrenom(), 
+                        employe.getNom(),
+                        employe.getNumeroDeTelephone(),
+                        client.getGenre(),
+                        client.getPrenom(),
+                        client.getNom(),
+                        medium.getDenomination())
+            );
+        
+        Consultation consultation = new Consultation(medium, client, employe);
+
+        JpaUtil.creerContextePersistance();
+
+        try {
+            JpaUtil.ouvrirTransaction();
+            consultationDao.creer(consultation);
+            client.ajouterConsultation(consultation);
+            JpaUtil.validerTransaction();
+        }
+        catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.SEVERE, "Erreur !", ex);
+            consultation = null;
+            JpaUtil.annulerTransaction();
+        }
+        finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        return consultation;
+    }
+
+    private Employe obtenirEmploye(Medium medium) {
+        Employe employe;
+        JpaUtil.creerContextePersistance();
+        try {
+            employe = employeDao.chercherParGenreEtDisponibilite(medium.getGenre());
+        }
+        catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.SEVERE, "Erreur !", ex);
+            employe = null;
+        }
+        finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        return employe;
+    }
 }

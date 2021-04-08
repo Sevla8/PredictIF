@@ -6,12 +6,12 @@
 package fr.insalyon.dasi.metier.modele;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 /**
  *
@@ -24,7 +24,8 @@ public class Consultation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String dateConsultation;
+    private Date dateDebut;
+    private Integer duree;
     private String commentaire;
     private Integer note;
     @ManyToOne
@@ -42,9 +43,18 @@ public class Consultation implements Serializable {
         this.client = client;
         this.employe = employe;
     }
-    
-    public String getDateConsultation() {
-        return dateConsultation;
+
+    @Override
+    public String toString() {
+        return "Consultation{" + "id=" + id + ", dateDebut=" + dateDebut + ", duree=" + duree + ", commentaire=" + commentaire + ", note=" + note + ", medium=" + medium + ", client=" + client + ", employe=" + employe + '}';
+    }
+
+    public Date getDateDebut() {
+        return dateDebut;
+    }
+
+    public Integer getDuree() {
+        return duree;
     }
 
     public String getCommentaire() {
@@ -63,8 +73,20 @@ public class Consultation implements Serializable {
         return medium;
     }
 
-    public void setDateConsultation(String dateConsultation) {
-        this.dateConsultation = dateConsultation;
+    public Client getClient() {
+        return client;
+    }
+
+    public Employe getEmploye() {
+        return employe;
+    }
+
+    public void setDateDebut(Date dateDebut) {
+        this.dateDebut = dateDebut;
+    }
+
+    public void setDuree(Integer duree) {
+        this.duree = duree;
     }
 
     public void setCommentaire(String commentaire) {
@@ -83,4 +105,11 @@ public class Consultation implements Serializable {
         this.medium = medium;
     }
 
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public void setEmploye(Employe employe) {
+        this.employe = employe;
+    }
 }

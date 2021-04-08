@@ -26,13 +26,15 @@ public class Medium implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String denomination;
-    private String genre;
+    private Boolean genre;
     private String presentation;
+    private Integer nbConsultations;
 
-    public Medium(String denomination, String genre, String presentation) {
+    public Medium(String denomination, Boolean genre, String presentation) {
         this.denomination = denomination;
         this.genre = genre;
         this.presentation = presentation;
+        this.nbConsultations = 0;
     }
 
     public Medium() {
@@ -42,11 +44,15 @@ public class Medium implements Serializable {
         return id;
     }
 
+    public Integer getNbConsultations() {
+        return nbConsultations;
+    }
+
     public String getDenomination() {
         return denomination;
     }
 
-    public String getGenre() {
+    public Boolean getGenre() {
         return genre;
     }
 
@@ -62,12 +68,16 @@ public class Medium implements Serializable {
         this.denomination = denomination;
     }
 
-    public void setGenre(String genre) {
+    public void setGenre(Boolean genre) {
         this.genre = genre;
     }
 
     public void setPresentation(String presentation) {
         this.presentation = presentation;
+    }
+
+    public void setNbConsultations(Integer nbConsultations) {
+        this.nbConsultations = nbConsultations;
     }
 
     @Override
@@ -92,6 +102,6 @@ public class Medium implements Serializable {
 
     @Override
     public String toString() {
-        return "ihm.tests.Medium[ id=" + id + " ]";
+        return "Medium{" + "id=" + id + ", denomination=" + denomination + ", genre=" + genre + ", presentation=" + presentation + ", nbConsultations=" + nbConsultations + '}';
     }
 }

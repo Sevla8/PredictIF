@@ -33,13 +33,11 @@ public class ClientDao {
         String s = "SELECT c FROM Client c WHERE c.mail = :mail";
         TypedQuery query = JpaUtil.obtenirContextePersistance().createQuery(s, Client.class);
         query.setParameter("mail", mail);
-        Client client;
-        try {
-            client = (Client) query.getSingleResult();
+        List<Client> clients = query.getResultList();
+        Client resultat = null;
+        if (!clients.isEmpty()) {
+            resultat = clients.get(0);
         }
-        catch (javax.persistence.NoResultException e) {
-            client = null;
-        }
-        return client;
+        return resultat;
     }
 }

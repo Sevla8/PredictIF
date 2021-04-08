@@ -59,9 +59,9 @@ public class ProfilAstral implements Serializable {
 
     @Override
     public String toString() {
-        return "metier.modele.ProfilAstral[ id=" + id + " ]";
+        return "ProfilAstral{" + "id=" + id + ", signeZoodiaque=" + signeZoodiaque + ", signeAstrologiqueChinois=" + signeAstrologiqueChinois + ", couleurPorteBonheur=" + couleurPorteBonheur + ", animalTotem=" + animalTotem + '}';
     }
-    
+
     public Long getId() {
         return id;
     }
