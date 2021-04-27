@@ -19,128 +19,124 @@ import javax.persistence.Id;
 @Entity
 public class Employe implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private String nom;
-    private String prenom;
-    private Boolean genre;
-    private String motDePasse;
-    private String numeroDeTelephone;
-    private Boolean estDisponible;
-    private Integer nbConsultations;
-    @Column(unique=true)
-    private String mail;
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	private String nom;
+	private String prenom;
+	private Boolean genre;
+	private String motDePasse;
+	private String numeroDeTelephone;
+	private Boolean estDisponible;
+	private Integer nbConsultations;
+	@Column(unique=true)
+	private String mail;
 
-    public Employe(String nom, String prenom, Boolean genre, String motDePasse, String numeroDeTelephone, String mail) {
-        this.nom = nom;
-        this.prenom = prenom;
-        this.genre = genre;
-        this.motDePasse = motDePasse;
-        this.numeroDeTelephone = numeroDeTelephone;
-        this.mail = mail;
-        this.estDisponible = true;
-        this.nbConsultations = 0;
-    }
+	public Employe(String nom, String prenom, Boolean genre, String motDePasse, String numeroDeTelephone, String mail) {
+		this.nom = nom;
+		this.prenom = prenom;
+		this.genre = genre;
+		this.motDePasse = motDePasse;
+		this.numeroDeTelephone = numeroDeTelephone;
+		this.mail = mail;
+		this.estDisponible = true;
+		this.nbConsultations = 0;
+	}
 
-    public Employe() {
-    }
+	public Employe() {
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
+	@Override
+	public int hashCode() {
+		int hash = 0;
+		hash += (id != null ? id.hashCode() : 0);
+		return hash;
+	}
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Employe)) {
-            return false;
-        }
-        Employe other = (Employe) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
+	@Override
+	public boolean equals(Object object) {
+		if (!(object instanceof Employe)) {
+			return false;
+		}
+		Employe other = (Employe) object;
+		return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
+	}
 
-    @Override
-    public String toString() {
-        return "Employe{" + "id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", genre=" + genre + ", motDePasse=" + motDePasse + ", numeroDeTelephone=" + numeroDeTelephone + ", estDisponible=" + estDisponible + ", nbConsultations=" + nbConsultations + ", mail=" + mail + '}';
-    }
+	@Override
+	public String toString() {
+		return "Employe{" + "id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", genre=" + genre + ", motDePasse=" + motDePasse + ", numeroDeTelephone=" + numeroDeTelephone + ", estDisponible=" + estDisponible + ", nbConsultations=" + nbConsultations + ", mail=" + mail + '}';
+	}
 
-    public String getNom() {
-        return nom;
-    }
+	public String getNom() {
+		return nom;
+	}
 
-    public String getPrenom() {
-        return prenom;
-    }
+	public String getPrenom() {
+		return prenom;
+	}
 
-    public Boolean getGenre() {
-        return genre;
-    }
+	public Boolean getGenre() {
+		return genre;
+	}
 
-    public String getMotDePasse() {
-        return motDePasse;
-    }
+	public String getMotDePasse() {
+		return motDePasse;
+	}
 
-    public String getNumeroDeTelephone() {
-        return numeroDeTelephone;
-    }
+	public String getNumeroDeTelephone() {
+		return numeroDeTelephone;
+	}
 
-    public Boolean getEstDisponible() {
-        return estDisponible;
-    }
+	public Boolean getEstDisponible() {
+		return estDisponible;
+	}
 
-    public Integer getNbConsultations() {
-        return nbConsultations;
-    }
+	public Integer getNbConsultations() {
+		return nbConsultations;
+	}
 
-    public String getMail() {
-        return mail;
-    }
+	public String getMail() {
+		return mail;
+	}
 
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
 
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
-    }
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
 
-    public void setGenre(Boolean genre) {
-        this.genre = genre;
-    }
+	public void setGenre(Boolean genre) {
+		this.genre = genre;
+	}
 
-    public void setMotDePasse(String motDePasse) {
-        this.motDePasse = motDePasse;
-    }
+	public void setMotDePasse(String motDePasse) {
+		this.motDePasse = motDePasse;
+	}
 
-    public void setNumeroDeTelephone(String numeroDeTelephone) {
-        this.numeroDeTelephone = numeroDeTelephone;
-    }
+	public void setNumeroDeTelephone(String numeroDeTelephone) {
+		this.numeroDeTelephone = numeroDeTelephone;
+	}
 
-    public void setEstDisponible(Boolean estDisponible) {
-        this.estDisponible = estDisponible;
-    }
+	public void setEstDisponible(Boolean estDisponible) {
+		this.estDisponible = estDisponible;
+	}
 
-    public void setNbConsultations(Integer nbConsultations) {
-        this.nbConsultations = nbConsultations;
-    }
+	public void setNbConsultations(Integer nbConsultations) {
+		this.nbConsultations = nbConsultations;
+	}
 
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
 }

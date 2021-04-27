@@ -5,7 +5,6 @@
  */
 package fr.insalyon.dasi.metier.modele;
 
-import java.io.Serializable;
 import javax.persistence.Entity;
 
 /**
@@ -13,29 +12,30 @@ import javax.persistence.Entity;
  * @author B3202-B3205
  */
 @Entity
-public class Spirite extends Medium implements Serializable {
-    
-    private static final long serialVersionUID = 1L;
-    private String support;
+public class Spirite extends Medium {
 
-    public Spirite(String support, String denomination, Boolean genre, String presentation) {
-        super(denomination, genre, presentation);
-        this.support = support;
-    }
+	private static final long serialVersionUID = 1L;
+	private String support;
 
-    public Spirite() {
-    }
+	public Spirite(String support, String denomination, Boolean genre, String presentation) {
+		super(denomination, genre, presentation);
+		this.support = support;
+	}
 
-    @Override
-    public String toString() {
-        return "Spirite{" + "support=" + support + '}';
-    }
-    
-    public String getSupport() {
-        return support;
-    }
+	public Spirite() {
+	}
 
-    public void setSupport(String support) {
-        this.support = support;
-    }
+	@Override
+	public String toString() {
+		String res="Spirite" + super.toString()+" support=" + support+ '}';
+		return res;
+	}
+
+	public String getSupport() {
+		return support;
+	}
+
+	public void setSupport(String support) {
+		this.support = support;
+	}
 }

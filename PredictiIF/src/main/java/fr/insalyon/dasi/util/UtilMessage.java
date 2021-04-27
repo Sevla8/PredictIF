@@ -10,11 +10,11 @@ package fr.insalyon.dasi.util;
  * @author B3202-B3205
  */
 public class UtilMessage {
-    
-    private static final String mailExpediteur = "contact@predict.if";    
+
+    private static final String MAILEXPEDITEUR = "contact@predict.if";
 
     public static String getMailExpediteur() {
-        return mailExpediteur;
+        return MAILEXPEDITEUR;
     }
 
     public static String getMailObjetSucces() {
@@ -31,13 +31,13 @@ public class UtilMessage {
                 + "consulter votre profil astrologique et profiter des dons "
                 + "incroyables de nos mediums.";
     }
-    
+
     public static String getMailCorpsEchec(String prenom) {
         return "Bonjour " + prenom + ",  votre inscription au service "
                 + "PREDICT’IF a malencontreusement échoué... Merci de "
                 + "recommencer ultérieurement.";
     }
-    
+
     public static String getNotification(String employePrenom, String employeNom, String employeNumeroDeTelephone, Boolean clientGenre, String clientPrenom, String clientNom, String mediumDenomination) {
         String genre = clientGenre ? "Mr" : "Mme";
         return "Pour : " + employePrenom + " " + employeNom.toUpperCase() + ", "

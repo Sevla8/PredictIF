@@ -20,88 +20,84 @@ import javax.persistence.InheritanceType;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Medium implements Serializable {
-    
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private String denomination;
-    private Boolean genre;
-    private String presentation;
-    private Integer nbConsultations;
 
-    public Medium(String denomination, Boolean genre, String presentation) {
-        this.denomination = denomination;
-        this.genre = genre;
-        this.presentation = presentation;
-        this.nbConsultations = 0;
-    }
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	private String denomination;
+	private Boolean genre;
+	private String presentation;
+	private Integer nbConsultations;
 
-    public Medium() {
-    }
+	public Medium(String denomination, Boolean genre, String presentation) {
+		this.denomination = denomination;
+		this.genre = genre;
+		this.presentation = presentation;
+		this.nbConsultations = 0;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public Medium() {
+	}
 
-    public Integer getNbConsultations() {
-        return nbConsultations;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public String getDenomination() {
-        return denomination;
-    }
+	public Integer getNbConsultations() {
+		return nbConsultations;
+	}
 
-    public Boolean getGenre() {
-        return genre;
-    }
+	public String getDenomination() {
+		return denomination;
+	}
 
-    public String getPresentation() {
-        return presentation;
-    }
+	public Boolean getGenre() {
+		return genre;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public String getPresentation() {
+		return presentation;
+	}
 
-    public void setDenomination(String denomination) {
-        this.denomination = denomination;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setGenre(Boolean genre) {
-        this.genre = genre;
-    }
+	public void setDenomination(String denomination) {
+		this.denomination = denomination;
+	}
 
-    public void setPresentation(String presentation) {
-        this.presentation = presentation;
-    }
+	public void setGenre(Boolean genre) {
+		this.genre = genre;
+	}
 
-    public void setNbConsultations(Integer nbConsultations) {
-        this.nbConsultations = nbConsultations;
-    }
+	public void setPresentation(String presentation) {
+		this.presentation = presentation;
+	}
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
+	public void setNbConsultations(Integer nbConsultations) {
+		this.nbConsultations = nbConsultations;
+	}
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Medium)) {
-            return false;
-        }
-        Medium other = (Medium) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
+	@Override
+	public int hashCode() {
+		int hash = 0;
+		hash += (id != null ? id.hashCode() : 0);
+		return hash;
+	}
 
-    @Override
-    public String toString() {
-        return "Medium{" + "id=" + id + ", denomination=" + denomination + ", genre=" + genre + ", presentation=" + presentation + ", nbConsultations=" + nbConsultations + '}';
-    }
+	@Override
+	public boolean equals(Object object) {
+		if (!(object instanceof Medium)) {
+			return false;
+		}
+		Medium other = (Medium) object;
+		return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
+	}
+
+	@Override
+	public String toString() {
+		return "{" + "id=" + id + ", denomination=" + denomination + ", genre=" + genre + ", presentation=" + presentation + ", nbConsultations=" + nbConsultations;
+	}
 }

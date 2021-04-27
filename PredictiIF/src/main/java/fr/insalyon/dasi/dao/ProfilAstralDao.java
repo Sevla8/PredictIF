@@ -12,12 +12,12 @@ import fr.insalyon.dasi.metier.modele.ProfilAstral;
  * @author B3202-B3205
  */
 public class ProfilAstralDao {
-    
-    public void creer(ProfilAstral profilAstral) {
-        JpaUtil.obtenirContextePersistance().persist(profilAstral);
-    }
-    
-    public ProfilAstral chercherParId(Long id) {
-        return JpaUtil.obtenirContextePersistance().find(ProfilAstral.class, id);
-    }
+
+	public void creer(ProfilAstral profilAstral) {
+		JpaUtil.obtenirContextePersistance().persist(profilAstral);
+	}
+
+	public ProfilAstral chercherParId(Long id) {
+		return JpaUtil.obtenirContextePersistance().find(ProfilAstral.class, id);
+	}
 }

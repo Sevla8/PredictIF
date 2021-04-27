@@ -12,8 +12,12 @@ import fr.insalyon.dasi.metier.modele.Consultation;
  * @author B3202-B3205
  */
 public class ConsultationDao {
-    
-    public void creer(Consultation consultation) {
-        JpaUtil.obtenirContextePersistance().persist(consultation);
-    }
+
+	public void creer(Consultation consultation) {
+		JpaUtil.obtenirContextePersistance().persist(consultation);
+	}
+
+	public void modifier(Consultation consultation){
+		JpaUtil.obtenirContextePersistance().merge(consultation);
+	}
 }

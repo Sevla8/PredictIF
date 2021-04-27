@@ -25,153 +25,149 @@ import javax.persistence.TemporalType;
 @Entity
 public class Client implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private String motDePasse;
-    private String prenom;
-    private String nom;
-    private String adressePostale;
-    private String numeroDeTelephone;
-    private Boolean genre;
-    @Column(unique=true)
-    private String mail;
-    @Temporal(TemporalType.DATE)
-    private Date dateDeNaissance;
-    @OneToOne
-    private ProfilAstral profilAstral;
-    @OneToMany(mappedBy="client")
-    private List<Consultation> consultations;
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	private String motDePasse;
+	private String prenom;
+	private String nom;
+	private String adressePostale;
+	private String numeroDeTelephone;
+	private Boolean genre;
+	@Column(unique=true)
+	private String mail;
+	@Temporal(TemporalType.DATE)
+	private Date dateDeNaissance;
+	@OneToOne
+	private ProfilAstral profilAstral;
+	@OneToMany(mappedBy="client")
+	private List<Consultation> consultations;
 
-    public Client() {
-    }
+	public Client() {
+	}
 
-    public Client(String motDePasse, String prenom, String nom, String adressePostale, String numeroDeTelephone, Boolean genre, String mail, Date dateDeNaissance) {
-        this.motDePasse = motDePasse;
-        this.prenom = prenom;
-        this.nom = nom;
-        this.adressePostale = adressePostale;
-        this.numeroDeTelephone = numeroDeTelephone;
-        this.genre = genre;
-        this.mail = mail;
-        this.dateDeNaissance = dateDeNaissance;
-    }
-    
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
+	public Client(String motDePasse, String prenom, String nom, String adressePostale, String numeroDeTelephone, Boolean genre, String mail, Date dateDeNaissance) {
+		this.motDePasse = motDePasse;
+		this.prenom = prenom;
+		this.nom = nom;
+		this.adressePostale = adressePostale;
+		this.numeroDeTelephone = numeroDeTelephone;
+		this.genre = genre;
+		this.mail = mail;
+		this.dateDeNaissance = dateDeNaissance;
+	}
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Client)) {
-            return false;
-        }
-        Client other = (Client) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
+	@Override
+	public int hashCode() {
+		int hash = 0;
+		hash += (id != null ? id.hashCode() : 0);
+		return hash;
+	}
 
-    @Override
-    public String toString() {
-        return "Client{" + "id=" + id + ", motDePasse=" + motDePasse + ", prenom=" + prenom + ", nom=" + nom + ", adressePostale=" + adressePostale + ", numeroDeTelephone=" + numeroDeTelephone + ", genre=" + genre + ", mail=" + mail + ", dateDeNaissance=" + dateDeNaissance + ", profilAstral=" + profilAstral + '}';
-    }
- 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	@Override
+	public boolean equals(Object object) {
+		if (!(object instanceof Client)) {
+			return false;
+		}
+		Client other = (Client) object;
+		return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
+	}
 
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
+	@Override
+	public String toString() {
+		return "Client{" + "id=" + id + ", motDePasse=" + motDePasse + ", prenom=" + prenom + ", nom=" + nom + ", adressePostale=" + adressePostale + ", numeroDeTelephone=" + numeroDeTelephone + ", genre=" + genre + ", mail=" + mail + ", dateDeNaissance=" + dateDeNaissance + ", profilAstral=" + profilAstral + '}';
+	}
 
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
 
-    public void setMotDePasse(String motDePasse) {
-        this.motDePasse = motDePasse;
-    }
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
 
-    public void setDateDeNaissance(Date dateDeNaissance) {
-        this.dateDeNaissance = dateDeNaissance;
-    }
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
 
-    public void setAdressePostale(String adressePostale) {
-        this.adressePostale = adressePostale;
-    }
+	public void setMotDePasse(String motDePasse) {
+		this.motDePasse = motDePasse;
+	}
 
-    public void setGenre(Boolean genre) {
-        this.genre = genre;
-    }
+	public void setDateDeNaissance(Date dateDeNaissance) {
+		this.dateDeNaissance = dateDeNaissance;
+	}
 
-    public void setNumeroDeTelephone(String numeroDeTelephone) {
-        this.numeroDeTelephone = numeroDeTelephone;
-    }
+	public void setAdressePostale(String adressePostale) {
+		this.adressePostale = adressePostale;
+	}
 
-    public void setProfilAstral(ProfilAstral profilAstral) {
-        this.profilAstral = profilAstral;
-    }
+	public void setGenre(Boolean genre) {
+		this.genre = genre;
+	}
 
-    public void setConsultations(List<Consultation> consultations) {
-        this.consultations = consultations;
-    }
-    
-    public Long getId() {
-        return id;
-    }
-            
-    public String getNom() {
-        return nom;
-    }
+	public void setNumeroDeTelephone(String numeroDeTelephone) {
+		this.numeroDeTelephone = numeroDeTelephone;
+	}
 
-    public String getPrenom() {
-        return prenom;
-    }
+	public void setProfilAstral(ProfilAstral profilAstral) {
+		this.profilAstral = profilAstral;
+	}
 
-    public String getMail() {
-        return mail;
-    }
+	public void setConsultations(List<Consultation> consultations) {
+		this.consultations = consultations;
+	}
 
-    public String getMotDePasse() {
-        return motDePasse;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public Date getDateDeNaissance() {
-        return dateDeNaissance;
-    }
+	public String getNom() {
+		return nom;
+	}
 
-    public String getAdressePostale() {
-        return adressePostale;
-    }
+	public String getPrenom() {
+		return prenom;
+	}
 
-    public Boolean getGenre() {
-        return genre;
-    }
+	public String getMail() {
+		return mail;
+	}
 
-    public String getNumeroDeTelephone() {
-        return numeroDeTelephone;
-    }
+	public String getMotDePasse() {
+		return motDePasse;
+	}
 
-    public ProfilAstral getProfilAstral() {
-        return profilAstral;
-    }
+	public Date getDateDeNaissance() {
+		return dateDeNaissance;
+	}
 
-    public List<Consultation> getConsultations() {
-        return consultations;
-    }
+	public String getAdressePostale() {
+		return adressePostale;
+	}
 
-    public void ajouterConsultation(Consultation consultation) {
-        this.consultations.add(consultation);
-    }
+	public Boolean getGenre() {
+		return genre;
+	}
+
+	public String getNumeroDeTelephone() {
+		return numeroDeTelephone;
+	}
+
+	public ProfilAstral getProfilAstral() {
+		return profilAstral;
+	}
+
+	public List<Consultation> getConsultations() {
+		return consultations;
+	}
+
+	public void ajouterConsultation(Consultation consultation) {
+		this.consultations.add(consultation);
+	}
 }

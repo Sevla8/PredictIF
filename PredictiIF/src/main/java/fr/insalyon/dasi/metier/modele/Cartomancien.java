@@ -5,7 +5,6 @@
  */
 package fr.insalyon.dasi.metier.modele;
 
-import java.io.Serializable;
 import javax.persistence.Entity;
 
 /**
@@ -13,15 +12,21 @@ import javax.persistence.Entity;
  * @author B3202-B3205
  */
 @Entity
-public class Cartomancien extends Medium implements Serializable {
+public class Cartomancien extends Medium {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    public Cartomancien(String denomination, Boolean genre, String presentation) {
-        super(denomination, genre, presentation);
-    }
+	public Cartomancien(String denomination, Boolean genre, String presentation) {
+		super(denomination, genre, presentation);
+	}
 
-    public Cartomancien() {
-    }
+	public Cartomancien() {
+	}
+
+	@Override
+	public String toString() {
+		String res="Cartomancien" + super.toString()+ '}';
+		return res;
+	}
 
 }
