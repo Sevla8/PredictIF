@@ -22,11 +22,11 @@ import java.util.logging.Logger;
  * @author B3202-B3205
  */
 public class Main {
-	private static final Service sevice = new Service();
+	private static final Service service = new Service();
 
 	public static void main(String[] args) {
 		JpaUtil.init();
-		sevice.init();
+		service.init();
 		testerInscriptionClient();
 		testerAuthentificationClient();
 		testerObtenirConsultation();
@@ -37,6 +37,7 @@ public class Main {
 		testerListerMedium();
 		testerAuthentificationEmploye();
 		testerObtenirPredictions();
+		testerTrouverConsultationParId();
 		JpaUtil.destroy();
 	}
 
@@ -52,7 +53,7 @@ public class Main {
 					"marie.curie@email.com",
 					(new SimpleDateFormat("dd/MM/yyyy").parse("7/11/1867")));
 
-			c = sevice.inscrireClient(client1);
+			c = service.inscrireClient(client1);
 
 			if (c != null) {
 				System.out.println("> Succès inscription");
@@ -70,7 +71,7 @@ public class Main {
 					"marie.curie@email.com",
 					(new SimpleDateFormat("dd/MM/yyyy").parse("7/11/1867")));
 
-			c = sevice.inscrireClient(client2); // probleme
+			c = service.inscrireClient(client2); // probleme
 
 			if (c != null) {
 				System.out.println("> Succès inscription");
@@ -88,7 +89,7 @@ public class Main {
 	public static void testerAuthentificationClient() {
 		Client client;
 
-		client = sevice.authentifierClient("marie.curie@email.com", "12345");
+		client = service.authentifierClient("marie.curie@email.com", "12345");
 		if (client != null) {
 			System.out.println("> authentification reussie");
 			System.out.println(client);
@@ -97,7 +98,7 @@ public class Main {
 			System.out.println("> authentification faillie");
 		}
 
-		client = sevice.authentifierClient("marie.curie@email.com", "grrrr");
+		client = service.authentifierClient("marie.curie@email.com", "grrrr");
 		if (client != null) {
 			System.out.println("> authentification reussie");
 		}
@@ -109,7 +110,7 @@ public class Main {
 	public static void testerAuthentificationEmploye() {
 		Employe employe;
 
-		employe = sevice.authentifierEmploye("rborrotimatiasdantas4171@free.fr", "12345");
+		employe = service.authentifierEmploye("rborrotimatiasdantas4171@free.fr", "12345");
 		if (employe != null) {
 			System.out.println("> authentification reussie");
 			System.out.println(employe);
@@ -118,7 +119,7 @@ public class Main {
 			System.out.println("> authentification faillie");
 		}
 
-		employe = sevice.authentifierEmploye("marie.curie@email.com", "grrrr");
+		employe = service.authentifierEmploye("marie.curie@email.com", "grrrr");
 		if (employe != null) {
 			System.out.println("> authentification reussie");
 		}
@@ -128,29 +129,29 @@ public class Main {
 	}
 
 	private static void testerObtenirConsultation() {
-		Client client = sevice.authentifierClient("marie.curie@email.com", "12345");
-		List<Medium> mediums = (List<Medium>) sevice.listerMediums();
+		Client client = service.authentifierClient("marie.curie@email.com", "12345");
+		List<Medium> mediums = (List<Medium>) service.listerMediums();
 		Medium medium = mediums.get(0);
 
-		Consultation consultation = sevice.obtenirConsultation(client, medium);
+		Consultation consultation = service.obtenirConsultation(client, medium);
 
 		System.out.println(consultation);
 	}
 
 	public static void testerDebuterConsultation() {
 		Consultation consult = new Consultation();
-		sevice.debuterConsultation(consult);
+		service.debuterConsultation(consult);
 		System.out.println(consult);
 	}
 
 	private static void testerFinirConsultation() {
-		Client client = sevice.authentifierClient("marie.curie@email.com", "12345");
-		List<Medium> mediums = (List<Medium>) sevice.listerMediums();
+		Client client = service.authentifierClient("marie.curie@email.com", "12345");
+		List<Medium> mediums = (List<Medium>) service.listerMediums();
 		Medium medium = mediums.get(0);
 
-		Consultation consultation = sevice.obtenirConsultation(client, medium);
-		consultation = sevice.debuterConsultation(consultation);
-		consultation = sevice.finirConsultation(consultation);
+		Consultation consultation = service.obtenirConsultation(client, medium);
+		consultation = service.debuterConsultation(consultation);
+		consultation = service.finirConsultation(consultation);
 
 		System.out.println(consultation);
 	}
@@ -158,33 +159,47 @@ public class Main {
 	public static void testerCommenterConsultation() {
 		Consultation consult = new Consultation();
 		String commentaire = "Ce client capte R mdr c une chevre";
-		sevice.commenterConsultation(consult,commentaire);
+		service.commenterConsultation(consult,commentaire);
 		System.out.println(consult);
 	}
 
 	public static void testerNoterConsultation() {
 		Consultation consult = new Consultation();
 		int note = 2;
-		sevice.noterConsultation(consult, note);
+		service.noterConsultation(consult, note);
 		System.out.println(consult);
 	}
 
 	public static void testerListerMedium() {
-		List<Medium> mediums = (List<Medium>) sevice.listerMediums();
+		List<Medium> mediums = (List<Medium>) service.listerMediums();
 		mediums.forEach((medium) ->
 			System.out.println(medium)
 		);
 	}
 
 	public static void testerObtenirPredictions() {
-		Client client = sevice.authentifierClient("marie.curie@email.com", "12345");
+		Client client = service.authentifierClient("marie.curie@email.com", "12345");
 		int amour = 2;
 		int sante = 1;
 		int travail = 3;
-		List<String> predictions = sevice.obtenirPredictions( client,  amour,  sante, travail);
+		List<String> predictions = service.obtenirPredictions( client,  amour,  sante, travail);
 		predictions.forEach((prediction) ->
 			System.out.println(prediction)
 		);
+	}
+
+	public static void testerTrouverConsultationParId() {
+		Client client = service.authentifierClient("marie.curie@email.com", "12345");
+		List<Medium> mediums = (List<Medium>) service.listerMediums();
+		Medium medium = mediums.get(0);
+
+		Consultation consultation = service.obtenirConsultation(client, medium);
+
+		Long id = consultation.getId();
+
+		Consultation c = service.trouverConsultationParId(id);
+
+		System.out.println(c);
 	}
 
 	public static void testScenario() {

@@ -386,8 +386,19 @@ public class Service {
 	}
 
 	public Consultation trouverConsultationParId(Long id) {
-		// TODO
-		return new Consultation();
+		Consultation consultation;
+		JpaUtil.creerContextePersistance();
+		try {
+			consultation = consultationDao.chercherParId(id);
+		}
+		catch (Exception ex) {
+			Logger.getAnonymousLogger().log(Level.SEVERE, "Erreur !", ex);
+			consultation = null;
+		}
+		finally {
+			JpaUtil.fermerContextePersistance();
+		}
+		return consultation;
 	}
 
 	public Consultation obtenirConsultationAffectee(Employe employe) {
