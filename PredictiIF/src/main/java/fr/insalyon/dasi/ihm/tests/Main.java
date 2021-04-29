@@ -14,6 +14,7 @@ import fr.insalyon.dasi.metier.service.Service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,25 +24,29 @@ import java.util.logging.Logger;
  */
 public class Main {
 	private static final Service service = new Service();
+	private static final Random rand = new Random();
 
 	public static void main(String[] args) {
 		JpaUtil.init();
 		service.init();
-		testerInscriptionClient();
-		testerAuthentificationClient();
-		testerObtenirConsultation();
-		testerDebuterConsultation();
-		testerFinirConsultation();
-		testerCommenterConsultation();
-		testerNoterConsultation();
-		testerListerMedium();
-		testerAuthentificationEmploye();
-		testerObtenirPredictions();
-		testerTrouverConsultationParId();
-		testerObtenirConsultationAffectee();
-		testerObtenirTop5Medium();
-		testerObtenirNombreDeConsultationsParMedium();
-		testerObtenirHistorique();
+		// testerInscriptionClient();
+		// testerAuthentificationClient();
+		// testerObtenirConsultation();
+		// testerDebuterConsultation();
+		// testerFinirConsultation();
+		// testerCommenterConsultation();
+		// testerNoterConsultation();
+		// testerListerMedium();
+		// testerAuthentificationEmploye();
+		// testerObtenirPredictions();
+		// testerTrouverConsultationParId();
+		// testerObtenirConsultationAffectee();
+		// testerObtenirTop5Mediums();
+		// testerObtenirNombreDeConsultationsParMedium();
+		// testerObtenirHistorique();
+		// testerObtenirTop5Employes();
+		// testerObtenirNombreDeConsultationsParEmploye();
+		testScenario();
 		JpaUtil.destroy();
 	}
 
@@ -163,7 +168,7 @@ public class Main {
 	public static void testerCommenterConsultation() {
 		Consultation consult = new Consultation();
 		String commentaire = "Ce client capte R mdr c une chevre";
-		service.commenterConsultation(consult,commentaire);
+		service.commenterConsultation(consult, commentaire);
 		System.out.println(consult);
 	}
 
@@ -221,7 +226,6 @@ public class Main {
 		consultation2 = service.finirConsultation(consultation2);
 
 		Consultation consultation3 = service.obtenirConsultation(client, medium);
-		consultation3 = service.debuterConsultation(consultation3);
 		Consultation consultEnCours = service.obtenirConsultationAffectee(service.trouverEmployeParId(10L));
 
 		System.out.println(consultation);
@@ -233,18 +237,21 @@ public class Main {
 		System.out.println(consultEnCours);
 	}
 
-	public static void testerObtenirTop5Medium() {
-		List<Medium> mediums = service.obtenirTop5Medium();
+	public static void testerObtenirTop5Mediums() {
+		List<Medium> mediums = service.obtenirTop5Mediums();
 		mediums.forEach((medium) ->
 			System.out.println(medium)
 		);
 	}
 
 	public static void testerObtenirNombreDeConsultationsParMedium(){
-		String [][] listeMediumNbConsultations=service.obtenirNombreDeConsultationsParMedium();
-		for(int i=0;i<listeMediumNbConsultations.length;i++){
-			System.out.println("Medium de type : "+listeMediumNbConsultations[i][0]+", Denomination :"+listeMediumNbConsultations[i][1]
-								+", Nb Consultations :"+listeMediumNbConsultations[i][2]);
+		String [][] listeMediumNbConsultations = service.obtenirNombreDeConsultationsParMedium();
+		for(int i = 0; i < listeMediumNbConsultations.length; ++i) {
+			System.out.println(
+				"Medium de type : " + listeMediumNbConsultations[i][0] +
+				", Denomination : " + listeMediumNbConsultations[i][1] +
+				", Nb Consultations : " + listeMediumNbConsultations[i][2]
+			);
 		}
 	}
 
@@ -256,8 +263,132 @@ public class Main {
 		);
 	}
 
-	public static void testScenario() {
-		// TODO faire test scenario
+	public static void testerObtenirTop5Employes() {
+		List<Employe> employes = service.obtenirTop5Employes();
+		employes.forEach((employe) ->
+			System.out.println(employe)
+		);
+	}
 
+	public static void testerObtenirNombreDeConsultationsParEmploye() {
+		String [][] listeEmployeNbConsultations = service.obtenirNombreDeConsultationsParEmploye();
+		for (int i = 0; i < listeEmployeNbConsultations.length; ++i) {
+			System.out.println(
+				"Nom : " + listeEmployeNbConsultations[i][0] +
+				", Prenom : " + listeEmployeNbConsultations[i][1] +
+				", Nb Consultations : " + listeEmployeNbConsultations[i][2]
+			);
+		}
+	}
+
+	public static void testScenario() {
+		Client client;
+		try {
+			client = new Client(
+				"12345",
+				"Albert",
+				"Einstein",
+				"1 rue Albert Einstein, 75006 Paris, France",
+				"0123456789",
+				Boolean.TRUE,
+				"albert.einstein@email.com",
+				(new SimpleDateFormat("dd/MM/yyyy").parse("14/03/1879"))
+			);
+		} catch (ParseException e) {
+			client = null;
+		}
+
+		service.inscrireClient(client);	// Le client s'inscrit
+
+		client = service.authentifierClient("albert.einstein@email.com", "12345");	// Le client s'authentifie
+
+		List<Medium> mediums = service.listerMediums();	// Affichage de la liste des mediums
+
+		Medium medium = mediums.get(rand.nextInt(mediums.size()));	// Le client choisit un medium dans la liste
+
+		Consultation consultation = service.obtenirConsultation(client, medium);	// Le client réserve une consultation
+		System.out.println();
+		System.out.println(consultation);
+		System.out.println();
+
+		Employe employe = consultation.getEmploye();
+		employe = service.authentifierEmploye(employe.getMail(), employe.getMotDePasse());	// L'employé s'authentifie
+
+		consultation = service.obtenirConsultationAffectee(employe);	// L'employé consulte sa consultation future
+		System.out.println();
+		System.out.println(consultation);
+		System.out.println();
+
+		List<Consultation> hitorique = service.obtenirHistorique(client);	// L'employé consulte l'historique des consultations du client
+		System.out.println();
+		hitorique.forEach((hist) ->
+			System.out.println(hist)
+		);
+		System.out.println();
+
+		consultation = service.debuterConsultation(consultation);	// L'employé mentionne qu'il est prêt à débuter la consulation
+		System.out.println();
+		System.out.println(consultation);
+		System.out.println();
+
+		List<String> predictions = service.obtenirPredictions(client, 2, 1, 3); // L'employé demande une prédiction à AstroNet
+		System.out.println();
+		predictions.forEach((prediction) ->
+			System.out.println(prediction)
+		);
+		System.out.println();
+
+		consultation = service.finirConsultation(consultation);	// L'employé met fin à la consultation
+		System.out.println();
+		System.out.println(consultation);
+		System.out.println();
+
+		service.commenterConsultation(consultation, "Ce client capte R mdr c une chevre");	// L'employé ajoute un commentaire à la consultation
+		System.out.println();
+		System.out.println(consultation);
+		System.out.println();
+
+		service.noterConsultation(consultation, 3); // Le client note sa consultation
+		System.out.println();
+		System.out.println(consultation);
+		System.out.println();
+
+		// L'employé consulte les statistiques
+
+		String [][] listeMediumNbConsultations = service.obtenirNombreDeConsultationsParMedium();
+		System.out.println();
+		for(int i = 0; i < listeMediumNbConsultations.length; ++i) {
+			System.out.println(
+				"Medium de type : " + listeMediumNbConsultations[i][0] +
+				", Denomination : " + listeMediumNbConsultations[i][1] +
+				", Nb Consultations : " + listeMediumNbConsultations[i][2]
+			);
+		}
+		System.out.println();
+
+		List<Medium> listeMediums = service.obtenirTop5Mediums();
+		System.out.println();
+		listeMediums.forEach((med) ->
+			System.out.println(med)
+		);
+		System.out.println();
+
+		String [][] listeEmployeNbConsultations = service.obtenirNombreDeConsultationsParEmploye();
+		System.out.println();
+		for (int i = 0; i < listeEmployeNbConsultations.length; ++i) {
+			System.out.println(
+				"Nom : " + listeEmployeNbConsultations[i][0] +
+				", Prenom : " + listeEmployeNbConsultations[i][1] +
+				", Nb Consultations : " + listeEmployeNbConsultations[i][2]
+			);
+		}
+		System.out.println();
+
+		List<Employe> listeEmployes = service.obtenirTop5Employes();
+		System.out.println();
+		listeEmployes.forEach((emp) ->
+			System.out.println(emp)
+		);
+		System.out.println();
 	}
 }

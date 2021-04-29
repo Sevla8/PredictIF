@@ -36,9 +36,9 @@ public class MediumDao {
 		return query.getResultList();
 	}
 
-	public List<Medium> chercherTop5ParNbConsultations(){
+	public List<Medium> chercherTopParNbConsultations(Integer top){
 		String s ="select m from Medium m order by m.nbConsultations DESC";
 		TypedQuery<Medium> query = JpaUtil.obtenirContextePersistance().createQuery(s, Medium.class);
-		return query.setMaxResults(5).getResultList();
+		return query.setMaxResults(top).getResultList();
 	}
 }

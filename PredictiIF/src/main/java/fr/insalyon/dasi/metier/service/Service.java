@@ -14,7 +14,6 @@ import fr.insalyon.dasi.dao.ProfilAstralDao;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import fr.insalyon.dasi.metier.modele.Astrologue;
@@ -218,6 +217,21 @@ public class Service {
 			JpaUtil.fermerContextePersistance();
 		}
 		return mediums;
+	}
+
+	public List<Employe> listerEmployes() {
+		List<Employe> employes;
+		JpaUtil.creerContextePersistance();
+		try{
+			employes = employeDao.chercherTous();
+		}
+		catch(Exception ex){
+			employes = null;
+		}
+		finally{
+			JpaUtil.fermerContextePersistance();
+		}
+		return employes;
 	}
 
 	public List<Medium> listerMediumsParGenre(Boolean genre){
@@ -425,11 +439,10 @@ public class Service {
 
 			JpaUtil.creerContextePersistance();
 			try {
-				List<Consultation> listeDesConsultations = consultationDao.chercherParIdEmploye(employe.getId());
+				List<Consultation> listeDesConsultations = consultationDao.chercherParIdEmployeEnCours(employe.getId());
 				consultation = listeDesConsultations.get(0);
 			}
 			catch (Exception ex) {
-
 				Logger.getAnonymousLogger().log(Level.SEVERE, "Erreur !", ex);
 				consultation = null;
 			}
@@ -440,11 +453,27 @@ public class Service {
 		return consultation;
 	}
 
-	public List<Medium> obtenirTop5Medium() {
+	public List<Medium> obtenirTop5Mediums() {
 		List<Medium> liste;
 		JpaUtil.creerContextePersistance();
 		try {
-			liste = mediumDao.chercherTop5ParNbConsultations();
+			liste = mediumDao.chercherTopParNbConsultations(5);
+		}
+		catch (Exception ex) {
+			Logger.getAnonymousLogger().log(Level.SEVERE, "Erreur !", ex);
+			liste = null;
+		}
+		finally {
+			JpaUtil.fermerContextePersistance();
+		}
+		return liste;
+	}
+
+	public List<Employe> obtenirTop5Employes() {
+		List<Employe> liste;
+		JpaUtil.creerContextePersistance();
+		try {
+			liste = employeDao.chercherTopParNbConsultations(5);
 		}
 		catch (Exception ex) {
 			Logger.getAnonymousLogger().log(Level.SEVERE, "Erreur !", ex);
@@ -457,32 +486,27 @@ public class Service {
 	}
 
 	public String[][] obtenirNombreDeConsultationsParMedium(){
-		List<Medium> mediums=listerMediums();
-		String [][] nbConsultationsParMedium=new String[mediums.size()][3];
-		for(int i=0;i<mediums.size();i++){
+		List<Medium> mediums = listerMediums();
+		String[][] nbConsultationsParMedium = new String[mediums.size()][3];
+		for (int i = 0; i < mediums.size(); ++i) {
 			String classNameMedium = mediums.get(i).getClass().getName();
-			nbConsultationsParMedium[i][0]=classNameMedium.substring(classNameMedium.lastIndexOf('.') + 1);
-			nbConsultationsParMedium[i][1]=mediums.get(i).getDenomination();
-			nbConsultationsParMedium[i][2]=String.valueOf(mediums.get(i).getNbConsultations());
+			nbConsultationsParMedium[i][0] = classNameMedium.substring(classNameMedium.lastIndexOf('.') + 1);
+			nbConsultationsParMedium[i][1] = mediums.get(i).getDenomination();
+			nbConsultationsParMedium[i][2] = String.valueOf(mediums.get(i).getNbConsultations());
 		}
 		return nbConsultationsParMedium;
 	}
 
-	// public Map<Employe, List<Client>> obtenirRepartitionCLientsParEmployes() {
-	// 	Map<Employe, List<Client>> dico;
-	// 	JpaUtil.creerContextePersistance();
-	// 	try {
-	// 		dico = consultationDao.chercherRepartitionClientsParEmploye();
-	// 	}
-	// 	catch (Exception ex) {
-	// 		Logger.getAnonymousLogger().log(Level.SEVERE, "Erreur !", ex);
-	// 		dico = null;
-	// 	}
-	// 	finally {
-	// 		JpaUtil.fermerContextePersistance();
-	// 	}
-	// 	return dico;
-	// }
+	public String[][] obtenirNombreDeConsultationsParEmploye(){
+		List<Employe> employes = listerEmployes();
+		String[][] nbConsultationsParEmploye = new String[employes.size()][3];
+		for (int i = 0; i < employes.size(); ++i) {
+			nbConsultationsParEmploye[i][0] = employes.get(i).getNom();
+			nbConsultationsParEmploye[i][1] = employes.get(i).getPrenom();
+			nbConsultationsParEmploye[i][2] = String.valueOf(employes.get(i).getNbConsultations());
+		}
+		return nbConsultationsParEmploye;
+	}
 
 	public List<Consultation> obtenirHistorique(Client client) {
 		List<Consultation> historique;

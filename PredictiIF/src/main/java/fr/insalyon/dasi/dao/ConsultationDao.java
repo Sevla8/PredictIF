@@ -6,11 +6,7 @@
 package fr.insalyon.dasi.dao;
 
 import fr.insalyon.dasi.metier.modele.Consultation;
-import fr.insalyon.dasi.metier.modele.Employe;
-import fr.insalyon.dasi.metier.modele.Client;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import javax.persistence.TypedQuery;
 
@@ -40,17 +36,18 @@ public class ConsultationDao {
 		return consultations;
 	}
 
-	// public List<Consultation> chercherRepartitionClientsParEmploye() {
-	// 	String s = "SELECT DISTINCT c.Client, c.Employe FROM Consultation c GROUP BY c.Employe";
-	// 	TypedQuery<Consultation> query = JpaUtil.obtenirContextePersistance().createQuery(s, Consultation.class);
-	// 	List<Consultation> repartition = query.getResultList();
-	// 	return repartition;
-	// }
-
 	public List<Consultation> chercherConsultationsParClient(Long id){
 		String s = "SELECT c FROM Consultation c WHERE c.client.id = :idClient";
 		TypedQuery<Consultation> query = JpaUtil.obtenirContextePersistance().createQuery(s, Consultation.class);
 		query.setParameter("idClient", id);
+		List<Consultation> consultations = query.getResultList();
+		return consultations;
+	}
+
+	public List<Consultation> chercherParIdEmployeEnCours(Long idEmploye) {
+		String s = "SELECT c FROM Consultation c WHERE c.employe.id = :idEmploye AND c.dateDebut IS NULL";
+		TypedQuery<Consultation> query = JpaUtil.obtenirContextePersistance().createQuery(s, Consultation.class);
+		query.setParameter("idEmploye", idEmploye);
 		List<Consultation> consultations = query.getResultList();
 		return consultations;
 	}

@@ -52,4 +52,16 @@ public class EmployeDao {
 		}
 		return resultat;
 	}
+
+	public List<Employe> chercherTous() {
+		String s ="select e from Employe e ORDER BY e.nbConsultations DESC";
+		TypedQuery<Employe> query = JpaUtil.obtenirContextePersistance().createQuery(s, Employe.class);
+		return query.getResultList();
+	}
+
+	public List<Employe> chercherTopParNbConsultations(Integer top) {
+		String s ="select e from Employe e order by e.nbConsultations DESC";
+		TypedQuery<Employe> query = JpaUtil.obtenirContextePersistance().createQuery(s, Employe.class);
+		return query.setMaxResults(top).getResultList();
+	}
 }
