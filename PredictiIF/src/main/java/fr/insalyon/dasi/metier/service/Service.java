@@ -14,6 +14,7 @@ import fr.insalyon.dasi.dao.ProfilAstralDao;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import fr.insalyon.dasi.metier.modele.Astrologue;
@@ -418,7 +419,7 @@ public class Service {
 		return employe;
 	}
 
-	public Consultation obtenirConsultationsAffectee(Employe employe) {
+	public Consultation obtenirConsultationAffectee(Employe employe) {
 		Consultation consultation = null;
 		if (!employe.getEstDisponible()) {
 
@@ -439,14 +440,11 @@ public class Service {
 		return consultation;
 	}
 
-		//Top 5 des médiums choisi par les clients
-		//nb de consultations par médium
-		//répartition des clients par employe
-	public List<Medium> obtenirStatistiqueTop5Medium() {
+	public List<Medium> obtenirTop5Medium() {
 		List<Medium> liste;
 		JpaUtil.creerContextePersistance();
 		try {
-			liste = mediumDao.chercherTop5ParNbConsultaions();
+			liste = mediumDao.chercherTop5ParNbConsultations();
 		}
 		catch (Exception ex) {
 			Logger.getAnonymousLogger().log(Level.SEVERE, "Erreur !", ex);
@@ -462,10 +460,6 @@ public class Service {
 		List<Medium> mediums=listerMediums();
 		String [][] nbConsultationsParMedium=new String[mediums.size()][3];
 		for(int i=0;i<mediums.size();i++){
-
-			// String[] bits = one.split("-");
-			// String lastOne = bits[bits.length-1];
-
 			String classNameMedium = mediums.get(i).getClass().getName();
 			nbConsultationsParMedium[i][0]=classNameMedium.substring(classNameMedium.lastIndexOf('.') + 1);
 			nbConsultationsParMedium[i][1]=mediums.get(i).getDenomination();
@@ -474,24 +468,37 @@ public class Service {
 		return nbConsultationsParMedium;
 	}
 
-	// public List<Medium> obtenirStatistiqueRepartitionCLientsParEmployes() {
-	// 	List<Medium> liste;
+	// public Map<Employe, List<Client>> obtenirRepartitionCLientsParEmployes() {
+	// 	Map<Employe, List<Client>> dico;
 	// 	JpaUtil.creerContextePersistance();
 	// 	try {
-	// 		liste = mediumDao.chercherTop5ParNbConsultaions();
+	// 		dico = consultationDao.chercherRepartitionClientsParEmploye();
 	// 	}
 	// 	catch (Exception ex) {
 	// 		Logger.getAnonymousLogger().log(Level.SEVERE, "Erreur !", ex);
-	// 		liste = null;
+	// 		dico = null;
 	// 	}
 	// 	finally {
 	// 		JpaUtil.fermerContextePersistance();
 	// 	}
-	// 	return liste;
+	// 	return dico;
 	// }
 
-	//Services à faire:
-	//historique du client
+	public List<Consultation> obtenirHistorique(Client client) {
+		List<Consultation> historique;
+		JpaUtil.creerContextePersistance();
+		try {
+			historique = consultationDao.chercherConsultationsParClient(client.getId());
+		}
+		catch (Exception ex) {
+			Logger.getAnonymousLogger().log(Level.SEVERE, "Erreur !", ex);
+			historique = null;
+		}
+		finally {
+			JpaUtil.fermerContextePersistance();
+		}
+		return historique;
+	}
 }
 
 //description appli

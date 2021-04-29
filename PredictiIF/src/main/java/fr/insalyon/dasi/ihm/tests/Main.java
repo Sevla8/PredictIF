@@ -7,8 +7,8 @@ package fr.insalyon.dasi.ihm.tests;
 
 import fr.insalyon.dasi.dao.JpaUtil;
 import fr.insalyon.dasi.metier.modele.Client;
-import fr.insalyon.dasi.metier.modele.Employe;
 import fr.insalyon.dasi.metier.modele.Consultation;
+import fr.insalyon.dasi.metier.modele.Employe;
 import fr.insalyon.dasi.metier.modele.Medium;
 import fr.insalyon.dasi.metier.service.Service;
 import java.text.ParseException;
@@ -38,9 +38,10 @@ public class Main {
 		testerAuthentificationEmploye();
 		testerObtenirPredictions();
 		testerTrouverConsultationParId();
-		testerObtenirConsultationsAffectee();
-		obtenirStatistiqueTop5Medium();
+		testerObtenirConsultationAffectee();
+		testerObtenirTop5Medium();
 		testerObtenirNombreDeConsultationsParMedium();
+		testerObtenirHistorique();
 		JpaUtil.destroy();
 	}
 
@@ -205,7 +206,7 @@ public class Main {
 		System.out.println(c);
 	}
 
-	public static void testerObtenirConsultationsAffectee() {
+	public static void testerObtenirConsultationAffectee() {
 		Client client = service.authentifierClient("marie.curie@email.com", "12345");
 		List<Medium> mediums = (List<Medium>) service.listerMediums();
 		Medium medium = mediums.get(0);
@@ -221,7 +222,7 @@ public class Main {
 
 		Consultation consultation3 = service.obtenirConsultation(client, medium);
 		consultation3 = service.debuterConsultation(consultation3);
-		Consultation consultEnCours = service.obtenirConsultationsAffectee(service.trouverEmployeParId(10L));
+		Consultation consultEnCours = service.obtenirConsultationAffectee(service.trouverEmployeParId(10L));
 
 		System.out.println(consultation);
 		System.out.println();
@@ -232,8 +233,8 @@ public class Main {
 		System.out.println(consultEnCours);
 	}
 
-	public static void obtenirStatistiqueTop5Medium() {
-		List<Medium> mediums = service.obtenirStatistiqueTop5Medium();
+	public static void testerObtenirTop5Medium() {
+		List<Medium> mediums = service.obtenirTop5Medium();
 		mediums.forEach((medium) ->
 			System.out.println(medium)
 		);
@@ -247,7 +248,16 @@ public class Main {
 		}
 	}
 
+	public static void testerObtenirHistorique() {
+		Client client = service.authentifierClient("marie.curie@email.com", "12345");
+		List<Consultation> hitorique = service.obtenirHistorique(client);
+		hitorique.forEach((consultation) ->
+			System.out.println(consultation)
+		);
+	}
+
 	public static void testScenario() {
 		// TODO faire test scenario
+
 	}
 }
