@@ -23,6 +23,10 @@ public class EmployeDao {
 		return JpaUtil.obtenirContextePersistance().merge(employe);
 	}
 
+	public Employe chercherParId(Long id) {
+		return JpaUtil.obtenirContextePersistance().find(Employe.class, id);
+	}
+
 	public Employe chercherParGenreEtDisponibilite(Boolean genre) {
 		String s = "SELECT e FROM Employe e WHERE e.genre = :genre AND e.estDisponible = :dispo ORDER BY e.nbConsultations ASC";
 		TypedQuery<Employe> query = JpaUtil.obtenirContextePersistance().createQuery(s, Employe.class);

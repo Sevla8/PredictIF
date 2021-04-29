@@ -6,6 +6,8 @@
 package fr.insalyon.dasi.dao;
 
 import fr.insalyon.dasi.metier.modele.Consultation;
+import java.util.List;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -23,5 +25,20 @@ public class ConsultationDao {
 
 	public Consultation chercherParId(Long id) {
 		return JpaUtil.obtenirContextePersistance().find(Consultation.class, id);
+	}
+
+	public List<Consultation> chercherParIdEmploye(Long idEmploye) {
+		String s = "SELECT c FROM Consultation c WHERE c.employe.id = :idEmploye AND c.dateDebut IS NOT NULL ORDER BY c.dateDebut DESC";
+		TypedQuery<Consultation> query = JpaUtil.obtenirContextePersistance().createQuery(s, Consultation.class);
+		query.setParameter("idEmploye", idEmploye);
+		List<Consultation> consultations = query.getResultList();
+		return consultations;
+	}
+
+	public List<Consultation> chercherRepartitionClientsParEmploye() {
+		String s = "SELECT c FROM Consultation c GROUP BY c.Employe";
+		TypedQuery<Consultation> query = JpaUtil.obtenirContextePersistance().createQuery(s, Consultation.class);
+		List<Consultation> consultations = query.getResultList();
+		return consultations;
 	}
 }

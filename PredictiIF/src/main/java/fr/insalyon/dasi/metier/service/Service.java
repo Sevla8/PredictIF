@@ -204,7 +204,7 @@ public class Service {
 		return clients;
 	}
 
-	public List<Medium> listerMediums(){
+	public List<Medium> listerMediums() {
 		List<Medium> mediums;
 		JpaUtil.creerContextePersistance();
 		try{
@@ -242,7 +242,9 @@ public class Service {
 		Consultation consultation;
 
 		try {
-			Employe employe = employeDao.chercherParGenreEtDisponibilite(medium.getGenre());
+			//Employe employe = employeDao.chercherParGenreEtDisponibilite(medium.getGenre());
+			Employe employe = employeDao.chercherParId(10L);
+
 			consultation = new Consultation(medium, client, employe);
 			employe.setEstDisponible(false);
 
@@ -328,8 +330,7 @@ public class Service {
 		return consultation;
 	}
 
-	public Consultation commenterConsultation(Consultation consultation, String commentaire)
-	{
+	public Consultation commenterConsultation(Consultation consultation, String commentaire) {
 		//Commenter la consultation (par un employé apres la fin d'une consultation)
 		JpaUtil.creerContextePersistance();
 		consultation.setCommentaire(commentaire);
@@ -401,12 +402,96 @@ public class Service {
 		return consultation;
 	}
 
-	public Consultation obtenirConsultationAffectee(Employe employe) {
-		// TODO
-		return new Consultation();
+	public Employe trouverEmployeParId(Long id) {
+		Employe employe;
+		JpaUtil.creerContextePersistance();
+		try {
+			employe = employeDao.chercherParId(id);
+		}
+		catch (Exception ex) {
+			Logger.getAnonymousLogger().log(Level.SEVERE, "Erreur !", ex);
+			employe = null;
+		}
+		finally {
+			JpaUtil.fermerContextePersistance();
+		}
+		return employe;
 	}
 
-	// service statistiques
+	public Consultation obtenirConsultationsAffectee(Employe employe) {
+		Consultation consultation = null;
+		if (!employe.getEstDisponible()) {
+
+			JpaUtil.creerContextePersistance();
+			try {
+				List<Consultation> listeDesConsultations = consultationDao.chercherParIdEmploye(employe.getId());
+				consultation = listeDesConsultations.get(0);
+			}
+			catch (Exception ex) {
+
+				Logger.getAnonymousLogger().log(Level.SEVERE, "Erreur !", ex);
+				consultation = null;
+			}
+			finally {
+				JpaUtil.fermerContextePersistance();
+			}
+		}
+		return consultation;
+	}
+
+		//Top 5 des médiums choisi par les clients
+		//nb de consultations par médium
+		//répartition des clients par employe
+	public List<Medium> obtenirStatistiqueTop5Medium() {
+		List<Medium> liste;
+		JpaUtil.creerContextePersistance();
+		try {
+			liste = mediumDao.chercherTop5ParNbConsultaions();
+		}
+		catch (Exception ex) {
+			Logger.getAnonymousLogger().log(Level.SEVERE, "Erreur !", ex);
+			liste = null;
+		}
+		finally {
+			JpaUtil.fermerContextePersistance();
+		}
+		return liste;
+	}
+
+	public String[][] obtenirNombreDeConsultationsParMedium(){
+		List<Medium> mediums=listerMediums();
+		String [][] nbConsultationsParMedium=new String[mediums.size()][3];
+		for(int i=0;i<mediums.size();i++){
+
+			// String[] bits = one.split("-");
+			// String lastOne = bits[bits.length-1];
+
+			String classNameMedium = mediums.get(i).getClass().getName();
+			nbConsultationsParMedium[i][0]=classNameMedium.substring(classNameMedium.lastIndexOf('.') + 1);
+			nbConsultationsParMedium[i][1]=mediums.get(i).getDenomination();
+			nbConsultationsParMedium[i][2]=String.valueOf(mediums.get(i).getNbConsultations());
+		}
+		return nbConsultationsParMedium;
+	}
+
+	// public List<Medium> obtenirStatistiqueRepartitionCLientsParEmployes() {
+	// 	List<Medium> liste;
+	// 	JpaUtil.creerContextePersistance();
+	// 	try {
+	// 		liste = mediumDao.chercherTop5ParNbConsultaions();
+	// 	}
+	// 	catch (Exception ex) {
+	// 		Logger.getAnonymousLogger().log(Level.SEVERE, "Erreur !", ex);
+	// 		liste = null;
+	// 	}
+	// 	finally {
+	// 		JpaUtil.fermerContextePersistance();
+	// 	}
+	// 	return liste;
+	// }
+
+	//Services à faire:
+	//historique du client
 }
 
 //description appli

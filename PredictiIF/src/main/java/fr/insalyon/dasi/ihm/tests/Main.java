@@ -38,6 +38,9 @@ public class Main {
 		testerAuthentificationEmploye();
 		testerObtenirPredictions();
 		testerTrouverConsultationParId();
+		testerObtenirConsultationsAffectee();
+		obtenirStatistiqueTop5Medium();
+		testerObtenirNombreDeConsultationsParMedium();
 		JpaUtil.destroy();
 	}
 
@@ -200,6 +203,48 @@ public class Main {
 		Consultation c = service.trouverConsultationParId(id);
 
 		System.out.println(c);
+	}
+
+	public static void testerObtenirConsultationsAffectee() {
+		Client client = service.authentifierClient("marie.curie@email.com", "12345");
+		List<Medium> mediums = (List<Medium>) service.listerMediums();
+		Medium medium = mediums.get(0);
+
+		Consultation consultation = service.obtenirConsultation(client, medium);
+		consultation = service.debuterConsultation(consultation);
+		consultation = service.finirConsultation(consultation);
+
+
+		Consultation consultation2 = service.obtenirConsultation(client, medium);
+		consultation2 = service.debuterConsultation(consultation2);
+		consultation2 = service.finirConsultation(consultation2);
+
+		Consultation consultation3 = service.obtenirConsultation(client, medium);
+		consultation3 = service.debuterConsultation(consultation3);
+		Consultation consultEnCours = service.obtenirConsultationsAffectee(service.trouverEmployeParId(10L));
+
+		System.out.println(consultation);
+		System.out.println();
+		System.out.println(consultation2);
+		System.out.println();
+		System.out.println(consultation3);
+		System.out.println();
+		System.out.println(consultEnCours);
+	}
+
+	public static void obtenirStatistiqueTop5Medium() {
+		List<Medium> mediums = service.obtenirStatistiqueTop5Medium();
+		mediums.forEach((medium) ->
+			System.out.println(medium)
+		);
+	}
+
+	public static void testerObtenirNombreDeConsultationsParMedium(){
+		String [][] listeMediumNbConsultations=service.obtenirNombreDeConsultationsParMedium();
+		for(int i=0;i<listeMediumNbConsultations.length;i++){
+			System.out.println("Medium de type : "+listeMediumNbConsultations[i][0]+", Denomination :"+listeMediumNbConsultations[i][1]
+								+", Nb Consultations :"+listeMediumNbConsultations[i][2]);
+		}
 	}
 
 	public static void testScenario() {
