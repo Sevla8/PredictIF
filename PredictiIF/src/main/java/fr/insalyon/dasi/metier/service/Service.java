@@ -91,24 +91,31 @@ public class Service {
 		List<String> list;
 		JpaUtil.creerContextePersistance();
 		try {
-			list = astroApi.getProfil(client.getPrenom(), client.getDateDeNaissance());
-			client.setProfilAstral(new ProfilAstral(list.get(0), list.get(1), list.get(2), list.get(3)));
+			System.out.println(client.getMail());
+			Employe employe = employeDao.chercherParMail(client.getMail());
+			System.out.println(employe);
+			if (employe == null){
+				list = astroApi.getProfil(client.getPrenom(), client.getDateDeNaissance());
+				client.setProfilAstral(new ProfilAstral(list.get(0), list.get(1), list.get(2), list.get(3)));
 
-			JpaUtil.ouvrirTransaction();
+				JpaUtil.ouvrirTransaction();
 
-			profilAstralDao.creer(client.getProfilAstral());
-			clientDao.creer(client);
+				profilAstralDao.creer(client.getProfilAstral());
+				clientDao.creer(client);
 
-			JpaUtil.validerTransaction();
+				JpaUtil.validerTransaction();
 
-			Message.envoyerMail(
-				UtilMessage.getMailExpediteur(),
-				client.getMail(),
-				UtilMessage.getMailObjetSucces(),
-				UtilMessage.getMailCorpsSucces(client.getPrenom())
-			);
+				Message.envoyerMail(
+					UtilMessage.getMailExpediteur(),
+					client.getMail(),
+					UtilMessage.getMailObjetSucces(),
+					UtilMessage.getMailCorpsSucces(client.getPrenom())
+				);
 
-			id = client.getId();
+				id = client.getId();
+			}else{
+				throw new Exception("Impossible d'inscrire le client");
+			}
 		}
 		catch (Exception ex) {
 			Message.envoyerMail(
@@ -234,7 +241,7 @@ public class Service {
 		return employes;
 	}
 
-	public List<Medium> listerMediumsParGenre(Boolean genre){
+	public List<Medium> listerMediumsParGenre(Boolean genre) {
 		List<Medium> mediums;
 		JpaUtil.creerContextePersistance();
 		try{
@@ -257,8 +264,8 @@ public class Service {
 		Consultation consultation;
 
 		try {
-			//Employe employe = employeDao.chercherParGenreEtDisponibilite(medium.getGenre());
-			Employe employe = employeDao.chercherParId(10L);
+			Employe employe = employeDao.chercherParGenreEtDisponibilite(medium.getGenre());
+			// Employe employe = employeDao.chercherParId(10L);
 
 			consultation = new Consultation(medium, client, employe);
 			employe.setEstDisponible(false);
@@ -513,6 +520,22 @@ public class Service {
 		JpaUtil.creerContextePersistance();
 		try {
 			historique = consultationDao.chercherConsultationsParClient(client.getId());
+		}
+		catch (Exception ex) {
+			Logger.getAnonymousLogger().log(Level.SEVERE, "Erreur !", ex);
+			historique = null;
+		}
+		finally {
+			JpaUtil.fermerContextePersistance();
+		}
+		return historique;
+	}
+
+	public List<Consultation> obtenirHistorique(Employe employe) {
+		List<Consultation> historique;
+		JpaUtil.creerContextePersistance();
+		try {
+			historique = consultationDao.chercherParIdEmploye(employe.getId());
 		}
 		catch (Exception ex) {
 			Logger.getAnonymousLogger().log(Level.SEVERE, "Erreur !", ex);

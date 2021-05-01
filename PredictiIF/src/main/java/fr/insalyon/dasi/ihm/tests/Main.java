@@ -43,9 +43,10 @@ public class Main {
 		// testerObtenirConsultationAffectee();
 		// testerObtenirTop5Mediums();
 		// testerObtenirNombreDeConsultationsParMedium();
-		// testerObtenirHistorique();
+		// testerObtenirHistoriqueClient();
 		// testerObtenirTop5Employes();
 		// testerObtenirNombreDeConsultationsParEmploye();
+		// testerObtenirHistoriqueEmploye();
 		testScenario();
 		JpaUtil.destroy();
 	}
@@ -226,7 +227,7 @@ public class Main {
 		consultation2 = service.finirConsultation(consultation2);
 
 		Consultation consultation3 = service.obtenirConsultation(client, medium);
-		Consultation consultEnCours = service.obtenirConsultationAffectee(service.trouverEmployeParId(10L));
+		Consultation consultEnCours = service.obtenirConsultationAffectee(consultation3.getEmploye());
 
 		System.out.println(consultation);
 		System.out.println();
@@ -255,7 +256,7 @@ public class Main {
 		}
 	}
 
-	public static void testerObtenirHistorique() {
+	public static void testerObtenirHistoriqueClient() {
 		Client client = service.authentifierClient("marie.curie@email.com", "12345");
 		List<Consultation> hitorique = service.obtenirHistorique(client);
 		hitorique.forEach((consultation) ->
@@ -281,6 +282,14 @@ public class Main {
 		}
 	}
 
+	public static void testerObtenirHistoriqueEmploye() {
+		Employe employe = service.authentifierEmploye("nolmeadamarais1551@gmail.com", "12345");
+		List<Consultation> hitorique = service.obtenirHistorique(employe);
+		hitorique.forEach((consultation) ->
+			System.out.println(consultation)
+		);
+	}
+
 	public static void testScenario() {
 		Client client;
 		try {
@@ -298,27 +307,35 @@ public class Main {
 			client = null;
 		}
 
+		System.out.println("Le client s'inscrit");
 		service.inscrireClient(client);	// Le client s'inscrit
 
+		System.out.println("Le client s'authentifie");
 		client = service.authentifierClient("albert.einstein@email.com", "12345");	// Le client s'authentifie
 
+		System.out.println("Affichage de la liste des mediums");
 		List<Medium> mediums = service.listerMediums();	// Affichage de la liste des mediums
 
+		System.out.println("Le client choisit un medium dans la liste");
 		Medium medium = mediums.get(rand.nextInt(mediums.size()));	// Le client choisit un medium dans la liste
 
+		System.out.println("Le client réserve une consultation");
 		Consultation consultation = service.obtenirConsultation(client, medium);	// Le client réserve une consultation
 		System.out.println();
 		System.out.println(consultation);
 		System.out.println();
 
+		System.out.println("L'employé s'authentifie");
 		Employe employe = consultation.getEmploye();
 		employe = service.authentifierEmploye(employe.getMail(), employe.getMotDePasse());	// L'employé s'authentifie
 
+		System.out.println("L'employé consulte sa consultation future");
 		consultation = service.obtenirConsultationAffectee(employe);	// L'employé consulte sa consultation future
 		System.out.println();
 		System.out.println(consultation);
 		System.out.println();
 
+		System.out.println("L'employé consulte l'historique des consultations du client");
 		List<Consultation> hitorique = service.obtenirHistorique(client);	// L'employé consulte l'historique des consultations du client
 		System.out.println();
 		hitorique.forEach((hist) ->
@@ -326,11 +343,13 @@ public class Main {
 		);
 		System.out.println();
 
+		System.out.println("L'employé mentionne qu'il est prêt à débuter la consulation");
 		consultation = service.debuterConsultation(consultation);	// L'employé mentionne qu'il est prêt à débuter la consulation
 		System.out.println();
 		System.out.println(consultation);
 		System.out.println();
 
+		System.out.println("L'employé demande une prédiction à AstroNet");
 		List<String> predictions = service.obtenirPredictions(client, 2, 1, 3); // L'employé demande une prédiction à AstroNet
 		System.out.println();
 		predictions.forEach((prediction) ->
@@ -338,22 +357,26 @@ public class Main {
 		);
 		System.out.println();
 
+		System.out.println("L'employé met fin à la consultation");
 		consultation = service.finirConsultation(consultation);	// L'employé met fin à la consultation
 		System.out.println();
 		System.out.println(consultation);
 		System.out.println();
 
+		System.out.println("L'employé ajoute un commentaire à la consultation");
 		service.commenterConsultation(consultation, "Ce client capte R mdr c une chevre");	// L'employé ajoute un commentaire à la consultation
 		System.out.println();
 		System.out.println(consultation);
 		System.out.println();
 
+		System.out.println("Le client note sa consultation");
 		service.noterConsultation(consultation, 3); // Le client note sa consultation
 		System.out.println();
 		System.out.println(consultation);
 		System.out.println();
 
 		// L'employé consulte les statistiques
+		System.out.println("L'employé consulte les statistiques");
 
 		String [][] listeMediumNbConsultations = service.obtenirNombreDeConsultationsParMedium();
 		System.out.println();
@@ -388,6 +411,14 @@ public class Main {
 		System.out.println();
 		listeEmployes.forEach((emp) ->
 			System.out.println(emp)
+		);
+		System.out.println();
+
+		System.out.println("L'employé consulte l'historique de ses consultations");
+		List<Consultation> hitoriqueEmploye = service.obtenirHistorique(employe);	// L'employé consulte son historique
+		System.out.println();
+		hitoriqueEmploye.forEach((hist) ->
+			System.out.println(hist)
 		);
 		System.out.println();
 	}
