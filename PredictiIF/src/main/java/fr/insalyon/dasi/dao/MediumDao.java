@@ -41,4 +41,10 @@ public class MediumDao {
 		TypedQuery<Medium> query = JpaUtil.obtenirContextePersistance().createQuery(s, Medium.class);
 		return query.setMaxResults(top).getResultList();
 	}
+
+	public List<Medium> chercherMediums(Integer quantite){
+		String s ="SELECT m FROM Medium m ORDER BY m.nbConsultations DESC";
+		TypedQuery<Medium> query = JpaUtil.obtenirContextePersistance().createQuery(s, Medium.class);
+		return query.setMaxResults(quantite).getResultList();
+	}
 }

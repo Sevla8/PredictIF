@@ -28,7 +28,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		JpaUtil.init();
-		service.init();
+		service.init(); // à mettre selon create / drop&create
 		// testerInscriptionClient();
 		// testerAuthentificationClient();
 		// testerObtenirConsultation();
@@ -47,6 +47,7 @@ public class Main {
 		// testerObtenirTop5Employes();
 		// testerObtenirNombreDeConsultationsParEmploye();
 		// testerObtenirHistoriqueEmploye();
+		// testerListerMediumsDisponibles();
 		testScenario();
 		JpaUtil.destroy();
 	}
@@ -287,6 +288,13 @@ public class Main {
 		List<Consultation> hitorique = service.obtenirHistorique(employe);
 		hitorique.forEach((consultation) ->
 			System.out.println(consultation)
+		);
+	}
+
+	public static void testerListerMediumsDisponibles() {
+		List<Medium> mediums = service.listerMediumsDisponibles(5);
+		mediums.forEach((medium) ->
+			System.out.println(medium)
 		);
 	}
 

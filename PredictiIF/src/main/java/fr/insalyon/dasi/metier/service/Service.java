@@ -546,6 +546,22 @@ public class Service {
 		}
 		return historique;
 	}
+
+	public List<Medium> listerMediumsDisponibles(Integer quantite) {
+		List<Medium> mediums;
+		JpaUtil.creerContextePersistance();
+		try {
+			mediums = mediumDao.chercherMediums(quantite);
+		}
+		catch (Exception ex) {
+			Logger.getAnonymousLogger().log(Level.SEVERE, "Erreur !", ex);
+			mediums = null;
+		}
+		finally {
+			JpaUtil.fermerContextePersistance();
+		}
+		return mediums;
+	}
 }
 
 //description appli
