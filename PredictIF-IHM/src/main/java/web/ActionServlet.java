@@ -59,11 +59,20 @@ public class ActionServlet extends HttpServlet {
                 serialisation = new ObtenirHistoriqueEmployeSerialisation();
             }
             break;
+
+            case"nos-mediums":{ 
+                action = new ListerMediumsAction();
+                serialisation = new ListerMediumsSerialisation();
+            }
+            break;
         }
     
         if (action != null && serialisation != null) {
             action.executer(request);
             serialisation.serialiser(request, response);
+        }
+        else{
+            response.sendError(400, "Bad Request (pas d'Action ou de Serialisation pour traiter cette requete)");
         }
     }
     
