@@ -93,6 +93,30 @@ public class ActionServlet extends HttpServlet {
                 serialisation = new ListerMediumsSerialisation();
             }
             break;
+
+            case "connexion":{
+                action=new AuthentifierClientAction();
+                serialisation=new AuthentifierClientSerialisation();
+            }
+            break;
+            
+            case "inscription":{
+                action=new InscrireClientAction();
+                serialisation=new InscrireClientSerialisation();
+            }
+            break;
+            
+            case "consultationsClient":{
+                action=new ConsultationsClientAction();
+                serialisation=new ConsultationsClientSerialisation();
+            }
+            break;
+            
+            case "statistiquesAgence":{
+                action=new StatistiquesAgenceAction();
+                serialisation=new StatistiquesAgenceSerialisation();
+            }
+            break;
         }
     
         if (action != null && serialisation != null) {
