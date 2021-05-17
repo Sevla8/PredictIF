@@ -26,7 +26,7 @@ public class StatistiquesAgenceAction extends Action{
         
         //Récupération des paramètres
         Long sessionUser = (Long) session.getAttribute("id");
-        sessionUser=12L;
+        //sessionUser=12L;
         System.out.println("sessionUser="+sessionUser);
 
         
