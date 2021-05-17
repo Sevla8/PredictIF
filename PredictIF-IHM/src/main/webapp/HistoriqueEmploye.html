@@ -38,7 +38,7 @@ and open the template in the editor.
             </nav>
         </header>
 
-        <p id="notification"></p>
+        <table id="historique"></table>
         
         
         <script>
@@ -48,15 +48,26 @@ and open the template in the editor.
                     url: './ActionServlet',
                     method: 'POST',
                     data: {
-                        todo: 'obtenirHistorique'
+                        todo: 'obtenirHistoriqueEmploye'
                     },
                     dataType: 'json'
                 })
                 .done(function (response) { // Fonction appelée en cas d'appel AJAX réussi
-                    console.log('Response',response); // LOG dans Console Javascript
+                    console.log('Response', response); // LOG dans Console Javascript
                     if (response.ok) {
-                        // TODO
-                        $('#notification').html("Connexion de " + response.employe.nom + " " + response.employe.prenom + " (ID " + response.employe.id + ")");
+                        // Récupération des données
+                        var historique = response.consultations;
+                        // Affichage de la liste des consultations
+                        $('#historique').empty(); // Vider la liste HTML
+                        $.each(historique, function (index, consultation) { // Boucle "foreach"
+                            $('#historique').append( // Ajouter du contenu dans l'élément, ici la liste HTML
+                                '<tr>' +
+                                '<td>' + consultation.mediumDenomination + '</td>' + 
+                                '<td>' + consultation.date + '</td>' +
+                                '<td>' + consultation.commentaire + '</td>' +
+                                '</tr>'
+                            );
+                        });
                     }
                     else {
                         $('#notification').html("Erreur de Connexion"); // Message pour le paragraphe de notification

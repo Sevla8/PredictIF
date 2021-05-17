@@ -15,8 +15,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import web.action.Action;
 import web.action.AuthentifierEmployeAction;
+import web.action.CommenterConsultationAction;
+import web.action.NoterConsultationAction;
 import web.action.ObtenirHistoriqueEmployeAction;
+import web.action.ObtenirPredictionsAction;
+import web.serialisation.AuthentifierEmployeSerialisation;
+import web.serialisation.CommenterConsultationSerialisation;
+import web.serialisation.NoterConsultationSerialisation;
 import web.serialisation.ObtenirHistoriqueEmployeSerialisation;
+import web.serialisation.ObtenirPredictionsSerialisation;
 import web.serialisation.Serialisation;
 
 /**
@@ -51,6 +58,7 @@ public class ActionServlet extends HttpServlet {
         switch (todo) {
             case "authentificationEmploye": {
                 action = new AuthentifierEmployeAction();
+                serialisation = new AuthentifierEmployeSerialisation();
             }
             break;
             
@@ -59,12 +67,35 @@ public class ActionServlet extends HttpServlet {
                 serialisation = new ObtenirHistoriqueEmployeSerialisation();
             }
             break;
+            
+            case "obtenirPredictions": {
+                action = new ObtenirPredictionsAction();
+                serialisation = new ObtenirPredictionsSerialisation();
+            }
+            break;
+            
+            case "noterConsultation": {
+                action = new NoterConsultationAction();
+                serialisation = new NoterConsultationSerialisation();
+            }
+            break;
+            
+            case "commenterConsultation": {
+                action = new CommenterConsultationAction();
+                serialisation = new CommenterConsultationSerialisation();
+            }
+            break;
         }
     
         if (action != null && serialisation != null) {
             action.executer(request);
             serialisation.serialiser(request, response);
         }
+        
+        else {
+            response.sendError(400, "Bad Request");
+        }
+
     }
     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -27,7 +27,7 @@ public class ObtenirHistoriqueEmployeAction extends Action {
         Long sessionId = (Long) session.getAttribute("id");
 
         if (sessionId == null) {
-            // = > Generer une erreur : response . sendError (403 ," Forbidden ( No User ) ") ;
+            request.setAttribute("ok", false);
         } 
         else {
             Employe employe = service.trouverEmployeParId(sessionId);

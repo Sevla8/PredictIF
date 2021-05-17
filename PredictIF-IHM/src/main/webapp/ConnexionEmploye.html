@@ -84,8 +84,7 @@ and open the template in the editor.
                     .done(function (response) { // Fonction appelée en cas d'appel AJAX réussi
                         console.log('Response',response); // LOG dans Console Javascript
                         if (response.ok) {
-                            alert("ok");
-                            window.location = "dernieresConsultationsEmploye.html";
+                            window.location = "HistoriqueEmploye.html";
                         }
                         else {
                             $('#notification').html("Erreur de Connexion"); // Message pour le paragraphe de notification

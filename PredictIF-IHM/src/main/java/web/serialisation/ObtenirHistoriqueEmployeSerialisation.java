@@ -8,6 +8,7 @@ package web.serialisation;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import fr.insalyon.dasi.metier.modele.Consultation;
 import java.io.IOException;
@@ -39,6 +40,7 @@ public class ObtenirHistoriqueEmployeSerialisation extends Serialisation {
             jsonListeConsultations.add(jsonConsultation);
         }
         container.add("consultations", jsonListeConsultations);
+        container.addProperty("ok", (Boolean) request.getAttribute("ok"));
 
         PrintWriter out = this.getWriter(response);
         Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().create();

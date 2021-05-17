@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Predict'if</title>
+        <link rel="stylesheet" href="./style/login.css" />
+        <!-- Librairie Javascript: jQuery (v3.4.1) -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    </head>
+
+   
+    <body>
+        <header>
+            <div id="titre_principal">          
+                <div id="logo">
+                    <img src="./images/logoAgence.png" alt="logo agence" />
+                </div>
+                <h1>Predict'if-Pro</h1>
+                <div id="element">
+                    <div class="boutonHeader">
+                        <button id="boutonHeader" >Connexion</button>
+                    </div>
+                </div>
+            </div>
+            
+            <nav class="menu">
+                <ul class="gauche">
+                    <li><a href="#">Mes consultations</a></li>
+                    <li><a href="#">Statistiques</a></li>
+                    <li><a href="#">Consultations en cours</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <script>
+            $(document).ready( function () {
+                // Appel AJAX
+                $.ajax({
+                    url: './ActionServlet',
+                    method: 'POST',
+                    data: {
+                        todo: 'commenterConsultation',
+                        consultation: "14",
+                        commentaire: "brrrrrr"
+                    },
+                    dataType: 'json'
+                })
+                .done(function (response) { // Fonction appelée en cas d'appel AJAX réussi
+                    console.log('Response',response); // LOG dans Console Javascript
+                    if (response.ok) {
+                        alert("ok");
+                    }
+                    else {
+                        $('#notification').html("Erreur de Connexion"); // Message pour le paragraphe de notification
+                    }
+                })
+                .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                    console.log('Error',error); // LOG dans Console Javascript
+                    alert("Erreur lors de l'appel AJAX");
+                })
+                .always( function () { // Fonction toujours appelée
+                });
+            });
+        </script>
+    </body>
+</html>
+
