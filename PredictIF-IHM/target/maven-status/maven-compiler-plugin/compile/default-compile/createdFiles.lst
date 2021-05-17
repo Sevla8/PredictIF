@@ -10,4 +10,6 @@ web/serialisation/CommenterConsultationSerialisation.class
 web/action/Action.class
 web/serialisation/NoterConsultationSerialisation.class
 web/ActionServlet.class
+web/action/ListerMediumsAction.class
 web/serialisation/ObtenirPredictionsSerialisation.class
+web/serialisation/ListerMediumsSerialisation.class

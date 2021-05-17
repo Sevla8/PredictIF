@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fr.insalyon.dasi.ihm.web.action;
+package web.action;
 
 import fr.insalyon.dasi.metier.modele.Medium;
 import fr.insalyon.dasi.metier.service.Service;

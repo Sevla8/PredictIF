@@ -7,6 +7,8 @@ package web;
  */
 
 import fr.insalyon.dasi.dao.JpaUtil;
+import web.action.ListerMediumsAction;
+import web.serialisation.ListerMediumsSerialisation;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -67,7 +69,6 @@ public class ActionServlet extends HttpServlet {
                 serialisation = new ObtenirHistoriqueEmployeSerialisation();
             }
             break;
-<<<<<<< HEAD
             
             case "obtenirPredictions": {
                 action = new ObtenirPredictionsAction();
@@ -84,12 +85,12 @@ public class ActionServlet extends HttpServlet {
             case "commenterConsultation": {
                 action = new CommenterConsultationAction();
                 serialisation = new CommenterConsultationSerialisation();
-=======
-
-            case"nos-mediums":{ 
+            }
+            break;
+            
+            case "nos-mediums": { 
                 action = new ListerMediumsAction();
                 serialisation = new ListerMediumsSerialisation();
->>>>>>> 9a717bed87739f521327e8a3660c571e0abaa7d6
             }
             break;
         }
@@ -98,17 +99,10 @@ public class ActionServlet extends HttpServlet {
             action.executer(request);
             serialisation.serialiser(request, response);
         }
-<<<<<<< HEAD
         
         else {
             response.sendError(400, "Bad Request");
         }
-
-=======
-        else{
-            response.sendError(400, "Bad Request (pas d'Action ou de Serialisation pour traiter cette requete)");
-        }
->>>>>>> 9a717bed87739f521327e8a3660c571e0abaa7d6
     }
     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
