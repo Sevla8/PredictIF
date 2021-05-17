@@ -117,6 +117,12 @@ public class ActionServlet extends HttpServlet {
                 serialisation=new StatistiquesAgenceSerialisation();
             }
             break;
+
+            case"nos-mediums-dispos":{ //pour la box qui s'affiche en bas à droite, c'est pas vraiment un cas vu qu'il s'affiche sur plusieurs pages
+                action = new ListerMediumsDisposAction();
+                serialisation = new ListerMediumsDisposSerialisation();
+            }
+            break;
         }
     
         if (action != null && serialisation != null) {
