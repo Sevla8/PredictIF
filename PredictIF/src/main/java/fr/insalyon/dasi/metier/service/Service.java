@@ -211,6 +211,22 @@ public class Service {
 		return clients;
 	}
 
+	public Medium trouverMediumParId(Long id) {
+		Medium medium;
+		JpaUtil.creerContextePersistance();
+		try {
+			medium = mediumDao.chercherParId(id);
+		}
+		catch (Exception ex) {
+			Logger.getAnonymousLogger().log(Level.SEVERE, "Erreur !", ex);
+			medium = null;
+		}
+		finally {
+			JpaUtil.fermerContextePersistance();
+		}
+		return medium;
+	}
+
 	public List<Medium> listerMediums() {
 		List<Medium> mediums;
 		JpaUtil.creerContextePersistance();
