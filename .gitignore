@@ -1,2 +1,5 @@
-/PredictiIF/target/
+PredictIF/target/
+PredictIF/target/*
+PredictIF-IHM/target/
+PredictIF-IHM/target/*
 .vscode/
