@@ -1,5 +1,5 @@
 
-package serialisation;
+package fr.insalyon.dasi.ihm.web.serialisation;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

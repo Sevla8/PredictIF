@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package web.action;
+package fr.insalyon.dasi.ihm.web.action;
 
+import fr.insalyon.dasi.metier.modele.Consultation;
 import fr.insalyon.dasi.metier.service.Service;
-import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author B3202-B3205
  */
-public class ObtenirPredictionsAction extends Action {
+public class CommenterConsultationAction extends Action {
 
     private final Service service = new Service();
     
@@ -28,20 +28,16 @@ public class ObtenirPredictionsAction extends Action {
             request.setAttribute("ok", false);
         }
         else {
-            String client = request.getParameter("client");
-            String amour = request.getParameter("amour");
-            String sante = request.getParameter("sante");
-            String travail = request.getParameter("travail");
+            String consultation = request.getParameter("consultation");
+            String commentaire = request.getParameter("commentaire");
             
-            List<String> prediction = service.obtenirPredictions(
-                    service.trouverClientParId(Long.parseLong(client)),
-                    Integer.parseInt(amour), 
-                    Integer.parseInt(sante), 
-                    Integer.parseInt(travail)
+            Consultation consult = service.commenterConsultation(
+                    service.trouverConsultationParId(Long.parseLong(consultation)),
+                    commentaire
             );
 
             request.setAttribute("ok", true);
-            request.setAttribute("prediction", prediction);
+            request.setAttribute("consultation", consult);
         }
     }
 }

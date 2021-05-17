@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package web.action;
+package fr.insalyon.dasi.ihm.web.action;
 
 import fr.insalyon.dasi.metier.modele.Consultation;
 import fr.insalyon.dasi.metier.service.Service;
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author B3202-B3205
  */
-public class CommenterConsultationAction extends Action {
+public class NoterConsultationAction extends Action {
 
     private final Service service = new Service();
     
@@ -29,11 +29,11 @@ public class CommenterConsultationAction extends Action {
         }
         else {
             String consultation = request.getParameter("consultation");
-            String commentaire = request.getParameter("commentaire");
+            String note = request.getParameter("note");
             
-            Consultation consult = service.commenterConsultation(
+            Consultation consult = service.noterConsultation(
                     service.trouverConsultationParId(Long.parseLong(consultation)),
-                    commentaire
+                    Integer.parseInt(note)
             );
 
             request.setAttribute("ok", true);

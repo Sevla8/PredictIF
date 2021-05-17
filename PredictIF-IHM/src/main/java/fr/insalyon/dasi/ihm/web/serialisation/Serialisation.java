@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package web.serialisation;
+package fr.insalyon.dasi.ihm.web.serialisation;
 
 import java.io.IOException;
 import java.io.PrintWriter;

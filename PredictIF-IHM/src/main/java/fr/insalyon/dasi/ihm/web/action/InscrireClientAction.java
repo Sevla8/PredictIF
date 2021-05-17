@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package action;
+package fr.insalyon.dasi.ihm.web.action;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
-import metier.modele.Client;
-import metier.service.Service;
+import fr.insalyon.dasi.metier.modele.Client;
+import fr.insalyon.dasi.metier.service.Service;
 
 /**
  *

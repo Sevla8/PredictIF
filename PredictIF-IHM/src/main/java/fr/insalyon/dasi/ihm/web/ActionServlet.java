@@ -1,4 +1,4 @@
-package web;
+package fr.insalyon.dasi.ihm.web;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -7,26 +7,34 @@ package web;
  */
 
 import fr.insalyon.dasi.dao.JpaUtil;
-import web.action.ListerMediumsAction;
-import web.serialisation.ListerMediumsSerialisation;
+import fr.insalyon.dasi.ihm.web.action.ListerMediumsAction;
+import fr.insalyon.dasi.ihm.web.serialisation.ListerMediumsSerialisation;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import web.action.Action;
-import web.action.AuthentifierEmployeAction;
-import web.action.CommenterConsultationAction;
-import web.action.NoterConsultationAction;
-import web.action.ObtenirHistoriqueEmployeAction;
-import web.action.ObtenirPredictionsAction;
-import web.serialisation.AuthentifierEmployeSerialisation;
-import web.serialisation.CommenterConsultationSerialisation;
-import web.serialisation.NoterConsultationSerialisation;
-import web.serialisation.ObtenirHistoriqueEmployeSerialisation;
-import web.serialisation.ObtenirPredictionsSerialisation;
-import web.serialisation.Serialisation;
+import fr.insalyon.dasi.ihm.web.action.Action;
+import fr.insalyon.dasi.ihm.web.action.AuthentifierClientAction;
+import fr.insalyon.dasi.ihm.web.action.AuthentifierEmployeAction;
+import fr.insalyon.dasi.ihm.web.action.CommenterConsultationAction;
+import fr.insalyon.dasi.ihm.web.action.InscrireClientAction;
+import fr.insalyon.dasi.ihm.web.action.ListerMediumsDisposAction;
+import fr.insalyon.dasi.ihm.web.action.NoterConsultationAction;
+import fr.insalyon.dasi.ihm.web.action.ObtenirHistoriqueEmployeAction;
+import fr.insalyon.dasi.ihm.web.action.ObtenirPredictionsAction;
+import fr.insalyon.dasi.ihm.web.action.StatistiquesAgenceAction;
+import fr.insalyon.dasi.ihm.web.serialisation.AuthentifierClientSerialisation;
+import fr.insalyon.dasi.ihm.web.serialisation.AuthentifierEmployeSerialisation;
+import fr.insalyon.dasi.ihm.web.serialisation.CommenterConsultationSerialisation;
+import fr.insalyon.dasi.ihm.web.serialisation.InscrireClientSerialisation;
+import fr.insalyon.dasi.ihm.web.serialisation.ListerMediumsDisposSerialisation;
+import fr.insalyon.dasi.ihm.web.serialisation.NoterConsultationSerialisation;
+import fr.insalyon.dasi.ihm.web.serialisation.ObtenirHistoriqueEmployeSerialisation;
+import fr.insalyon.dasi.ihm.web.serialisation.ObtenirPredictionsSerialisation;
+import fr.insalyon.dasi.ihm.web.serialisation.Serialisation;
+import fr.insalyon.dasi.ihm.web.serialisation.StatistiquesAgenceSerialisation;
 
 /**
  *
@@ -107,8 +115,8 @@ public class ActionServlet extends HttpServlet {
             break;
             
             case "consultationsClient":{
-                action=new ConsultationsClientAction();
-                serialisation=new ConsultationsClientSerialisation();
+//                action=new ConsultationsClientAction();
+//                serialisation=new ConsultationsClientSerialisation();
             }
             break;
             

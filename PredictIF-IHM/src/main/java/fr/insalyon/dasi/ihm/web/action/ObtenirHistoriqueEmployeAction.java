@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package web.action;
+package fr.insalyon.dasi.ihm.web.action;
 
 import fr.insalyon.dasi.metier.modele.Consultation;
+import fr.insalyon.dasi.metier.modele.Employe;
 import fr.insalyon.dasi.metier.service.Service;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -14,7 +16,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author B3202-B3205
  */
-public class NoterConsultationAction extends Action {
+public class ObtenirHistoriqueEmployeAction extends Action {
 
     private final Service service = new Service();
     
@@ -26,18 +28,13 @@ public class NoterConsultationAction extends Action {
 
         if (sessionId == null) {
             request.setAttribute("ok", false);
-        }
+        } 
         else {
-            String consultation = request.getParameter("consultation");
-            String note = request.getParameter("note");
-            
-            Consultation consult = service.noterConsultation(
-                    service.trouverConsultationParId(Long.parseLong(consultation)),
-                    Integer.parseInt(note)
-            );
+            Employe employe = service.trouverEmployeParId(sessionId);
+            List<Consultation> historique = service.obtenirHistorique(employe);
 
             request.setAttribute("ok", true);
-            request.setAttribute("consultation", consult);
+            request.setAttribute("historique", historique);
         }
     }
 }
