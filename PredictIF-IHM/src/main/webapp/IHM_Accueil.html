@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Predict'if</title>
+        <link rel="stylesheet" href="./style/login.css" />
+        
+        <!-- Librairie Javascript: jQuery (v3.4.1) -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    </head>
+
+   
+    <body>
+        <header>
+            <div id="titre_principal">          
+                <div id="logo">
+                    <img src="./images/logoAgence.png" alt="logo agence" />
+                </div>
+                <h1>Predict'if</h1>
+                <div id="element">
+                    <div class="boutonHeader">
+                        <button id="boutonHeader">Inscription</button>
+                        <button id="boutonHeader" >Connexion</button>
+                    </div>
+                    <div class="drapeauHeader"> 
+                        <ul class="drapeaux">
+                            <li><img src="./images/drapeau_espagnol.jpg"></li>
+                            <li><img src="./images/drapeau-allemand.jpg"></li>
+                            <li><img src="./images/drapeau-anglais.jpg"></li>
+                            <li><img src="./images/drapeau_francais.jpg"></li>
+                        </ul>
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <nav class="menu">
+                <ul class="gauche">
+                    <li><a href="#">Accueil</a></li>
+                    <li><a href="#">Qui sommes nous?</a></li>
+                    <li><a href="#">Nos médiums</a></li>
+                    <li><a href="#">Astro</a></li>
+                </ul>
+                <ul class="droite">
+                    <li ><a href="#">Partenaires</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="accroche">
+            N’attendez plus, réservez votre 1ère consultation dès maintenant avec le medium
+            qui vous correspond le mieux et obtenez la vie dont vous rêvez !!
+        </div>
+
+        <section>
+            <table class="formulaire">
+                <tr>
+                    <th colspan="2" class="inscription"><h2>Inscription</h2></th>
+                    <th colspan="2" class="sansBordure"><h2>Connexion</h2></th>
+
+                </tr>
+                <tr>          
+                    <th>
+                        Genre :
+                    </th>
+                    <td>
+                        <input type="radio" id="Homme" name="champ-sexe" value="H" class="sansBordure" required>
+                        <label for="Homme">H</label>
+                        <input type="radio" id="Femme" name="champ-sexe" value="F" required>
+                        <label for="Femme">F</label>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="champ-nom">Nom</label></th>
+                    <td><input type="text" id="champ-nom" size="20" required/></td>
+                </tr>
+
+                <tr>
+                    <th><label for="champ-prenom">Prénom</label></th>
+                    <td><input type="text" id="champ-prenom" size="20" required/></td>
+                </tr>
+                <tr>
+                    <th><label for="champ-adresse">Adresse postale : </label></th>
+                    <td><input type="text" id="champ-adresse" size="20" required/></td>
+                </tr>
+                <tr>
+                    <th><label for="champ-tel">Téléphone :</label></th>
+                    <td><input type="tel" id="champ-tel" size="20" required/></td>
+                </tr>
+                <tr>
+                    <th><label for="champ-dateNaissance">Date de naissance</label></th>
+                    <td><input type="date" id="champ-dateNaissance" size="20" required/></td>
+
+                    <th class="sansBordure" id="tropProche"><label for="champ-login">Mail</label></th>
+                    <td class="sansBordure"><input type="email" id="champ-login" size="20" required/></td>
+                </tr>
+                <tr>
+                    <th><label for="champ-mail">Mail</label></th>
+                    <td><input type="email" id="champ-mail" size="20" required/></td>
+
+                    <th class="sansBordure" id="tropProche"><label for="champ-password">Mot de passe</label></th>
+                    <td class="sansBordure"><input type="password" id="champ-password" required/></td>
+                </tr>
+                <tr>
+                    <th><label for="champ-mdp">Mot de passe</label></th>
+                    <td><input type="password" id="champ-mdp" required/></td>
+
+                    <td colspan="2" class="centrer-bord">
+                        <button id="bouton-connexion" class="joli-bouton">Se connecter</button>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="champ-mdpConf">Confirmer le mot de passe</label></th>
+                    <td><input type="password" id="champ-mdpConf" required/></td>
+
+                </tr>
+
+                <tr>
+                    <td colspan="2"><input type="checkbox" id="robot" required/>Je ne suis pas un robot</td>
+
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="checkbox" id="cgu" required/>J'ai lu et j'accepte les CGU</td>
+
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="checkbox" id="newsletter"/>J'accepte de recevoir la newsletter</td>
+
+                </tr>
+                <tr>
+                    <td colspan="2" class="centrer">
+                        <button id="bouton-inscription" class="joli-bouton">Je m'inscris</button>
+                    </td>
+                    
+                </tr>
+                <tr>
+                    <td id="notification-inscription" colspan="2" class="centrer"></td> <!-- pour la Notification -->
+                    <td class="sansBordure" id="notification-connexion"> </td>
+                </tr>
+                
+            </table>
+            
+            <aside>
+                <h1>
+                    Consultations  
+                    <img id="spiraleConsultation" src="./images/spiraleConsultations.png"/>
+                    </br>
+                    <img id="spiraleDisponible" src="./images/spiraleDisponibles.png"/>
+                    disponibles
+                </h1>
+                <p>Mme Irma</p>
+                <p>Mr H</p>
+                <p>Endora</p>
+                <p>Jesé Tou</p>
+            </aside>
+        </section>
+        
+     
+        
+        <!-- Lien vers l'accueil -->
+        <p><a href="index.html">Retour à la page d'Accueil</a></p>
+        
+        <footer>
+            <div class="nousSuivre">
+                Nous suivre :
+                <img class="reseauSocial" src="./images/instagram.png"/>
+                <img class="reseauSocial" src="./images/facebook.png"/>
+                <img class="reseauSocial" src="./images/twitter.png"/>
+                | <a href="#">CGU</a>
+            </div>
+        </footer>
+        
+        
+        <script>
+            $(document).ready( function () {
+                $('#bouton-connexion').on( 'click', function () { // Fonction appelée lors du clic sur le bouton
+
+                    console.log("clic sur le bouton de connexion"); // LOG dans Console Javascript
+                    $('#notification-connexion').html("Connexion..."); // Message pour le paragraphe de notification
+
+                    // Récupération de la valeur des champs du formulaire
+                    var champLogin = $('#champ-login').val();
+                    var champPassword = $('#champ-password').val();
+
+                    // Appel AJAX
+                    $.ajax({
+                        url: './ActionServlet',
+                        method: 'POST',
+                        data: {
+                            todo: 'connexion',
+                            login: champLogin,
+                            password: champPassword
+                        },
+                        dataType: 'json'
+                    })
+                    .done( function (response) { // Fonction appelée en cas d'appel AJAX réussi
+                        console.log('Response',response); // LOG dans Console Javascript
+                        if (response.connexion) {
+                            $('#notification-connexion').html("Connexion OK");  // Message pour le paragraphe de notification
+                            // TODO: afficher les informations du client dans la notification
+                            // Exemple: Connexion de Ada Lovelace (ID 1)
+                            var rep="Connexion de "+response.client.prenom+" "+response.client.nom+" (ID "+response.client.id+")";
+                            $('#infosClient').html(rep);
+                            
+                            window.location = "derniereConsultationsClient.html";
+                            
+                        }
+                        else {
+                            $('#notification-connexion').html("Erreur de Connexion"); // Message pour le paragraphe de notification
+                            $('#infosClient').html("Ici s'afficheront les infos clients");
+                        }
+                    })
+                    .fail( function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                        console.log('Error',error); // LOG dans Console Javascript
+                        alert("Erreur lors de l'appel AJAX");
+                    })
+                    .always( function () { // Fonction toujours appelée
+                        
+                    });
+                });
+            });
+            
+            $(document).ready( function () {
+                $('#bouton-inscription').on( 'click', function () { // Fonction appelée lors du clic sur le bouton
+
+                    console.log("clic sur le bouton d'inscription"); // LOG dans Console Javascript
+                    $('#notification-inscription').html("Inscription..."); // Message pour le paragraphe de notification
+
+                    // Récupération de la valeur des champs du formulaire
+                    var champSexe= $('input[name=champ-sexe]:checked').val();
+                    if(champSexe==='F'){
+                        champSexe=0;
+                    }else{
+                        champSexe=1;
+                    }
+                    var champPrenom = $('#champ-prenom').val();
+                    var champNom = $('#champ-nom').val();
+                    var champAdresse = $('#champ-adresse').val();
+                    var champTel = $('#champ-tel').val();                    
+                    var champDateNaissance = $('#champ-dateNaissance').val();
+                    var champMail = $('#champ-mail').val();
+                    var champMdp = $('#champ-mdp').val();
+                    var champMdpConf = $('#champ-mdpConf').val();
+                    var champRobot = $('#robot').is(':checked');
+                    var champCgu = $('#cgu').is(':checked');
+                    var champNewsletter = $('#newsletter').is(':checked');
+                    
+                    //Vérification de la validité des informations entrées
+                    var valide=0;
+                    var msg="";
+                    //Obligation de lire et accepter les CGU
+                    if(!champCgu){
+                        msg="Veuillez lire et accepter les CGU";
+                        valide++;
+                    }
+                    //Obligation de certifier ne pas être un robot
+                    if(!champRobot){
+                        msg+="</br>Veuillez certifier que vous n'êtes pas un robot";
+                        valide++;
+                    }
+                    //Obligation de donner le même mot de passe dans les 2 champs
+                    if(champMdp !== champMdpConf || champMdp==="" || champMdpConf===""){
+                        msg+="</br>Veuillez vérifier votre mot de passe";
+                        valide++;
+                    }
+                    
+                    //Appel AJAX
+                    if(valide===0){
+                        $('#notification-inscription').html("Inscription...");
+                        // Appel AJAX
+                        $.ajax({
+                            url: './ActionServlet',
+                            method: 'POST',
+                            data: {
+                                todo: 'inscription',
+                                prenom:champPrenom,
+                                nom: champNom,
+                                sexe: champSexe,
+                                adresse: champAdresse,
+                                telephone: champTel,
+                                dateDeNaissance: champDateNaissance,
+                                mail:champMail,
+                                password: champMdpConf
+                            },
+                            dataType: 'json'
+                        })
+                        
+                        .done( function (response) { // Fonction appelée en cas d'appel AJAX réussi
+                            console.log('Response',response); // LOG dans Console Javascript
+                            if (response.inscription) {
+                                $('#notification-inscription').html("Inscription OK");  // Message pour le paragraphe de notification
+                                // TODO: afficher les informations du client dans la notification
+                                // Exemple: Connexion de Ada Lovelace (ID 1)
+                                var rep="Inscription de "+response.client.prenom+" "+response.client.nom+" (ID "+response.client.id+")";
+                                $('#infosClient').html(rep);
+
+                            }
+                            else {
+                                $('#notification-inscription').html("Erreur lors de l'inscription"); // Message pour le paragraphe de notification
+                                $('#infosClient').html("Ici s'afficheront les infos clients");
+                            }
+                        })
+                        .fail( function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                            console.log('Error',error); // LOG dans Console Javascript
+                            alert("Erreur lors de l'appel AJAX");
+                        })
+                        .always( function () { // Fonction toujours appelée
+
+                        });
+                        
+                        
+                    }else{
+                        $('#notification-inscription').html("<div class=\"notif\">"+msg+"</div>");
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>
