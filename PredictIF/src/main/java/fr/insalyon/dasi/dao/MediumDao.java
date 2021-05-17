@@ -23,6 +23,10 @@ public class MediumDao {
 		return JpaUtil.obtenirContextePersistance().merge(medium);
 	}
 
+	public Medium chercherParId(Long id) {
+		return JpaUtil.obtenirContextePersistance().find(Medium.class, id);
+	}
+
 	public List<Medium> chercherParGenre(Boolean genre){
 		String s = "select m from Medium m where m.genre = :genre";
 		TypedQuery<Medium> query = JpaUtil.obtenirContextePersistance().createQuery(s, Medium.class);
