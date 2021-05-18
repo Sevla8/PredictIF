@@ -72,6 +72,30 @@ public class ActionServlet extends HttpServlet {
             }
             break;
             
+            case"ChargerProfil":{ 
+                action = new ChargerProfilAction();
+                serialisation = new ChargerProfilSerialisation();
+            }
+            break;
+
+            case"PreparerConsultation":{ 
+                action = new PreparerConsultationAction();
+                serialisation = new PreparerConsultationSerialisation();
+            }     
+            break;
+            
+            case"DebuterConsultation":{ 
+                action = new DebuterConsultationAction();
+                serialisation = new DebuterConsultationSerialisation();
+            }     
+            break;
+
+            case"FinDeConsultation":{ 
+                action = new FinirConsultationAction();
+                serialisation = new FinirConsultationSerialisation();
+            }     
+            break;
+            
             case "obtenirHistoriqueEmploye": {
                 action = new ObtenirHistoriqueEmployeAction();
                 serialisation = new ObtenirHistoriqueEmployeSerialisation();
