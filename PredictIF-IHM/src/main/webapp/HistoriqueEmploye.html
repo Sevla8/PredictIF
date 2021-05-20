@@ -9,12 +9,12 @@ and open the template in the editor.
     <head>
         <meta charset="UTF-8">
         <title>Predict'if</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="./style/login.css" />
         <!-- Librairie Javascript: jQuery (v3.4.1) -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     </head>
-
-
     <body class="employe">
         <header>
             <div id="titre_principal">
@@ -31,15 +31,19 @@ and open the template in the editor.
 
             <nav class="menu">
                 <ul class="gauche">
-                    <li><a href="#">Mes consultations</a></li>
+                    <li><a href="./HistoriqueEmploye.html">Mes consultations</a></li>
                     <li><a href="statistiquesAgence.html">Statistiques</a></li>
                     <li><a href="Consultation-en-cours.html">Consultations en cours</a></li>
                 </ul>
             </nav>
         </header>
+        
+        <div class="m-5">
+            <h2 class="text-start">Mes dernières consultations</h2>
 
-        <table id="historique"></table>
-
+            <table class="table table-striped" id="historique"></table>
+        </div>
+        
 
         <script>
             $(document).ready( function () {
@@ -57,16 +61,28 @@ and open the template in the editor.
                     if (response.ok) {
                         // Récupération des données
                         var historique = response.consultations;
+                        console.log(historique);
                         // Affichage de la liste des consultations
                         $('#historique').empty(); // Vider la liste HTML
-                        $.each(historique, function (index, consultation) { // Boucle "foreach"
-                            $('#historique').append( // Ajouter du contenu dans l'élément, ici la liste HTML
+                        $('#historique').append(
+                            '<thead>' +
+                            '<tr>' +
+                            '<th scope="col">Médium</th>' +
+                            '<th scope="col">Date</th>' +
+                            '<th scope="col">Commentaire</th>' +
+                            '</tr>' +
+                            '</thead>'
+                        );
+                        $.each(historique, function (index, consultation) {
+                            $('#historique').append(
+                                '<tbody>' +
                                 '<tr>' +
                                 '<td>' + consultation.mediumDenomination + '</td>' +
                                 '<td>' + consultation.date + '</td>' +
                                 '<td>' + consultation.commentaire + '</td>' +
-                                '</tr>'
-                            );
+                                '</tr>' +
+                                '</tbody>'
+                            )
                         });
                     }
                     else {
