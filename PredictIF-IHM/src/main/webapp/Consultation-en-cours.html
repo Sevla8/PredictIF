@@ -184,7 +184,7 @@ and open the template in the editor.
                     if(response.fin === true)
                     {
                         $('#zoneBoutons').html( " FIN DE CONSULTATION");
-                        popupPrediction("CommenterConsultation.html");
+                        popupCommentaire("CommenterConsultation.html?idConsultation="+idConsultation);
                     }else{
                         $('#zoneBoutons').html("ERREUR");
                     }
@@ -201,7 +201,10 @@ and open the template in the editor.
          });
         function popupPrediction(page) {
             var url=page+"?clientId="+idClient;
-            window.open(url,"","width=500,height=300" );//,resizable=no, width=300, height=500, menubar=no);
+            window.open(url,"","width=500,height=300" );
+        }
+        function popupCommentaire(page) {
+            window.open(page,"","width=500,height=300" );
         }
 
         </script>

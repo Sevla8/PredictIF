@@ -21,7 +21,7 @@ public class ListerMediumsDisposAction extends Action{
         
         Service service = new Service();
         
-        //List<Medium> listeMediums = service.listerMediums();
+        List<Medium> listeMediums = service.listerMediums();
         
         List<Medium> listeMediumsDispos = service.listerMediumsDisponibles(3);
         

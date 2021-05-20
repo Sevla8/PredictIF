@@ -32,9 +32,9 @@ public class NoterConsultationSerialisation extends Serialisation {
         container.addProperty("date", consultation.getDateDebut().toString());
         container.addProperty("note", consultation.getNote());
 
-		PrintWriter out = this.getWriter(response);
-        Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
-        gson.toJson(container, out);
-        out.close();
+        try (PrintWriter out = this.getWriter(response)) {
+            Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
+            gson.toJson(container, out);
+        }
     }
 }

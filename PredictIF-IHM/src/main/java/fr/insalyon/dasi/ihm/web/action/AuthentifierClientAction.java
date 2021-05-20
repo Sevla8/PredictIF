@@ -39,10 +39,6 @@ public class AuthentifierClientAction extends Action{
         if(client!=null){
             //Enregistrement des paramètres dans l'url
             request.setAttribute("connexion",true);
-            request.setAttribute("id",client.getId());
-            request.setAttribute("nom",client.getNom());
-            request.setAttribute("prenom",client.getPrenom());
-            request.setAttribute("mail",client.getMail());
             
             //Enregistrement dans la session
             session.setAttribute("idUser",client.getId());

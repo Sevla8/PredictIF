@@ -28,13 +28,11 @@ public class CommenterConsultationSerialisation extends Serialisation {
         
         Consultation consultation = (Consultation) request.getAttribute("consultation");
         
-        container.addProperty("mediumDenomination", consultation.getMedium().getDenomination());
-        container.addProperty("date", consultation.getDateDebut().toString());
         container.addProperty("commentaire", consultation.getCommentaire());
 
-        PrintWriter out = this.getWriter(response);
-        Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
-        gson.toJson(container, out);
-        out.close();
+        try (PrintWriter out = this.getWriter(response)) {
+            Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
+            gson.toJson(container, out);
+        }
     }
 }

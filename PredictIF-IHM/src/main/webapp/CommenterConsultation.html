@@ -14,25 +14,29 @@ and open the template in the editor.
     </head>
     <body class="employe">
         <div id='commentaire'> commentez ici 
+            <textarea id="champ-commentaire" name="commentaire" rows="4" cols="10"> ici !  </textarea>
         </div>
+        <button id='commenterBoutton'>commenter !</button>
 
         <script>
             $(document).ready( function () {
-                $('#genererBoutton').on( 'click', function () { // Fonction appelée lors du clic sur le bouton
+                $('#commenterBoutton').on( 'click', function () { // Fonction appelée lors du clic sur le bouton
+                var idConsult = window.location.search.substring(16);
                 // Appel AJAX
                 $.ajax({
                     url: './ActionServlet',
                     method: 'POST',
                     data: {
                         todo: 'commenterConsultation',
-                        /*consultation : ,
-                        commentaire : $('#champ-sante').val()*/
+                        commentaire : $('#champ-commentaire').val(),
+                        consultation: idConsult
                     },
                     dataType: 'json'
                 })
                 .done( function (response) { // Fonction appelée en cas d'appel AJAX réussi
                     console.log('Response',response); // LOG dans Console Javascript
-                    $('#commentaire').html("merci !");
+                    $('#commentaire').html("merci ! Votre commentaire: "+response.commentaire);
+                     commenterBoutton.style.display = "none";
                  })
 
                 .fail( function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX

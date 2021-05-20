@@ -27,7 +27,7 @@ public class DebuterConsultationSerialisation extends Serialisation{
         JsonObject container = new JsonObject () ; // Objet JSON " conteneur "
         container.addProperty("debut", debut);
 
-        try (PrintWriter sortie = response.getWriter()){
+        try (PrintWriter sortie = this.getWriter(response)){
             Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().create() ;
             gson.toJson(container,sortie );
             out.close();

@@ -28,11 +28,11 @@ public class CommenterConsultationAction extends Action {
             request.setAttribute("ok", false);
         }
         else {
-            String consultation = request.getParameter("consultation");
+            Long consultation = Long.parseLong(request.getParameter("consultation"));
             String commentaire = request.getParameter("commentaire");
             
             Consultation consult = service.commenterConsultation(
-                    service.trouverConsultationParId(Long.parseLong(consultation)),
+                    service.trouverConsultationParId(consultation),
                     commentaire
             );
 

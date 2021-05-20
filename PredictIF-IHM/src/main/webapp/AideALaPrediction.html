@@ -48,7 +48,8 @@ and open the template in the editor.
         <script>
             $(document).ready( function () {
                 $('#genererBoutton').on( 'click', function () { // Fonction appelée lors du clic sur le bouton
-
+                var idDuClient = window.location.search.substring(10);
+                console.log(idDuClient);
                 // Appel AJAX
                 $.ajax({
                     url: './ActionServlet',
@@ -57,7 +58,8 @@ and open the template in the editor.
                         todo: 'obtenirPredictions',
                         amour: $('#champ-amour').val(),
                         sante:  $('#champ-sante').val(),
-                        travail:  $('#champ-travail').val()
+                        travail:  $('#champ-travail').val(),
+                        client: idDuClient
                     },
                     dataType: 'json'
                 })

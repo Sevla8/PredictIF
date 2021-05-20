@@ -28,14 +28,16 @@ public class ChargerProfilSerialisation extends Serialisation{
    @Override
    public void serialiser(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
+        JsonObject container = new JsonObject () ; // Objet JSON " conteneur "
+                  
        if(request.getAttribute("client") != null){
             Client client = (Client)request.getAttribute("client");
             List<Consultation> historique = (List<Consultation>) request.getAttribute("historique");
-
-             DateFormat dateFormat = new SimpleDateFormat("yyy-mm-dd");
-             String dateStr = dateFormat.format(client.getDateDeNaissance());
-
-             JsonObject container = new JsonObject () ; // Objet JSON " conteneur "
+            
+            container.addProperty ("connecte", true );
+            
+            DateFormat dateFormat = new SimpleDateFormat("yyy-mm-dd");
+            String dateStr = dateFormat.format(client.getDateDeNaissance());
 
              JsonObject jsonClient = new JsonObject () ;
              jsonClient.addProperty ("id", client.getId () );
@@ -59,21 +61,14 @@ public class ChargerProfilSerialisation extends Serialisation{
                  consultations.add(jsonConsult);
              }
              container.add("consultations", consultations);
-             System.out.println("-");
-             System.out.println("-");
-             System.out.println("-");
-             System.out.println("-");
-             System.out.println(container);
-             System.out.println("-");
-             System.out.println("-");
-             System.out.println("-");
-
-             try (PrintWriter sortie = response.getWriter()){
-                 Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().create() ;
-                 gson.toJson(container,sortie );
-                 out.close();
-             }
-        }
-
+        }else{
+           container.addProperty ("connecte", false );
+       }
+           
+        try (PrintWriter sortie = this.getWriter(response)){
+              Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().create() ;
+              gson.toJson(container,sortie );
+              out.close();
+          }
     }
 }

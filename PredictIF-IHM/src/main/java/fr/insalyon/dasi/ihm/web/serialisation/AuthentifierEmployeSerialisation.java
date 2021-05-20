@@ -27,9 +27,9 @@ public class AuthentifierEmployeSerialisation extends Serialisation {
         
         container.addProperty("ok", (Boolean) request.getAttribute("ok"));
 
-        PrintWriter out = this.getWriter(response);
-        Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
-        gson.toJson(container, out);
-        out.close();
+        try (PrintWriter out = this.getWriter(response)) {
+            Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
+            gson.toJson(container, out);
+        }
     }
 }

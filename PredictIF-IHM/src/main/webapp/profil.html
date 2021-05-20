@@ -1,39 +1,64 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <meta charset="UTF-8">
         <title>Predict'if</title>
-        <!-- <link rel="stylesheet" href="./style/profil.css" /> -->
+        <link rel="stylesheet" href="./style/login.css" />
         <!-- Librairie Javascript: jQuery (v3.4.1) -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     </head>
     <body class="client">
+         <header>
+            <div id="titre_principal">
+                <div id="logo">
+                    <img src="./images/logoAgence.png" alt="logo agence" />
+                </div>
+                <h1>Predict'if</h1>
+                <div id="element">
+                    <div class="boutonHeader">
+                        <button id="boutonHeader">Inscription</button>
+                        <button id="boutonHeader" >Connexion</button>
+                    </div>
+                    <div class="drapeauHeader">
+                        <ul class="drapeaux">
+                            <li><img src="./images/drapeau_espagnol.jpg"></li>
+                            <li><img src="./images/drapeau-allemand.jpg"></li>
+                            <li><img src="./images/drapeau-anglais.jpg"></li>
+                            <li><img src="./images/drapeau_francais.jpg"></li>
+                        </ul>
 
-        <table>
-            <thead>
-                <tr>
-                    <th colspan="2">Mon profil</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td id='nomClient'>nom prenom</td>
-                    <td> </td>
-                </tr>
-                <tr>
-                    <td id='dateDeNaissance'> date de naissance </td>
-                    <td id='mail'> mail </td>
-                </tr>
-                <tr>
-                    <td id='adressePostale'> adresse </td>
-                    <td> <u> modifier mes données </u> </td>
-                </tr>
-            </tbody>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="menu">
+                <ul class="gauche">
+                    <li><a href="./accueil.html">Accueil</a></li>
+					<li><a href="./informations.html">Qui sommes nous?</a></li>
+					<li><a href="./nos-mediums.html">Nos médiums</a></li>
+					<li><a href="./astro.html">Astro</a></li>
+                </ul>
+                <ul class="droite">
+                    <li ><a href="#">Partenaires</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <h3  class="manuscrit"> Mon profil </h3> 
+        <table class="TableauCentre">
+            <tr>
+                <td id='nomClient'  class = "sansBordure">nom prenom</td>
+                <td class = "sansBordure"> </td>
+            </tr>
+            <tr>
+                <td id='dateDeNaissance'  class = "sansBordure"> date de naissance </td>
+                <td id='mail'  class = "sansBordure"> mail </td>
+            </tr>
+            <tr>
+                <td id='adressePostale' class = "sansBordure"> adresse </td>
+                <td class = "sansBordure"> <u> modifier mes données </u> </td>
+            </tr>
         </table>            
 
         <table>
@@ -44,12 +69,12 @@ and open the template in the editor.
             </thead>
             <tbody>
                 <tr>
-                    <td id='signeZodiaque'>Signe du zodiaque</td>
-                    <td id='couleurPB'> Couleur porte bonheur</td>
+                    <td id='signeZodiaque'  class = "sansBordure">Signe du zodiaque</td>
+                    <td id='couleurPB'  class = "sansBordure"> Couleur porte bonheur</td>
                 </tr>
                 <tr>
-                    <td id='signeAstroChinois'> Signe astrologique chinois  </td>
-                    <td id='animalTotem'> Animal totem </td>
+                    <td id='signeAstroChinois'  class = "sansBordure"> Signe astrologique chinois  </td>
+                    <td id='animalTotem'  class = "sansBordure"> Animal totem </td>
                 </tr>
             </tbody>
         </table>      
@@ -83,26 +108,32 @@ and open the template in the editor.
                     })
                     .done( function (response) { // Fonction appelée en cas d'appel AJAX réussi
                         console.log('Response',response); // LOG dans Console Javascript
-                        
-                        //Profil 
-                        $('#nomClient').html(response.client.prenom +" "+ response.client.nom);
-                        $('#dateDeNaissance').html(response.client.dateNaissance);
-                        $('#mail').html(response.client.mail);
-                        $('#adressePostale').html(response.client.adressePostale);
-                        //ProfilAstral 
-                        $('#signeZodiaque').html("Signe du zodiaque: "+response.client.signeZodiaque);
-                        $('#couleurPB').html("Couleur porte bonheur: "+response.client.couleurPB);
-                        $('#animalTotem').html("Animal totem: "+response.client.animalTotem);
-                        $('#signeAstroChinois').html("Signe astrologique chinois: "+response.client.signeAstroChinois); 
-                        //Historique 
-                        var consult = response.consultations;
-                        var listeConsultation = $("#historique");
-                        listeConsultation.empty () ; // Vider la liste HTML
-                        $.each ( consult, function (i,consu) {
-                            listeConsultation.append( // Ajouter a la liste HTML
-                            "<tr> <td> "+ consu.medium + "</td> <td >"+ consu.date +"</td> <td>" + consu.note+"</td> </tr>"
-                            );
-                        });
+                        if (response.connecte) {
+                            //Profil 
+                            $('#nomClient').html(response.client.prenom +" "+ response.client.nom);
+                            $('#dateDeNaissance').html(response.client.dateNaissance);
+                            $('#mail').html(response.client.mail);
+                            $('#adressePostale').html(response.client.adressePostale);
+                            //ProfilAstral 
+                            $('#signeZodiaque').html("Signe du zodiaque: "+response.client.signeZodiaque);
+                            $('#couleurPB').html("Couleur porte bonheur: "+response.client.couleurPB);
+                            $('#animalTotem').html("Animal totem: "+response.client.animalTotem);
+                            $('#signeAstroChinois').html("Signe astrologique chinois: "+response.client.signeAstroChinois); 
+                            //Historique 
+                            var consult = response.consultations;
+                            var listeConsultation = $("#historique");
+                            listeConsultation.empty () ; // Vider la liste HTML
+                            $.each ( consult, function (i,consu) {
+                                listeConsultation.append( // Ajouter a la liste HTML
+                                "<tr> <td  class = \"sansBordure\" > "+ consu.medium + "</td> <td  class = \"sansBordure\">"+ consu.date +"</td> <td  class = \"sansBordure\">" + consu.note+"</td> </tr>"
+                                );
+                            });
+                            
+                            // Message pour le paragraphe de notification
+                            $('div.boutonHeader').html("<img src=\"./images/profil.png\">");
+                        }else {
+                            window.location = 'accueil.html';
+                         }
                     })
                     .fail( function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
                         console.log('Error',error); // LOG dans Console Javascript

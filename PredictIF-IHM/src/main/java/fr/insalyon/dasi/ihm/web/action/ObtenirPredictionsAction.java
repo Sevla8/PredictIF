@@ -21,10 +21,11 @@ public class ObtenirPredictionsAction extends Action {
     @Override
     public void executer(HttpServletRequest request) {
 
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(true);
+        
         Long sessionId = (Long) session.getAttribute("id");
-        Long clientId = (Long) request.getAttribute("clientId");
-        System.out.println("id du client "+clientId);
+        Long idClient = Long.parseLong(request.getParameter("client"));
+
         if (sessionId == null) {
             request.setAttribute("ok", false);
         }
@@ -34,7 +35,7 @@ public class ObtenirPredictionsAction extends Action {
             String travail = request.getParameter("travail");
 
             List<String> prediction = service.obtenirPredictions(
-                    service.trouverClientParId(clientId),
+                    service.trouverClientParId(idClient),
                     Integer.parseInt(amour),
                     Integer.parseInt(sante),
                     Integer.parseInt(travail)

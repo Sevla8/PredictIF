@@ -77,10 +77,10 @@ public class StatistiquesAgenceSerialisation extends Serialisation {
         container.add("nombreConsultationsParEmploye", jsonConsultationsParEmploye);
 
         response.setContentType("application/json;charset=UTF -8");
-        PrintWriter  out = this.getWriter (response);
-        Gson  gson = new  GsonBuilder().setPrettyPrinting().serializeNulls().create();
-        gson.toJson(container , out);
-        out.close();
+        try (PrintWriter out = this.getWriter (response)) {
+            Gson  gson = new  GsonBuilder().setPrettyPrinting().serializeNulls().create();
+            gson.toJson(container , out);
+        }
     }
 
 }

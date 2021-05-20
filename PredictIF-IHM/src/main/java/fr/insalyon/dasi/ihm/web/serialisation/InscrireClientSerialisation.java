@@ -31,10 +31,10 @@ public class InscrireClientSerialisation extends Serialisation {
         container.addProperty("inscription",inscription);  
         
         response.setContentType("application/json;charset=UTF -8");
-        PrintWriter  out = this.getWriter (response);
-        Gson  gson = new  GsonBuilder().setPrettyPrinting().serializeNulls().create();
-        gson.toJson(container , out);
-        out.close();
+        try (PrintWriter out = this.getWriter (response)) {
+            Gson  gson = new  GsonBuilder().setPrettyPrinting().serializeNulls().create();
+            gson.toJson(container , out);
+        }
     }
     
 }

@@ -24,24 +24,14 @@ public class AuthentifierClientSerialisation extends Serialisation{
         JsonObject container=new JsonObject();
         
         Boolean connexion=(Boolean) request.getAttribute("connexion");
-        Long id=(Long) request.getAttribute("id");
-        String nom= (String) request.getAttribute("nom");
-        String prenom= (String) request.getAttribute("prenom");
-        String mail= (String) request.getAttribute("mail");
         
         container.addProperty("connexion",connexion);       
-        JsonObject proprieteClient=new JsonObject();
-        proprieteClient.addProperty("id",id);
-        proprieteClient.addProperty("nom",nom);
-        proprieteClient.addProperty("prenom",prenom);
-        proprieteClient.addProperty("mail",mail);
-        container.add("client",proprieteClient);
         
         response.setContentType("application/json;charset=UTF -8");
-        PrintWriter  out = this.getWriter (response);
-        Gson  gson = new  GsonBuilder().setPrettyPrinting().serializeNulls().create();
-        gson.toJson(container , out);
-        out.close();
+        try (PrintWriter out = this.getWriter (response)) {
+            Gson  gson = new  GsonBuilder().setPrettyPrinting().serializeNulls().create();
+            gson.toJson(container , out);
+        }
     }
     
 }

@@ -19,12 +19,7 @@ public class PreparerConsultationAction extends Action{
         HttpSession session = request.getSession(true); // Initialisation Session
 
         Long employeID = (Long)session.getAttribute("id");
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println(employeID);
-        System.out.println();
-        System.out.println();
+
         if(employeID != null)
         {
             Service service = new Service();
@@ -33,7 +28,7 @@ public class PreparerConsultationAction extends Action{
 
             Long b = 64L;
             consultation = service.trouverConsultationParId(b);
-            System.out.println(consultation);
+
 
             if(consultation != null)
             {
