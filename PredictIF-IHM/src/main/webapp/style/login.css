@@ -1,0 +1,291 @@
+/* En-tête de page */
+div.boutonHeader{
+    text-align: right;
+    
+}
+#boutonHeader{
+    cursor: pointer;
+    background-color: transparent;
+    height: 30px;
+    text-align: right;
+    border-radius: 5px;
+    border-color: grey;
+    margin-left: 10px;
+    font-size: 14px;
+}
+
+
+div.drapeauHeader{
+    text-align: right;
+}
+
+
+div.drapeauHeader img{
+    height: 20px;
+    width: 35px;
+    margin-left: 15px;
+}
+
+.drapeaux{
+    list-style: none;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+#element{
+    margin: auto;
+    position: relative;
+    flex: 0.95;
+    display: flex;
+    flex-direction: column;
+    align-items: right;
+}
+
+#titre_principal
+{
+    display: flex;
+    flex-direction: row;
+}
+
+#logo
+{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+#logo img
+{
+    float:right;
+    width: 90px;
+    height: 60px;
+}
+
+header h1
+{
+    font-family: 'BallparkWeiner', serif;
+    font-size: 2.5em;
+    font-weight: normal;
+    font-style: italic;
+    margin: 0 0 0 10px;
+}
+
+/* Corps principal de la page client*/
+body.client{
+    background-color: rgb(171,131,202); 
+}
+/* Corps principal de la page employé*/
+body.employe{
+    background-color: rgb(208,206,206); 
+}
+
+/* Phrase d'accroche site client*/
+div.accroche{
+    margin: auto;
+    margin-bottom: 50px;
+    text-align: justify;
+    font-size: 20px;
+    font-style: italic;
+    width: 40%;
+}
+/* Titre de l'onglet site employé*/
+div.onglet{
+    margin-bottom: 50px;
+    margin-left: 150px;
+    text-align: left;
+    font-size: 35px;
+    font-style: italic;
+    width: 40%;
+}
+
+
+/* Liens de navigation */
+nav 
+{
+    background: linear-gradient(to bottom left,rgb(116,54,163),rgb(200,191,231));
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 50px;
+}
+
+nav ul
+{
+    margin:auto;
+    margin-left: 20px;
+    height: 50px;
+    align-items: center;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+}
+
+nav li
+{
+    margin-right: 40px; 
+}
+
+ul.gauche{
+    position: relative;
+    width: 900px;
+}
+
+ul.droite{
+    align-items: left;
+    position: relative;
+    margin-left: 35%;
+}
+nav a
+{
+    font-size: 1.3em;
+    color: #181818;
+    padding-bottom: 3px;
+    text-decoration: none;
+}
+
+nav a:hover
+{
+    color: #760001;
+    border-bottom: 3px solid #760001;
+}
+
+/* Section des graphes et page accueil client*/
+#accueil, #graphe
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;    
+}
+
+/* Statistiques podium */
+#top5{
+    display: flex;
+}
+#podiumEmploye{
+   margin-left: 20%;
+}
+
+#podiumMedium{
+   margin-left: 15%;
+}
+
+div.podium{
+    background-size: 100%;
+    background-position:bottom center;
+    background-repeat:no-repeat;
+    height:220px;
+    width:380px;
+}
+.podium span{
+	display: block;
+    display:inline-block;
+    width:auto;
+    text-align:center;
+    position:relative;
+    width: 150px;
+}
+.podium span:nth-child(1){
+    top:110px;
+    left:-50px;
+}
+.podium span:nth-child(2){ 
+    top:55px; 
+    left:-150px;
+}
+.podium span:nth-child(3){ 
+    top:-20px; 
+    left:110px;
+}
+
+.podium span:nth-child(4){ 
+    top:35px; 
+    left:70px;
+}
+.podium span:nth-child(5){ 
+    top:60px; 
+    left:280px;
+}
+
+/* Formulaire de connexion et d'inscription */
+h2 {
+    text-align: center;
+    font-variant: small-caps;
+}
+table.formulaire {
+    text-align: left; 
+    margin: auto;
+    width:60%;  
+    padding: 10px;
+    border-collapse: collapse;
+}
+td,th{
+    padding: 5px;
+}
+td,th.inscription{
+    border-right: 10px purple  solid ;
+}
+td.sansBordure,th.sansBordure {
+    border-right: hidden;   
+}
+#tropProche{
+    text-indent: 30px;
+}
+
+#champ-dateNaissance{
+	width: 140px;
+}
+
+td.centrer-bord{
+    border-right: hidden;
+    text-align: center;
+}
+button.joli-bouton {
+    padding: 3px 10px;
+    border-radius: 5px;
+    border-color: rgb(113,48,162);
+    cursor: pointer;
+    color: white;
+    font-size: 14px;
+    background: rgb(113,48,162);
+    width: 200px;
+}
+.centrer, #notification-connexion { 
+   text-align: center;
+}
+
+/* Encadrement avec les médiums disponibles */
+aside
+{
+    margin-right: 20px;
+    width: 200px;
+    height: 200px;
+    background-color: rgb(180,174,236);
+    box-shadow: 0px 2px 5px #1c1a19;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 0.9em;
+}
+
+aside h1{
+    text-align: center;
+}
+
+#spiraleConsultation{
+    float:right;
+}
+
+#spiraleDisponible{
+    float:left;
+}
+
+/* Pied de page */
+footer div{
+    margin: auto;
+    text-align: center;
+}
+
+.reseauSocial{
+    /*float:right;*/
+    align-items: center;
+    height: 20px;
+}
