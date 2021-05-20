@@ -35,19 +35,20 @@ and open the template in the editor.
                 </tbody>
         </table>
         <button id='genererBoutton'>Générer !</button>
-            
-        <div id='reponsePrediction'>reponses de nos voyant 
+
+        <div id='reponsePrediction'>reponses de nos voyant
             <div id='repAmour'>
             </div>
             <div id='repSante'>
             </div>
             <div id='reptravail'>
-            </div>        
+            </div>
         </div>
 
         <script>
             $(document).ready( function () {
                 $('#genererBoutton').on( 'click', function () { // Fonction appelée lors du clic sur le bouton
+
                 // Appel AJAX
                 $.ajax({
                     url: './ActionServlet',
@@ -56,8 +57,7 @@ and open the template in the editor.
                         todo: 'obtenirPredictions',
                         amour: $('#champ-amour').val(),
                         sante:  $('#champ-sante').val(),
-                        travail:  $('#champ-travail:').val()
-                        //client: 
+                        travail:  $('#champ-travail').val()
                     },
                     dataType: 'json'
                 })
@@ -76,8 +76,8 @@ and open the template in the editor.
 
                 });
             });
-         });  
+         });
         </script>
-        
+
     </body>
 </html>

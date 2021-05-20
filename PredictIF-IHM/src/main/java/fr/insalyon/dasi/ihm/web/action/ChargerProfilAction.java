@@ -18,11 +18,11 @@ public class ChargerProfilAction extends Action{
     public void executer(HttpServletRequest request){
 
         HttpSession session = request.getSession(true); // Initialisation Session
-        if(session.getAttribute("id")!= null)
+        Long sessionUser=(Long) session.getAttribute("idUser");
+        if(sessionUser!= null)
         {
             Service service = new Service();
-            Client client = service.trouverClientParId((Long)(session.getAttribute("id")));
-
+            Client client = service.trouverClientParId(sessionUser);
             List<Consultation> historique = service.obtenirHistorique(client);
             request.setAttribute("client", client);
             request.setAttribute("historique", historique);

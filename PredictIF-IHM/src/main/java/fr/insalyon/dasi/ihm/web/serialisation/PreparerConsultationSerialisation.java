@@ -43,9 +43,10 @@ public class PreparerConsultationSerialisation extends Serialisation{
             JsonObject container = new JsonObject () ; // Objet JSON " conteneur "
             container.addProperty ("consultationEnCours", true);
             container.addProperty ("idConsultation", consultation.getId());
+            container.addProperty ("ClientId", client.getId());
 
             JsonObject jsonClient = new JsonObject () ;
-            jsonClient.addProperty ("id", client.getId () );
+//            jsonClient.addProperty ("id", client.getId () );
             jsonClient.addProperty ("nom", client.getNom () );
             jsonClient.addProperty ("prenom", client.getPrenom () );
             jsonClient.addProperty ("mail", client.getMail () );

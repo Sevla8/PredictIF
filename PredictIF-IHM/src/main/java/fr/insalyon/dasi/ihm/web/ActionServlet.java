@@ -73,6 +73,11 @@ public class ActionServlet extends HttpServlet {
         Action action = null;
         Serialisation serialisation = null;
 
+
+                System.out.println(todo);
+                System.out.println(todo);
+                System.out.println(todo);
+
         switch (todo) {
             case "authentificationEmploye": {
                 action = new AuthentifierEmployeAction();

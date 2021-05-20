@@ -17,26 +17,26 @@ import javax.servlet.http.HttpSession;
 public class ObtenirPredictionsAction extends Action {
 
     private final Service service = new Service();
-    
+
     @Override
     public void executer(HttpServletRequest request) {
 
         HttpSession session = request.getSession();
         Long sessionId = (Long) session.getAttribute("id");
-
+        Long clientId = (Long) request.getAttribute("clientId");
+        System.out.println("id du client "+clientId);
         if (sessionId == null) {
             request.setAttribute("ok", false);
         }
         else {
-            String client = request.getParameter("client");
             String amour = request.getParameter("amour");
             String sante = request.getParameter("sante");
             String travail = request.getParameter("travail");
-            
+
             List<String> prediction = service.obtenirPredictions(
-                    service.trouverClientParId(Long.parseLong(client)),
-                    Integer.parseInt(amour), 
-                    Integer.parseInt(sante), 
+                    service.trouverClientParId(clientId),
+                    Integer.parseInt(amour),
+                    Integer.parseInt(sante),
                     Integer.parseInt(travail)
             );
 

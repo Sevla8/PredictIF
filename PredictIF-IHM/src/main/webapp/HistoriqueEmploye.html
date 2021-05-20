@@ -14,10 +14,10 @@ and open the template in the editor.
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     </head>
 
-   
+
     <body class="employe">
         <header>
-            <div id="titre_principal">          
+            <div id="titre_principal">
                 <div id="logo">
                     <img src="./images/logoAgencePro.png" alt="logo agence" />
                 </div>
@@ -28,19 +28,19 @@ and open the template in the editor.
                     </div>
                 </div>
             </div>
-            
+
             <nav class="menu">
                 <ul class="gauche">
                     <li><a href="#">Mes consultations</a></li>
-                    <li><a href="#">Statistiques</a></li>
-                    <li><a href="#">Consultations en cours</a></li>
+                    <li><a href="statistiquesAgence.html">Statistiques</a></li>
+                    <li><a href="Consultation-en-cours.html">Consultations en cours</a></li>
                 </ul>
             </nav>
         </header>
 
         <table id="historique"></table>
-        
-        
+
+
         <script>
             $(document).ready( function () {
                 // Appel AJAX
@@ -62,7 +62,7 @@ and open the template in the editor.
                         $.each(historique, function (index, consultation) { // Boucle "foreach"
                             $('#historique').append( // Ajouter du contenu dans l'élément, ici la liste HTML
                                 '<tr>' +
-                                '<td>' + consultation.mediumDenomination + '</td>' + 
+                                '<td>' + consultation.mediumDenomination + '</td>' +
                                 '<td>' + consultation.date + '</td>' +
                                 '<td>' + consultation.commentaire + '</td>' +
                                 '</tr>'

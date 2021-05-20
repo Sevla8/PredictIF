@@ -9,16 +9,16 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <title>Predict'if Pro</title>
         <link rel="stylesheet" href="./style/login.css" />
-        
+
         <!-- Librairie Javascript: jQuery (v3.4.1) -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://code.highcharts.com/highcharts.js"></script>
     </head>
 
-   
+
     <body class="employe">
         <header>
-            <div id="titre_principal">          
+            <div id="titre_principal">
                 <div id="logo">
                     <img src="./images/logoAgencePro.png" alt="logo agence" />
                 </div>
@@ -29,12 +29,12 @@ and open the template in the editor.
                     </div>
                 </div>
             </div>
-            
+
             <nav class="menu">
                 <ul class="gauche">
-                    <li><a href="#">Mes Consultations</a></li>
+                    <li><a href="HistoriqueEmploye.html">Mes Consultations</a></li>
                     <li><a href="#">Statistiques</a></li>
-                    <li><a href="#">Consultation en cours</a></li>
+                    <li><a href="Consultation-en-cours.html">Consultation en cours</a></li>
                 </ul>
             </nav>
         </header>
@@ -47,7 +47,7 @@ and open the template in the editor.
             <div id="consultEmploye"><ul id='consultationsParEmploye'></ul></div>
             <div id="consultMedium"><ul id='consultationsParMedium' ></ul></div>
         </section>
-        
+
         <section id="top5">
             <div id="podiumMedium"  class='podium' style="background-image:url(./images/podium.jpg)  ">
                 <!--<img src="./images/podium.jpg"/>-->
@@ -64,14 +64,14 @@ and open the template in the editor.
                 <span id="employe3" >Employe 3</span>
                 <span  id="employe5">Employe 5</span>
             </div>
-            
+
         </section>
-        
-     
-        
+
+
+
         <!-- Lien vers l'accueil -->
         <p><a href="index.html">Retour à la page d'Accueil</a></p>
-        
+
         <footer>
             <div class="nousSuivre">
                 Nous suivre :
@@ -88,7 +88,7 @@ and open the template in the editor.
                 url: './ActionServlet',
                 method: 'POST',
                 data: {
-                    todo: 'statistiquesAgence',                  
+                    todo: 'statistiquesAgence',
                 },
                 dataType: 'json'
             })
@@ -99,7 +99,7 @@ and open the template in the editor.
                      // Message pour le paragraphe de notification
                     var rep="ID "+response.userId;
                     //console.log(rep);
-                    
+
                     var top5Mediums=response.top5Mediums;
                     top5Mediums.forEach((item, index) => {
                         if(index===0){
@@ -114,7 +114,7 @@ and open the template in the editor.
                             $('#medium5').html(item.medium);
                         }
                     });
-                    
+
                     var top5Employes=response.top5Employes;
                     top5Employes.forEach((item, index) => {
                         if(index===0){
@@ -129,31 +129,31 @@ and open the template in the editor.
                             $('#employe5').html(item.employe);
                         }
                     });
-                    
-                    
+
+
                     var consultationsParEmploye=response.nombreConsultationsParEmploye;
                     /*$.each(consultationsParEmploye, function(i, emp){
                         $('#consultationsParEmploye').append("<li>"+emp.employe+" a "+emp.nombreConsultations+"consultations</li>");
                     });*/
-                    
+
                     var tabNomEmploye=new Array();
                     var tabNbConsultEmploye=new Array();
                     $.each(consultationsParEmploye, function(i, emp){
                         tabNomEmploye.push(emp.employe);
                         tabNbConsultEmploye.push(emp.nombreConsultations);
                     });
-                    
+
                     var lineChartData = {
                         labels: tabNomEmploye,
                         data: tabNbConsultEmploye
                     };
                     buildBarChart('consultEmploye', lineChartData,'Nombre de consultations par Employé');
-                    
+
                     var consultationsParMedium=response.nombreConsultationsParMedium;
                     /*$.each(consultationsParMedium, function(i, med){
                         $('#consultationsParMedium').append("<li>"+med.medium+" a "+med.nombreConsultations+"consultations</li>");
                     });*/
-                    
+
                     var tabConsultParMed=new Array();
                     $.each(consultationsParMedium, function(i, med){
                         tabConsultParMed.push({
@@ -161,14 +161,14 @@ and open the template in the editor.
                             y:med.nombreConsultations
                         });
                     });
-                    
+
                     var proportionChartData = {
                         label: 'Nombre de consultations par Medium',
-                        data:tabConsultParMed 
+                        data:tabConsultParMed
                     };
-                    
+
                     buildPieChart('consultMedium',proportionChartData,'Nombre de consultations par Medium');
-                    
+
                 }
                 else {
                     console.log("pas ok");
@@ -183,7 +183,7 @@ and open the template in the editor.
 
             });
         }
-        
+
         function buildBarChart(container, graphData, title, subtitle) {
 
             Highcharts.chart(container, {
@@ -214,7 +214,7 @@ and open the template in the editor.
                 series: [{name: 'Données', data: graphData.data}]
             });
         }
-        
+
         function buildPieChart(container, graphData, title, subtitle) {
 
             Highcharts.chart(container, {
@@ -233,7 +233,7 @@ and open the template in the editor.
                 series: [{name: graphData.label, data: graphData.data}]
             });
         }
-        
+
         $(document).ready( function () {
             initDonneesPage();
         });

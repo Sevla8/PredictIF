@@ -15,20 +15,20 @@ import javax.servlet.http.HttpSession;
  * @author B3202-B3205
  */
 public class AuthentifierEmployeAction extends Action {
-    
+
     private final Service service = new Service();
-    
+
     @Override
     public void executer(HttpServletRequest request) {
+        HttpSession session = request.getSession(true);
         String login = request.getParameter("login");
         String password = request.getParameter("password");
 
         Employe employe = service.authentifierEmploye(login, password);
-        
+
         if (employe != null) {
             request.setAttribute("ok", true);
-      
-            HttpSession session = request.getSession();
+
             session.setAttribute("id", employe.getId());
         }
         else {

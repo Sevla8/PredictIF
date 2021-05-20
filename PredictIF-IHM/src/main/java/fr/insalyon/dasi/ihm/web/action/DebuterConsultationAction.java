@@ -19,8 +19,7 @@ public class DebuterConsultationAction extends Action{
         if(session.getAttribute("id")!= null)
         {
             Service service = new Service();
-            String idConsultation = request.getParameter("idConsultation");
-            Long idConsult = Long.parseLong(idConsultation);
+            Long idConsult = Long.parseLong(request.getParameter("idConsultation"));
             Consultation consultation = service.trouverConsultationParId(idConsult);
             consultation = service.debuterConsultation(consultation);
 

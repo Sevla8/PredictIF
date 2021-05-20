@@ -21,18 +21,18 @@ import javax.servlet.http.HttpServletResponse;
 public class NoterConsultationSerialisation extends Serialisation {
 
     @Override
-    public void serialiser(HttpServletRequest request, HttpServletResponse response) 
+    public void serialiser(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
-        
-        JsonObject container = new JsonObject(); 
-        
+
+        JsonObject container = new JsonObject();
+
         Consultation consultation = (Consultation) request.getAttribute("consultation");
-        
+
         container.addProperty("mediumDenomination", consultation.getMedium().getDenomination());
         container.addProperty("date", consultation.getDateDebut().toString());
         container.addProperty("note", consultation.getNote());
 
-        PrintWriter out = this.getWriter(response);
+		PrintWriter out = this.getWriter(response);
         Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
         gson.toJson(container, out);
         out.close();

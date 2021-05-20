@@ -9,13 +9,8 @@
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     </head>
 
-<<<<<<< HEAD
 
-    <body>
-=======
-   
     <body class="client">
->>>>>>> bc459afa09ebb12f1bea5dc57101bb7ca0055f4b
         <header>
             <div id="titre_principal">
                 <div id="logo">
@@ -41,10 +36,10 @@
 
             <nav class="menu">
                 <ul class="gauche">
-                    <li><a href="#">Accueil</a></li>
-                    <li><a href="./Informations.html">Qui sommes nous?</a></li>
-                    <li><a href="#">Nos médiums</a></li>
-                    <li><a href="#">Astro</a></li>
+                    <li><a href="./accueil.html">Accueil</a></li>
+					<li><a href="./informations.html">Qui sommes nous?</a></li>
+					<li><a href="./nos-mediums.html">Nos médiums</a></li>
+					<li><a href="./astro.html">Astro</a></li>
                 </ul>
                 <ul class="droite">
                     <li ><a href="#">Partenaires</a></li>
@@ -207,7 +202,7 @@
                             var rep="Connexion de "+response.client.prenom+" "+response.client.nom+" (ID "+response.client.id+")";
                             $('#infosClient').html(rep);
 
-                            window.location = "derniereConsultationsClient.html";
+                            window.location = "profil.html";
 
                         }
                         else {

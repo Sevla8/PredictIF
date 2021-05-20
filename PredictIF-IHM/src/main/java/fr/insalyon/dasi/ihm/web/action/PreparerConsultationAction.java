@@ -17,15 +17,24 @@ public class PreparerConsultationAction extends Action{
     @Override
     public void executer(HttpServletRequest request){
         HttpSession session = request.getSession(true); // Initialisation Session
-        if(session.getAttribute("id")!= null)
+
+        Long employeID = (Long)session.getAttribute("id");
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println(employeID);
+        System.out.println();
+        System.out.println();
+        if(employeID != null)
         {
             Service service = new Service();
-            Employe employe = service.trouverEmployeParId((Long)(session.getAttribute("id")));
+            Employe employe = service.trouverEmployeParId(employeID);
             Consultation consultation = service.obtenirConsultationAffectee(employe);
-            /**/
+
             Long b = 64L;
             consultation = service.trouverConsultationParId(b);
-            /***/
+            System.out.println(consultation);
+
             if(consultation != null)
             {
                 List<Consultation> historique = service.obtenirHistorique(consultation.getClient());

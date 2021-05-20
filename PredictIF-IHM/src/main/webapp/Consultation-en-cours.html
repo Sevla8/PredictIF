@@ -13,7 +13,7 @@ and open the template in the editor.
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     </head>
     <body class="employe">
-        
+
         <div id='corps'>
             <table>
                 <thead>
@@ -28,11 +28,11 @@ and open the template in the editor.
                         <td id='couleurPB'> Couleur porte bonheur</td>
                     </tr>
                     <tr>
-                        <td id='dateDeNaissance'> date de naissance </td>                    
+                        <td id='dateDeNaissance'> date de naissance </td>
                         <td id='animalTotem'> Animal totem </td>
                     </tr>
                     <tr>
-                        <td id='mail'> mail </td>  
+                        <td id='mail'> mail </td>
                         <td id='signeZodiaque'>Signe du zodiaque</td>
                     </tr>
                     <tr>
@@ -41,7 +41,7 @@ and open the template in the editor.
                     </tr>
 
                 </tbody>
-            </table>              
+            </table>
             <table>
                 <thead>
                     <tr>
@@ -51,7 +51,7 @@ and open the template in the editor.
                 <tbody id ='historique'>
 
                 </tbody>
-            </table>   
+            </table>
             <div >
                 <p> Medium </p>
                 <p id='mediumDenomination'> denomination </p>
@@ -63,26 +63,27 @@ and open the template in the editor.
             <div id='zoneBoutons'>
                 <button id='CommencerConsultationBouton'> Débuter la consultation </button>
                 <a id='AidePredictionBouton' href="javascript:popupPrediction('AideALaPrediction.html')">Aide à la prédiction</a>
-               
                 <button id='FinConsultationBouton'> Finir la consultation </button>
-                 
+
             </div>
         </div>
         <script>
-            var idConsultation = null;
+            var C = null;
+            var idClient=null;
             $(document).ready( function () {
                 if (document.readyState === 'complete') {
-                     
+
                     console.log('HTML prêt !'); // Fonction appelée lors du chargement
                     AidePredictionBouton.style.display = "none";
                     FinConsultationBouton.style.display = "none";
-                    
+
                     // Appel AJAX
                     $.ajax({
                         url: './ActionServlet',
                         method: 'POST',
                         data: {
                             todo: 'PreparerConsultation'
+
                         },
                         dataType: 'json'
                     })
@@ -90,18 +91,18 @@ and open the template in the editor.
                         console.log('Response',response); // LOG dans Console Javascript
                         if(response.consultationEnCours === true)
                         {
-                            idConsultation = response.idConsultation;
-                            //Profil 
+                            idClient=response.ClientId;                            //Profil
+                            idConsultation=response.idConsultation;
                             $('#nomClient').html(response.client.prenom +" "+ response.client.nom);
                             $('#dateDeNaissance').html(response.client.dateNaissance);
                             $('#mail').html(response.client.mail);
                             $('#adressePostale').html(response.client.adressePostale);
-                            //ProfilAstral 
+                            //ProfilAstral
                             $('#signeZodiaque').html("Signe du zodiaque: "+response.client.signeZodiaque);
                             $('#couleurPB').html("Couleur porte bonheur: "+response.client.couleurPB);
                             $('#animalTotem').html("Animal totem: "+response.client.animalTotem);
-                            $('#signeAstroChinois').html("Signe astrologique chinois: "+response.client.signeAstroChinois); 
-                            //Historique 
+                            $('#signeAstroChinois').html("Signe astrologique chinois: "+response.client.signeAstroChinois);
+                            //Historique
                             var consult = response.historique;
                             var listeConsultation = $("#historique");
                             listeConsultation.empty () ; // Vider la liste HTML
@@ -112,21 +113,21 @@ and open the template in the editor.
                                 );
                             });
 
-                            $('#mediumDenomination').html(response.medium.denomination); 
-                            $('#presentation').html(response.medium.presentation); 
-                            $('#note').html(response.medium.note); 
-                            $('#specialite').html(response.medium.specialite); 
+                            $('#mediumDenomination').html(response.medium.denomination);
+                            $('#presentation').html(response.medium.presentation);
+                            $('#note').html(response.medium.note);
+                            $('#specialite').html(response.medium.specialite);
                            }else{
                                $('#corps').html("Vous n'avez pas de consultation en cours");
                            }
                      })
-                    
+
                     .fail( function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
                         console.log('Error',error); // LOG dans Console Javascript
                         alert("Erreur lors de l'appel AJAX");
                     })
                     .always( function () { // Fonction toujours appelée
-                        
+
                     });
                 };
             });
@@ -165,7 +166,7 @@ and open the template in the editor.
                 });
             });
             });
-            
+
             $(document).ready( function () {
                 $('#FinConsultationBouton').on( 'click', function () { // Fonction appelée lors du clic sur le bouton
                 // Appel AJAX
@@ -197,13 +198,14 @@ and open the template in the editor.
 
                 });
             });
-         });  
+         });
         function popupPrediction(page) {
-             window.open(page,"","width=500,height=300" );//,resizable=no, width=300, height=500, menubar=no);
+            var url=page+"?clientId="+idClient;
+            window.open(url,"","width=500,height=300" );//,resizable=no, width=300, height=500, menubar=no);
         }
-            
+
         </script>
-        
-        
+
+
     </body>
 </html>
