@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package web.serialisation;
+package fr.insalyon.dasi.ihm.web.serialisation;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -26,9 +26,9 @@ import javax.servlet.http.HttpServletResponse;
  * @author gdela
  */
 public class PreparerConsultationSerialisation extends Serialisation{
-   @Override 
+   @Override
    public void serialiser(HttpServletRequest request, HttpServletResponse response) throws IOException {
-       
+
        boolean ConsultAFaire = (boolean) request.getAttribute("ConsultationEnCour");
        if(ConsultAFaire){
 
@@ -43,7 +43,7 @@ public class PreparerConsultationSerialisation extends Serialisation{
             JsonObject container = new JsonObject () ; // Objet JSON " conteneur "
             container.addProperty ("consultationEnCours", true);
             container.addProperty ("idConsultation", consultation.getId());
-            
+
             JsonObject jsonClient = new JsonObject () ;
             jsonClient.addProperty ("id", client.getId () );
             jsonClient.addProperty ("nom", client.getNom () );
@@ -77,7 +77,7 @@ public class PreparerConsultationSerialisation extends Serialisation{
             jsonMedium.addProperty ("specialite",specialite );
             jsonMedium.addProperty ("note","5" );
             container.add ("medium", jsonMedium );
-            
+
             try (PrintWriter sortie = response.getWriter()){
                 Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().create() ;
                 gson.toJson(container,sortie );
@@ -86,13 +86,13 @@ public class PreparerConsultationSerialisation extends Serialisation{
        }else{
            JsonObject container = new JsonObject () ; // Objet JSON " conteneur "
            container.addProperty ("consultationEnCours", false);
-           
+
            try (PrintWriter sortie = response.getWriter()){
                 Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().create() ;
                 gson.toJson(container,sortie );
                 out.close();
             }
        }
-       
-    } 
+
+    }
 }

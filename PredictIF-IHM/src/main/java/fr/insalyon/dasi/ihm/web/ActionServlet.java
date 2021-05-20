@@ -18,21 +18,29 @@ import javax.servlet.http.HttpServletResponse;
 import fr.insalyon.dasi.ihm.web.action.Action;
 import fr.insalyon.dasi.ihm.web.action.AuthentifierClientAction;
 import fr.insalyon.dasi.ihm.web.action.AuthentifierEmployeAction;
+import fr.insalyon.dasi.ihm.web.action.ChargerProfilAction;
 import fr.insalyon.dasi.ihm.web.action.CommenterConsultationAction;
+import fr.insalyon.dasi.ihm.web.action.DebuterConsultationAction;
+import fr.insalyon.dasi.ihm.web.action.FinirConsultationAction;
 import fr.insalyon.dasi.ihm.web.action.InscrireClientAction;
 import fr.insalyon.dasi.ihm.web.action.ListerMediumsDisposAction;
 import fr.insalyon.dasi.ihm.web.action.NoterConsultationAction;
 import fr.insalyon.dasi.ihm.web.action.ObtenirHistoriqueEmployeAction;
 import fr.insalyon.dasi.ihm.web.action.ObtenirPredictionsAction;
+import fr.insalyon.dasi.ihm.web.action.PreparerConsultationAction;
 import fr.insalyon.dasi.ihm.web.action.StatistiquesAgenceAction;
 import fr.insalyon.dasi.ihm.web.serialisation.AuthentifierClientSerialisation;
 import fr.insalyon.dasi.ihm.web.serialisation.AuthentifierEmployeSerialisation;
+import fr.insalyon.dasi.ihm.web.serialisation.ChargerProfilSerialisation;
 import fr.insalyon.dasi.ihm.web.serialisation.CommenterConsultationSerialisation;
+import fr.insalyon.dasi.ihm.web.serialisation.DebuterConsultationSerialisation;
+import fr.insalyon.dasi.ihm.web.serialisation.FinirConsultationSerialisation;
 import fr.insalyon.dasi.ihm.web.serialisation.InscrireClientSerialisation;
 import fr.insalyon.dasi.ihm.web.serialisation.ListerMediumsDisposSerialisation;
 import fr.insalyon.dasi.ihm.web.serialisation.NoterConsultationSerialisation;
 import fr.insalyon.dasi.ihm.web.serialisation.ObtenirHistoriqueEmployeSerialisation;
 import fr.insalyon.dasi.ihm.web.serialisation.ObtenirPredictionsSerialisation;
+import fr.insalyon.dasi.ihm.web.serialisation.PreparerConsultationSerialisation;
 import fr.insalyon.dasi.ihm.web.serialisation.Serialisation;
 import fr.insalyon.dasi.ihm.web.serialisation.StatistiquesAgenceSerialisation;
 
@@ -42,7 +50,7 @@ import fr.insalyon.dasi.ihm.web.serialisation.StatistiquesAgenceSerialisation;
  */
 @WebServlet(urlPatterns = {"/ActionServlet"})
 public class ActionServlet extends HttpServlet {
-    
+
     @Override
     public void init() throws ServletException {
         super.init();
@@ -54,73 +62,73 @@ public class ActionServlet extends HttpServlet {
         JpaUtil.destroy();
         super.destroy();
     }
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         request.getSession(true);
         response.setCharacterEncoding("UTF-8");
         String todo = request.getParameter("todo");
-        
+
         Action action = null;
         Serialisation serialisation = null;
-        
+
         switch (todo) {
             case "authentificationEmploye": {
                 action = new AuthentifierEmployeAction();
                 serialisation = new AuthentifierEmployeSerialisation();
             }
             break;
-            
-            case"ChargerProfil":{ 
+
+            case"ChargerProfil":{
                 action = new ChargerProfilAction();
                 serialisation = new ChargerProfilSerialisation();
             }
             break;
 
-            case"PreparerConsultation":{ 
+            case"PreparerConsultation":{
                 action = new PreparerConsultationAction();
                 serialisation = new PreparerConsultationSerialisation();
-            }     
-            break;
-            
-            case"DebuterConsultation":{ 
-                action = new DebuterConsultationAction();
-                serialisation = new DebuterConsultationSerialisation();
-            }     
+            }
             break;
 
-            case"FinDeConsultation":{ 
+            case"DebuterConsultation":{
+                action = new DebuterConsultationAction();
+                serialisation = new DebuterConsultationSerialisation();
+            }
+            break;
+
+            case"FinDeConsultation":{
                 action = new FinirConsultationAction();
                 serialisation = new FinirConsultationSerialisation();
-            }     
+            }
             break;
-            
+
             case "obtenirHistoriqueEmploye": {
                 action = new ObtenirHistoriqueEmployeAction();
                 serialisation = new ObtenirHistoriqueEmployeSerialisation();
             }
             break;
-            
+
             case "obtenirPredictions": {
                 action = new ObtenirPredictionsAction();
                 serialisation = new ObtenirPredictionsSerialisation();
             }
             break;
-            
+
             case "noterConsultation": {
                 action = new NoterConsultationAction();
                 serialisation = new NoterConsultationSerialisation();
             }
             break;
-            
+
             case "commenterConsultation": {
                 action = new CommenterConsultationAction();
                 serialisation = new CommenterConsultationSerialisation();
             }
             break;
-            
-            case "nos-mediums": { 
+
+            case "nos-mediums": {
                 action = new ListerMediumsAction();
                 serialisation = new ListerMediumsSerialisation();
             }
@@ -131,19 +139,19 @@ public class ActionServlet extends HttpServlet {
                 serialisation=new AuthentifierClientSerialisation();
             }
             break;
-            
+
             case "inscription":{
                 action=new InscrireClientAction();
                 serialisation=new InscrireClientSerialisation();
             }
             break;
-            
+
             case "consultationsClient":{
 //                action=new ConsultationsClientAction();
 //                serialisation=new ConsultationsClientSerialisation();
             }
             break;
-            
+
             case "statistiquesAgence":{
                 action=new StatistiquesAgenceAction();
                 serialisation=new StatistiquesAgenceSerialisation();
@@ -156,17 +164,17 @@ public class ActionServlet extends HttpServlet {
             }
             break;
         }
-    
+
         if (action != null && serialisation != null) {
             action.executer(request);
             serialisation.serialiser(request, response);
         }
-        
+
         else {
             response.sendError(400, "Bad Request");
         }
     }
-    
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

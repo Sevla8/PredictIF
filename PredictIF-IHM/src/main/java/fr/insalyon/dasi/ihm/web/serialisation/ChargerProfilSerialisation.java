@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package web.serialisation;
+package fr.insalyon.dasi.ihm.web.serialisation;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -25,14 +25,14 @@ import javax.servlet.http.HttpServletResponse;
  * @author gdela
  */
 public class ChargerProfilSerialisation extends Serialisation{
-   @Override 
+   @Override
    public void serialiser(HttpServletRequest request, HttpServletResponse response) throws IOException {
-       
+
        if(request.getAttribute("client") != null){
             Client client = (Client)request.getAttribute("client");
             List<Consultation> historique = (List<Consultation>) request.getAttribute("historique");
 
-             DateFormat dateFormat = new SimpleDateFormat("yyy-mm-dd");  
+             DateFormat dateFormat = new SimpleDateFormat("yyy-mm-dd");
              String dateStr = dateFormat.format(client.getDateDeNaissance());
 
              JsonObject container = new JsonObject () ; // Objet JSON " conteneur "
@@ -63,7 +63,7 @@ public class ChargerProfilSerialisation extends Serialisation{
              System.out.println("-");
              System.out.println("-");
              System.out.println("-");
-             System.out.println(container); 
+             System.out.println(container);
              System.out.println("-");
              System.out.println("-");
              System.out.println("-");
@@ -74,6 +74,6 @@ public class ChargerProfilSerialisation extends Serialisation{
                  out.close();
              }
         }
-       
-    } 
+
+    }
 }

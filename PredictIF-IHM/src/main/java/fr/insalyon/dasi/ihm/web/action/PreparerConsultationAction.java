@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package web.action;
+package fr.insalyon.dasi.ihm.web.action;
 
 import fr.insalyon.dasi.metier.modele.Consultation;
 import fr.insalyon.dasi.metier.modele.Employe;
@@ -31,11 +31,11 @@ public class PreparerConsultationAction extends Action{
                 List<Consultation> historique = service.obtenirHistorique(consultation.getClient());
                 request.setAttribute("ConsultationEnCour", true);
                 request.setAttribute("consultation", consultation);
-                request.setAttribute("historique", historique);  
+                request.setAttribute("historique", historique);
             }else{
                 request.setAttribute("ConsultationEnCour", false);
             }
-            
+
         }
     }
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package web.action;
+package fr.insalyon.dasi.ihm.web.action;
 
 import fr.insalyon.dasi.metier.modele.Consultation;
 import fr.insalyon.dasi.metier.service.Service;
@@ -22,7 +22,7 @@ public class FinirConsultationAction extends Action{
             Long idConsult = Long. parseLong(idConsultation);
             Consultation consultation = service.trouverConsultationParId(idConsult);
             consultation = service.finirConsultation(consultation);
-            
+
             if(consultation != null){
                 request.setAttribute("fin", true);
             }else{
