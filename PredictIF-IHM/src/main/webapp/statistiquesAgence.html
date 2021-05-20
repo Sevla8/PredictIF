@@ -16,16 +16,15 @@ and open the template in the editor.
     </head>
 
    
-    <body>
+    <body class="employe">
         <header>
             <div id="titre_principal">          
                 <div id="logo">
-                    <img src="./images/logoAgence.png" alt="logo agence" />
+                    <img src="./images/logoAgencePro.png" alt="logo agence" />
                 </div>
                 <h1>Predict'if Pro</h1>
                 <div id="element">
                     <div class="boutonHeader">
-                        <button id="boutonHeader" class="inscription">Inscription</button>
                         <button id="boutonHeader" class="connexion">Connexion</button>
                     </div>
                 </div>
@@ -40,30 +39,31 @@ and open the template in the editor.
             </nav>
         </header>
 
-        <div class="accroche">
+        <div class="onglet">
             <strong>Statistiques de l'agence</strong>
         </div>
 
-        <section>
+        <section id="graphe">
             <div id="consultEmploye"><ul id='consultationsParEmploye'></ul></div>
             <div id="consultMedium"><ul id='consultationsParMedium' ></ul></div>
         </section>
-        <div id='podium'>
-            <span  id="medium4" >Medium 4</span>
-            <span  id="medium2" >Medium 2</span>
-            <span id="medium1" >Medium 1</span>
-            <span id="medium3" >Medium 3</span>
-            <span  id="medium5" >Medium 5</span>
-        </div>
-        <div id='podium'>
-            <span  id="employe4" >Employe 4</span>
-            <span  id="employe2" >Employe 2</span>
-            <span id="employe1">Employe 1</span>
-            <span id="employe3" >Employe 3</span>
-            <span  id="employe5">Employe 5</span>
-        </div>
-        <section>
-            
+        
+        <section id="top5">
+            <div id="podiumMedium"  class='podium' style="background-image:url(./images/podium.jpg)  ">
+                <!--<img src="./images/podium.jpg"/>-->
+                <span  id="medium4" >Medium 4</span>
+                <span  id="medium2" >Medium 2</span>
+                <span id="medium1" >Medium 1</span>
+                <span id="medium3" >Medium 3</span>
+                <span  id="medium5" >Medium 5</span>
+            </div>
+            <div id="podiumEmploye"  class='podium' style="background-image:url(./images/podium.jpg)  ">
+                <span  id="employe4" >Employe 4</span>
+                <span  id="employe2" >Employe 2</span>
+                <span id="employe1">Employe 1</span>
+                <span id="employe3" >Employe 3</span>
+                <span  id="employe5">Employe 5</span>
+            </div>
             
         </section>
         

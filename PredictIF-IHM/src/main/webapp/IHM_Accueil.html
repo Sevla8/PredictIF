@@ -9,8 +9,13 @@
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     </head>
 
+<<<<<<< HEAD
 
     <body>
+=======
+   
+    <body class="client">
+>>>>>>> bc459afa09ebb12f1bea5dc57101bb7ca0055f4b
         <header>
             <div id="titre_principal">
                 <div id="logo">
@@ -53,7 +58,7 @@
             qui vous correspond le mieux et obtenez la vie dont vous rêvez !!
         </div>
 
-        <section>
+        <section id="accueil">
             <table class="formulaire">
                 <tr>
                     <th colspan="2" class="inscription"><h2>Inscription</h2></th>
@@ -90,7 +95,7 @@
                 </tr>
                 <tr>
                     <th><label for="champ-dateNaissance">Date de naissance</label></th>
-                    <td><input type="date" id="champ-dateNaissance" size="20" required/></td>
+                    <td><input type="date" id="champ-dateNaissance" required/></td>
 
                     <th class="sansBordure" id="tropProche"><label for="champ-login">Mail</label></th>
                     <td class="sansBordure"><input type="email" id="champ-login" size="20" required/></td>
@@ -113,7 +118,7 @@
                 <tr>
                     <th><label for="champ-mdpConf">Confirmer le mot de passe</label></th>
                     <td><input type="password" id="champ-mdpConf" required/></td>
-
+                    <td colspan="2" class="sansBordure" id="notification-connexion"></td>
                 </tr>
 
                 <tr>
@@ -136,7 +141,6 @@
                 </tr>
                 <tr>
                     <td id="notification-inscription" colspan="2" class="centrer"></td> <!-- pour la Notification -->
-                    <td class="sansBordure" id="notification-connexion"> </td>
                 </tr>
 
             </table>
@@ -197,7 +201,7 @@
                     .done( function (response) { // Fonction appelée en cas d'appel AJAX réussi
                         console.log('Response',response); // LOG dans Console Javascript
                         if (response.connexion) {
-                            $('#notification-connexion').html("Connexion OK");  // Message pour le paragraphe de notification
+                            $('#notification-connexion').html("Connexion réussie");  // Message pour le paragraphe de notification
                             // TODO: afficher les informations du client dans la notification
                             // Exemple: Connexion de Ada Lovelace (ID 1)
                             var rep="Connexion de "+response.client.prenom+" "+response.client.nom+" (ID "+response.client.id+")";
@@ -225,7 +229,6 @@
                 $('#bouton-inscription').on( 'click', function () { // Fonction appelée lors du clic sur le bouton
 
                     console.log("clic sur le bouton d'inscription"); // LOG dans Console Javascript
-                    $('#notification-inscription').html("Inscription..."); // Message pour le paragraphe de notification
 
                     // Récupération de la valeur des champs du formulaire
                     var champSexe= $('input[name=champ-sexe]:checked').val();
@@ -289,7 +292,7 @@
                         .done( function (response) { // Fonction appelée en cas d'appel AJAX réussi
                             console.log('Response',response); // LOG dans Console Javascript
                             if (response.inscription) {
-                                $('#notification-inscription').html("Inscription OK");  // Message pour le paragraphe de notification
+                                $('#notification-inscription').html("Inscription réussie, veuillez consulter vos mails");  // Message pour le paragraphe de notification
                                 // TODO: afficher les informations du client dans la notification
                                 // Exemple: Connexion de Ada Lovelace (ID 1)
                                 var rep="Inscription de "+response.client.prenom+" "+response.client.nom+" (ID "+response.client.id+")";
@@ -297,7 +300,7 @@
 
                             }
                             else {
-                                $('#notification-inscription').html("Erreur lors de l'inscription"); // Message pour le paragraphe de notification
+                                $('#notification-inscription').html("Erreur lors de l'inscription, veuillez consulter vos mails puis réessayer"); // Message pour le paragraphe de notification
                                 $('#infosClient').html("Ici s'afficheront les infos clients");
                             }
                         })
