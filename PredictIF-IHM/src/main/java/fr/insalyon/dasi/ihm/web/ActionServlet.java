@@ -21,8 +21,10 @@ import fr.insalyon.dasi.ihm.web.action.AuthentifierEmployeAction;
 import fr.insalyon.dasi.ihm.web.action.ChargerProfilAction;
 import fr.insalyon.dasi.ihm.web.action.CommenterConsultationAction;
 import fr.insalyon.dasi.ihm.web.action.DebuterConsultationAction;
+import fr.insalyon.dasi.ihm.web.action.DeconnexionAction;
 import fr.insalyon.dasi.ihm.web.action.FinirConsultationAction;
 import fr.insalyon.dasi.ihm.web.action.InscrireClientAction;
+import fr.insalyon.dasi.ihm.web.action.InfosClientAction;
 import fr.insalyon.dasi.ihm.web.action.ListerMediumsDisposAction;
 import fr.insalyon.dasi.ihm.web.action.NoterConsultationAction;
 import fr.insalyon.dasi.ihm.web.action.ObtenirHistoriqueEmployeAction;
@@ -34,8 +36,10 @@ import fr.insalyon.dasi.ihm.web.serialisation.AuthentifierEmployeSerialisation;
 import fr.insalyon.dasi.ihm.web.serialisation.ChargerProfilSerialisation;
 import fr.insalyon.dasi.ihm.web.serialisation.CommenterConsultationSerialisation;
 import fr.insalyon.dasi.ihm.web.serialisation.DebuterConsultationSerialisation;
+import fr.insalyon.dasi.ihm.web.serialisation.DeconnexionSerialisation;
 import fr.insalyon.dasi.ihm.web.serialisation.FinirConsultationSerialisation;
 import fr.insalyon.dasi.ihm.web.serialisation.InscrireClientSerialisation;
+import fr.insalyon.dasi.ihm.web.serialisation.InfosClientSerialisation;
 import fr.insalyon.dasi.ihm.web.serialisation.ListerMediumsDisposSerialisation;
 import fr.insalyon.dasi.ihm.web.serialisation.NoterConsultationSerialisation;
 import fr.insalyon.dasi.ihm.web.serialisation.ObtenirHistoriqueEmployeSerialisation;
@@ -169,32 +173,36 @@ public class ActionServlet extends HttpServlet {
             }
             break;
             
-            //En cours de modif
             case "deconnexion":{
-                action=new StatistiquesAgenceAction();
-                serialisation=new StatistiquesAgenceSerialisation();
+                action=new DeconnexionAction();
+                serialisation=new DeconnexionSerialisation();
             }
             break;
 
             case "astro":{
-                action=new StatistiquesAgenceAction();
-                serialisation=new StatistiquesAgenceSerialisation();
+                action=new InfosClientAction();
+                serialisation=new InfosClientSerialisation();
             }
             break;
 
             case "contact":{
-                action=new StatistiquesAgenceAction();
-                serialisation=new StatistiquesAgenceSerialisation();
+                action=new InfosClientAction();
+                serialisation=new InfosClientSerialisation();
             }
             break;
 
             case "partenaires":{
-                action=new StatistiquesAgenceAction();
-                serialisation=new StatistiquesAgenceSerialisation();
+                action=new InfosClientAction();
+                serialisation=new InfosClientSerialisation();
             }
             break;
 
-            //en cours de modif
+            case "quiSommesNous":{
+                action=new InfosClientAction();
+                serialisation=new InfosClientSerialisation();
+            }
+            break;
+
         }
 
         if (action != null && serialisation != null) {
