@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Predict'if</title>
+        <link rel="stylesheet" href="./style/login.css" />
+        
+        <!-- Librairie Javascript: jQuery (v3.4.1) -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    </head>
+
+   
+    <body class="client">
+        <header>
+            <div id="titre_principal">          
+                <div id="logo">
+                    <img src="./images/logoAgence.png" alt="logo agence" />
+                </div>
+                <h1>Predict'if</h1>
+                <div id="element">
+                    <div class="boutonHeader">
+                        <button id="boutonHeader">Inscription</button>
+                        <button id="boutonHeader" >Connexion</button>
+                    </div>
+                    <div class="drapeauHeader"> 
+                        <ul class="drapeaux">
+                            <li><img src="./images/drapeau_espagnol.jpg"></li>
+                            <li><img src="./images/drapeau-allemand.jpg"></li>
+                            <li><img src="./images/drapeau-anglais.jpg"></li>
+                            <li><img src="./images/drapeau_francais.jpg"></li>
+                        </ul>
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <nav class="menu">
+                <ul class="gauche">
+                    <li><a href="#">Accueil</a></li>
+                    <li><a href="#">Qui sommes nous?</a></li>
+                    <li><a href="#">Nos médiums</a></li>
+                    <li><a href="#">Astro</a></li>
+                </ul>
+                <ul class="droite">
+                    <li ><a href="#">Partenaires</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="onglet">
+            Astro... Ce que les astres ont à vous révéler !
+        </div>
+
+        <section id="accueil">
+            <table class="affichageAstro">
+                <tr>
+                    <td class="sansBordure">
+                        <p id="titreAstro">Les signes du zodiaque</p>
+                        <iframe width="460" height="255" src="https://www.youtube.com/embed/k62rjAPzawQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </td>
+                    <td class="sansBordure">
+                        <p id="titreAstro">Les signes astrologique chinois</p>
+                        <iframe width="460" height="255" src="https://www.youtube.com/embed/Sret2JwsxW4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="sansBordure">
+                        <p id="titreAstro">Animal totem</p>
+                        <iframe width="460" height="255" src="https://www.youtube.com/embed/OaDr1lsZ7GU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </td>
+                    <td class="sansBordure">
+                        <p id="titreAstro">Couleur porte bonheur</p>
+                        <iframe width="460" height="255" src="https://www.youtube.com/embed/OzTbOOJAQ5U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </td>
+                </tr>
+            </table>
+            <aside>
+                <h1>
+                    Consultations  
+                    <img id="spiraleConsultation" src="./images/spiraleConsultations.png"/>
+                    </br>
+                    <img id="spiraleDisponible" src="./images/spiraleDisponibles.png"/>
+                    disponibles
+                </h1>
+                <p>Mme Irma</p>
+                <p>Mr H</p>
+                <p>Endora</p>
+                <p>Jesé Tou</p>
+            </aside>
+        </section>
+        
+     
+        
+        <!-- Lien vers l'accueil -->
+        <p><a href="index.html">Retour à la page d'Accueil</a></p>
+        
+        <footer>
+            <div class="nousSuivre">
+                Nous suivre :
+                <img class="reseauSocial" src="./images/instagram.png"/>
+                <img class="reseauSocial" src="./images/facebook.png"/>
+                <img class="reseauSocial" src="./images/twitter.png"/>
+                | <a href="#">CGU</a>
+            </div>
+        </footer>
+    </body>
+    <script>
+        function initDonneesPage(){
+            // Appel AJAX
+            $.ajax({
+                url: './ActionServlet',
+                method: 'POST',
+                data: {
+                    todo: 'astro',                  
+                },
+                dataType: 'json'
+            })
+            .done( function (response) { // Fonction appelée en cas d'appel AJAX réussi
+                console.log('Response',response); // LOG dans Console Javascript
+                if (response.connecte) {
+
+                     // Message pour le paragraphe de notification
+                    var rep="ID "+response.userId;
+                    console.log(rep);
+                    var nomClient=response.client.nom+" "+response.client.prenom;
+                    var dateNaissanceClient=response.client.date;
+                    console.log(nomClient);
+                    console.log(dateNaissanceClient);
+
+                    var bandeauProfil="<div id=\"profilHeader\" >"+
+                                            "<input type=\"image\" src=\"./images/profil.png\" name=\"prof\" id=\"profil\" onclick=\"\">"+
+                                            "<div id=\"infosUtilisateur\" style=\"display:none;\">"+
+                                                "<span id=\"champ-nomProfil\">M. Durant lalalalalaaaalaa</span>"+
+                                                "<span id=\"champ-dateNaissanceProfil\">19/08/1997</span>"+
+                                            "</div> "+                          
+                                        "</div>"+
+                                        "<div id=\"bandeau\" style=\"display:none;\">"+
+                                            "<ul id=\"listeOptions\">"+
+                                                "<li><button class=\"joli-bouton\" id=\"compte\">Accéder à mon compte</button></li>"+
+                                                "<li><a href=\"#\">Mon historique</a></li>"+
+                                                "<li><a href=\"#\">Consulter un médium</a></li>"+
+                                                "<li><a href=\"#\">Mon profil Astral</a></li>"+
+                                                "<li><a href=\"#\" id=\"deconnexion\">Se déconnecter</a></li>"+
+                                            "</ul>"+   
+                                        "</div>";
+                  
+                    $('div.boutonHeader').html(bandeauProfil);
+                    $('#champ-nomProfil').html(nomClient);
+                    $('#champ-dateNaissanceProfil').html(dateNaissanceClient);
+                    bandeau();
+                    deconnexion();
+                } else {
+                    console.log("pas ok");
+                    $('#testUser').html("Erreur de Connexion"); // Message pour le paragraphe de notification
+                }
+            })
+            .fail( function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                console.log('Error',error); // LOG dans Console Javascript
+                //alert("Erreur lors de l'appel AJAX");
+                window.location="accueil.html";
+            })
+            .always( function () { // Fonction toujours appelée
+
+            });
+        }
+        
+        function deconnexion(){
+            $('#deconnexion').on( 'click', function () {
+                // Appel AJAX
+                $.ajax({
+                    url: './ActionServlet',
+                    method: 'POST',
+                    data: {
+                        todo: 'deconnexion'                  
+                    },
+                    dataType: 'json'
+                })
+                .done( function (response) { // Fonction appelée en cas d'appel AJAX réussi
+                    console.log('Response',response); // LOG dans Console Javascript
+                    //window.location.reload();
+                    window.location="accueil.html";
+                })
+                .fail( function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                    console.log('Error',error); // LOG dans Console Javascript
+                    // alert("Erreur lors de l'appel AJAX");
+                })
+                .always( function () { // Fonction toujours appelée
+
+                });
+            });
+        }
+        
+        function bandeau(){
+            var profil=document.getElementById("profil");
+            var bandeau=document.getElementById("bandeau");
+            var infosClient=document.getElementById("infosUtilisateur");
+
+            profil.addEventListener("click", () => {
+                if(getComputedStyle(bandeau).display !== "none"){
+                    bandeau.style.display = "none";
+                    infosClient.style.display="none";
+                } else {
+                    bandeau.style.display = "block";
+                    infosClient.style.display="flex";
+                }
+            });
+        }
+        
+        $(document).ready( function () {
+            initDonneesPage();
+            
+        });
+    </script>
+</html>
