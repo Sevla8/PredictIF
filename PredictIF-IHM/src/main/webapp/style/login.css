@@ -64,13 +64,24 @@ div.drapeauHeader img{
 
 header h1
 {
-    font-family: 'BallparkWeiner', serif;
+    font-family: 'Vladimir Script', serif;
     font-size: 2.5em;
     font-weight: normal;
-    font-style: italic;
     margin: 0 0 0 10px;
 }
 
+h3.manuscrit
+{
+    font-family: 'Vladimir Script', serif;
+    font-size: 2.5em;
+    font-weight: normal;
+    margin-top: -20px;
+    margin-bottom: -10px;
+    margin-left: 15px;
+}
+.TableauCentre{
+    margin: auto;
+}
 /* Corps principal de la page client*/
 body.client{
     background-color: rgb(171,131,202); 
@@ -94,8 +105,8 @@ div.onglet{
     margin-bottom: 50px;
     margin-left: 150px;
     text-align: left;
-    font-size: 35px;
-    font-style: italic;
+    font-family: 'Vladimir Script', serif;
+    font-size: 2.5em;
     width: 40%;
 }
 
