@@ -1,6 +1,7 @@
 /* En-tête de page */
 div.boutonHeader{
     text-align: right;
+    right: 0;
     
 }
 #boutonHeader{
@@ -63,24 +64,13 @@ div.drapeauHeader img{
 
 header h1
 {
-    font-family: 'Vladimir Script', serif;
-    font-size: 4em;
+    font-family: 'BallparkWeiner', serif;
+    font-size: 2.5em;
     font-weight: normal;
+    font-style: italic;
     margin: 0 0 0 10px;
 }
 
-h3.manuscrit
-{
-    font-family: 'Vladimir Script', serif;
-    font-size: 2.5em;
-    font-weight: normal;
-    margin-top: -20px;
-    margin-bottom: -10px;
-    margin-left: 15px;
-}
-.TableauCentre{
-    margin: auto;
-}
 /* Corps principal de la page client*/
 body.client{
     background-color: rgb(171,131,202); 
@@ -111,7 +101,7 @@ div.onglet{
 
 
 /* Liens de navigation */
-nav 
+nav.menu 
 {
     background: linear-gradient(to bottom left,rgb(116,54,163),rgb(200,191,231));
     display: flex;
@@ -122,7 +112,6 @@ nav
 nav ul
 {
     margin:auto;
-    margin-left: 20px;
     height: 50px;
     align-items: center;
     list-style: none;
@@ -137,7 +126,7 @@ nav li
 
 ul.gauche{
     position: relative;
-    width: 900px;
+    width: 800px;
 }
 
 ul.droite{
@@ -160,7 +149,148 @@ nav a:hover
 }
 
 /* Section des graphes et page accueil client*/
-#accueil, #graphe
+
+/* ******************************************** */
+/* Partenaires */
+.imagePartenaire{
+	width: 250px;
+	height: 170px;
+}
+.infosPartenaire{
+	display: flex;
+	flex-direction: column;
+	margin-left: 50px;
+	font-size: 1.2em;
+}
+
+.infosPartenaire h4{
+	font-size: 2.5em;
+	margin-bottom: 10px;
+}
+.affichagePartenaire{
+	margin-left: 200px;
+}
+/* Contact */
+.formulaireContact{
+	margin: auto;
+}
+#envoyer{
+	text-align: right;
+}
+
+#messageContact{
+	padding-left: 20px;
+	padding-top: 10px;
+	width: 680px;
+	height: 195px;
+	resize: none;
+	border-radius: 30px;
+
+}
+
+
+.champContact{
+	width: 680px;
+	height: 20px;
+	border-radius: 10px;
+	text-align: top;
+	padding-left: 10px;
+
+}
+#motifContact{
+	width:690px;
+	border-radius: 5px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url('https://www.comiteinternationaldachau.com/images/stories/winkelViolet.png');
+    background-size: 20px 15px;
+	background-repeat: no-repeat;
+ 	background-position:660px  bottom  ;
+}
+
+.champIntituleContact{
+	text-align:  left;
+	font-weight: normal;
+}
+
+/* Astro */
+.affichageAstro{
+	text-align: center;
+    margin: auto;
+}
+
+#titreAstro{
+	font-weight: bold;
+	font-size: 1.5em;
+	margin-bottom: 10px;
+}
+
+/* Bandeau */
+#profilHeader{
+	display: flex;
+	flex-direction: row-reverse;
+	z-index: 1;
+}
+
+#bandeau{
+	position: absolute;
+	z-index: 2;
+	right: 0;
+	background-color: rgb(171,131,202);
+	margin-right: -50px;
+	text-align: left;
+	width: 350px;
+	height: 800px;
+	border-left: 15px solid rgb(113,48,162);
+	border-bottom: 15px solid rgb(113,48,162);
+}
+#infosUtilisateur{
+    width: 223px;
+	display: flex;
+	flex-direction: column;
+    border-left: 15px solid rgb(113,48,162);
+	text-align: left;
+	font-size: 1.2em;
+}
+#champ-nomProfil{
+    margin-top: 20px;
+    line-height: 25px;
+}
+#champ-nomProfil, #champ-dateNaissanceProfil{
+    margin-left: 10px;
+}
+#listeOptions{
+	list-style: none;
+	padding: 0;
+	margin-top: 50px;
+	margin-left: 30px;
+	line-height: 70px;
+	font-size: 20px;
+	text-decoration: none;
+}
+
+#listeOptions a
+{
+    font-size: 1.3em;
+    color: #181818;
+    padding-bottom: 3px;
+    text-decoration: none;
+}
+
+#listeOptions a:hover
+{
+    color: #760001;
+    border-bottom: 3px solid #760001;
+}
+
+#compte{
+	height: 50px;
+	font-size: 0.8em;
+}
+
+
+#accueil, #graphe, .affichagePartenaire
 {
     display: flex;
     flex-direction: row;
@@ -168,10 +298,34 @@ nav a:hover
     margin-bottom: 20px;    
 }
 
-/* Statistiques podium */
-#top5{
-    display: flex;
+#consultEmploye{
+   margin-left: 15%;
 }
+
+#consultMedium{
+   margin-left: 5%;
+}
+
+#consultEmploye,#consultMedium{
+	margin-bottom: 200px;
+}
+
+/* Statistiques podium */
+#top5, #titreTop5{
+    display: flex;
+
+}
+
+#titreTop5Medium{
+    margin-left: 16%;
+    font-size: 2.5em;
+}
+
+#titreTop5Employe{
+	margin-left: 23%;
+    font-size: 2.5em;
+}
+
 #podiumEmploye{
    margin-left: 20%;
 }
@@ -186,7 +340,10 @@ div.podium{
     background-repeat:no-repeat;
     height:220px;
     width:380px;
+    margin-bottom: 100px;
 }
+
+/* ******************************************** */
 .podium span{
 	display: block;
     display:inline-block;
@@ -235,7 +392,7 @@ td,th{
 td,th.inscription{
     border-right: 10px purple  solid ;
 }
-td.sansBordure,th.sansBordure,table.sansBordure {
+td.sansBordure,th.sansBordure {
     border-right: hidden;   
 }
 #tropProche{
