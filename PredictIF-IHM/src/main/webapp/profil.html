@@ -16,8 +16,8 @@
                 <h1>Predict'if</h1>
                 <div id="element">
                     <div class="boutonHeader">
-                        <button id="boutonHeader">Inscription</button>
-                        <button id="boutonHeader" >Connexion</button>
+                        <button id="boutonHeader" onclick="window.location= 'contact.html'">Inscription</button>
+                        <button id="boutonHeader" onclick="window.location= 'contact.html'">Connexion</button>
                     </div>
                     <div class="drapeauHeader">
                         <ul class="drapeaux">
@@ -39,7 +39,7 @@
 					<li><a href="./astro.html">Astro</a></li>
                 </ul>
                 <ul class="droite">
-                    <li ><a href="parteniares.html">Partenaires</a></li>
+                    <li ><a href="partenaires.html">Partenaires</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
             </nav>
@@ -211,7 +211,7 @@
                     .fail( function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
                         console.log('Error',error); // LOG dans Console Javascript
                         //alert("Erreur lors de l'appel AJAX");
-                        window.location = 'accueil.html';
+                        //window.location = 'accueil.html';
                     })
                     .always( function () { // Fonction toujours appelée
                         
