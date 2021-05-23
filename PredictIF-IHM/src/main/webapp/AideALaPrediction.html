@@ -1,49 +1,73 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <meta charset="UTF-8">
         <title>Predict'if Pro</title>
-        <!-- <link rel="stylesheet" href="./style/profil.css" /> -->
+        <link rel="stylesheet" href="./style/login.css" />
         <!-- Librairie Javascript: jQuery (v3.4.1) -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     </head>
     <body class="employe">
-        <table>
-            <thead>
-                    <tr>
-                        <th colspan="2">Aide à la consultation</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>amour</td>
-                        <td ><input type="text" id="champ-amour"/> </td>
-                    </tr>
-                    <tr>
-                        <td>santé</td>
-                        <td ><input type="text" id="champ-sante"/> </td>
-                    </tr>
-                    <tr>
-                        <td>travail</td>
-                        <td ><input type="text" id="champ-travail"/> </td>
-                    </tr>
-                </tbody>
-        </table>
-        <button id='genererBoutton'>Générer !</button>
+        </br></br>
+        <h3 class="manuscritCentre" >Aide à la prédiction</h3>
+        <table class='tableauCentre'>
+            <tr>
+                <td id='coteGauche' class="sansBordure">
+                    <table>
+                        <tr>
+                            <td class="sansBordure">amour</td>
+                            <td class="sansBordure">
+                                
+                                <select name="nombres" id="champ-amour">
+                                    <option value="">--selectionnez un nombre--</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
 
-        <div id='reponsePrediction'>reponses de nos voyant
-            <div id='repAmour'>
-            </div>
-            <div id='repSante'>
-            </div>
-            <div id='reptravail'>
-            </div>
-        </div>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td class="sansBordure">santé</td>
+                            <td class="sansBordure">
+                                <select name="nombres" id="champ-sante">
+                                    <option value="">--selectionnez un nombre--</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sansBordure">travail</td>
+                            <td class="sansBordure">
+                                <select name="nombres" id="champ-travail">
+                                    <option value="">--selectionnez un nombre--</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td id='coteDroit' class="sansBordure">
+                    <div id='reponsePrediction'>
+                        <h3 class="manuscritPetit">Notre prédiction : </h3>
+                        <div id='repAmour'>
+                        </div>
+                        <div id='repSante'>
+                        </div>
+                        <div id='reptravail'>
+                        </div>
+                    </div>
+                </td>
+        </table>
+        <button id='genererBoutton' class='joli-boutonGauche'>Générer !</button>
 
         <script>
             $(document).ready( function () {
