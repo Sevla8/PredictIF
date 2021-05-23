@@ -61,32 +61,28 @@
             </tr>
         </table>            
 
-        <table>
-            <thead>
-                <tr>
-                    <th colspan="2">Mon profil Astral</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td id='signeZodiaque'  class = "sansBordure">Signe du zodiaque</td>
-                    <td id='couleurPB'  class = "sansBordure"> Couleur porte bonheur</td>
-                </tr>
-                <tr>
-                    <td id='signeAstroChinois'  class = "sansBordure"> Signe astrologique chinois  </td>
-                    <td id='animalTotem'  class = "sansBordure"> Animal totem </td>
-                </tr>
-            </tbody>
+        </br></br></br>
+
+        <h3 class="manuscrit">Mon profil Astral</h3>
+        </br>
+        <table class="TableauCentre">
+            <tr>
+                <td id='signeZodiaque'  class = "sansBordure">Signe du zodiaque</td>
+                <td id='couleurPB'  class = "sansBordure"> Couleur porte bonheur</td>
+            </tr>
+            <tr>
+                <td id='signeAstroChinois'  class = "sansBordure"> Signe astrologique chinois  </td>
+                <td id='animalTotem'  class = "sansBordure"> Animal totem </td>
+            </tr>
         </table>      
         
-                <table>
-            <thead>
-                <tr>
-                    <th colspan="3">Mon historique</th>
-                </tr>
-            </thead>
+        </br></br></br>
+
+        <h3 class="manuscrit">Mon historique</h3>
+        </br>
+        <table class="TableauCentre">
             <tbody id ='historique'>
-                
+              
             </tbody>
         </table>   
 
@@ -171,7 +167,7 @@
                             listeConsultation.empty () ; // Vider la liste HTML
                             $.each ( consult, function (i,consu) {
                                 listeConsultation.append( // Ajouter a la liste HTML
-                                "<tr> <td  class = \"sansBordure\" > "+ consu.medium + "</td> <td  class = \"sansBordure\">"+ consu.date +"</td> <td  class = \"sansBordure\">" + consu.note+"</td> </tr>"
+                                "<tr> <td  class = \"bordureTabfin\" > "+ consu.medium + "</td> <td  class = \"bordureTabfin\">"+ consu.date +"</td> <td  class = \"bordureTabfin\">" + consu.note+"</td> </tr>"
                                 );
                             });
                             
