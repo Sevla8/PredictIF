@@ -3,14 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package action;
+package fr.insalyon.dasi.ihm.web.action;
 
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import metier.modele.Client;
-import metier.modele.Consultation;
-import metier.service.Service;
 
 /**
  *
