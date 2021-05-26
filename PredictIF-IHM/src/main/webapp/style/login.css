@@ -442,6 +442,10 @@ aside
     font-size: 0.9em;
 }
 
+aside div{
+    text-align: center;
+}
+
 aside h1{
     text-align: center;
 }
@@ -523,4 +527,15 @@ h3.manuscritPetit
     font-weight: normal;
     margin-top: -20px;
     margin-bottom: -10px;
+}
+
+#mediumRecap2{
+    font-size: 1em;
+    margin-left: 50px;
+    margin-right: 50px;
+    padding-top: 10px;
+    background-color: white;
+    border-radius: 20px;
+    height: 500px;
+    width: 250px;
 }
