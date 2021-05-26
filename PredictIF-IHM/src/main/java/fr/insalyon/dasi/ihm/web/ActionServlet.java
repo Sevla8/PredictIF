@@ -27,6 +27,7 @@ import fr.insalyon.dasi.ihm.web.action.InscrireClientAction;
 import fr.insalyon.dasi.ihm.web.action.InfosClientAction;
 import fr.insalyon.dasi.ihm.web.action.ListerMediumsDisposAction;
 import fr.insalyon.dasi.ihm.web.action.NoterConsultationAction;
+import fr.insalyon.dasi.ihm.web.action.ObtenirConsultationAction;
 import fr.insalyon.dasi.ihm.web.action.ObtenirHistoriqueEmployeAction;
 import fr.insalyon.dasi.ihm.web.action.ObtenirPredictionsAction;
 import fr.insalyon.dasi.ihm.web.action.PreparerConsultationAction;
@@ -42,6 +43,7 @@ import fr.insalyon.dasi.ihm.web.serialisation.InscrireClientSerialisation;
 import fr.insalyon.dasi.ihm.web.serialisation.InfosClientSerialisation;
 import fr.insalyon.dasi.ihm.web.serialisation.ListerMediumsDisposSerialisation;
 import fr.insalyon.dasi.ihm.web.serialisation.NoterConsultationSerialisation;
+import fr.insalyon.dasi.ihm.web.serialisation.ObtenirConsultationSerialisation;
 import fr.insalyon.dasi.ihm.web.serialisation.ObtenirHistoriqueEmployeSerialisation;
 import fr.insalyon.dasi.ihm.web.serialisation.ObtenirPredictionsSerialisation;
 import fr.insalyon.dasi.ihm.web.serialisation.PreparerConsultationSerialisation;
@@ -77,7 +79,6 @@ public class ActionServlet extends HttpServlet {
         Action action = null;
         Serialisation serialisation = null;
 
-
                 System.out.println(todo);
                 System.out.println(todo);
                 System.out.println(todo);
@@ -89,25 +90,25 @@ public class ActionServlet extends HttpServlet {
             }
             break;
 
-            case"ChargerProfil":{
+            case "ChargerProfil":{
                 action = new ChargerProfilAction();
                 serialisation = new ChargerProfilSerialisation();
             }
             break;
 
-            case"PreparerConsultation":{
+            case "PreparerConsultation":{
                 action = new PreparerConsultationAction();
                 serialisation = new PreparerConsultationSerialisation();
             }
             break;
 
-            case"DebuterConsultation":{
+            case "DebuterConsultation":{
                 action = new DebuterConsultationAction();
                 serialisation = new DebuterConsultationSerialisation();
             }
             break;
 
-            case"FinDeConsultation":{
+            case "FinDeConsultation":{
                 action = new FinirConsultationAction();
                 serialisation = new FinirConsultationSerialisation();
             }
@@ -167,7 +168,7 @@ public class ActionServlet extends HttpServlet {
             }
             break;
 
-            case"nos-mediums-dispos":{ //pour la box qui s'affiche en bas à droite, c'est pas vraiment un cas vu qu'il s'affiche sur plusieurs pages
+            case "nos-mediums-dispos":{ //pour la box qui s'affiche en bas à droite, c'est pas vraiment un cas vu qu'il s'affiche sur plusieurs pages
                 action = new ListerMediumsDisposAction();
                 serialisation = new ListerMediumsDisposSerialisation();
             }
@@ -200,6 +201,12 @@ public class ActionServlet extends HttpServlet {
             case "quiSommesNous":{
                 action=new InfosClientAction();
                 serialisation=new InfosClientSerialisation();
+            }
+            break;
+
+            case "obtenir-consultation":{
+                action = new ObtenirConsultationAction();
+                serialisation=new ObtenirConsultationSerialisation();
             }
             break;
 

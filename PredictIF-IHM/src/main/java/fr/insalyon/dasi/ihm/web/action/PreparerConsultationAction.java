@@ -26,10 +26,6 @@ public class PreparerConsultationAction extends Action{
             Employe employe = service.trouverEmployeParId(employeID);
             Consultation consultation = service.obtenirConsultationAffectee(employe);
 
-            Long b = 64L;
-            consultation = service.trouverConsultationParId(b);
-
-
             if(consultation != null)
             {
                 List<Consultation> historique = service.obtenirHistorique(consultation.getClient());

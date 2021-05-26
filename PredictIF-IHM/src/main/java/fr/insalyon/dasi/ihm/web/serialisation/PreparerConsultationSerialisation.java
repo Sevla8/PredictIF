@@ -61,8 +61,13 @@ public class PreparerConsultationSerialisation extends Serialisation{
             for(Consultation consult : historique ){
                 JsonObject jsonConsult = new JsonObject();
                 jsonConsult.addProperty ("medium", consult.getMedium().getDenomination() );
-                jsonConsult.addProperty ("date", dateFormat.format(consult.getDateDebut ()) );
-                jsonConsult.addProperty ("note", consult.getNote () );
+                if (consult.getDateDebut () == null) {
+                    jsonConsult.addProperty ("date", "null");
+                }
+                else {
+                    jsonConsult.addProperty ("date", dateFormat.format(consult.getDateDebut ()) );
+                }
+                jsonConsult.addProperty ("note", consult.getCommentaire () );
                 consultations.add(jsonConsult);
             }
             container.add ("historique", consultations);

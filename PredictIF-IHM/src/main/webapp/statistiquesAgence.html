@@ -25,7 +25,7 @@ and open the template in the editor.
                 <h1>Predict'if Pro</h1>
                 <div id="element">
                     <div class="boutonHeader">
-                        <button id="boutonHeader" class="connexion">Connexion</button>
+                        <button id="deconnexion">Déconnection</button>
                     </div>
                 </div>
             </div>
@@ -82,6 +82,30 @@ and open the template in the editor.
             </div>
         </footer>
     <script>
+        $('#deconnexion').on( 'click', function () {
+            // Appel AJAX
+            $.ajax({
+                url: './ActionServlet',
+                method: 'POST',
+                data: {
+                    todo: 'deconnexion'                  
+                },
+                dataType: 'json'
+            })
+            .done( function (response) { // Fonction appelée en cas d'appel AJAX réussi
+                console.log('Response',response); // LOG dans Console Javascript
+                //window.location.reload();
+                window.location="ConnexionEmploye.html";
+            })
+            .fail( function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                console.log('Error',error); // LOG dans Console Javascript
+                //alert("Erreur lors de l'appel AJAX");
+            })
+            .always( function () { // Fonction toujours appelée
+
+            });
+        });
+            
         function initDonneesPage(){
             // Appel AJAX
             $.ajax({

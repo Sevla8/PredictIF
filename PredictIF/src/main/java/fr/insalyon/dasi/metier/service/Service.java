@@ -579,12 +579,3 @@ public class Service {
 		return mediums;
 	}
 }
-
-//description appli
-// regle métier type employé ne peut pas etre client / il ne peut pas faire plsrs consultations en mm tps
-//descrip ihm, icars
-//liste des services avec petite phrase descripptive (a quoi il sert)
-//UML
-
-//Tester que les employés sont bien choisi en paretanpetit nb de consultation .
-//(r buy asc ou des)ordordersc)
