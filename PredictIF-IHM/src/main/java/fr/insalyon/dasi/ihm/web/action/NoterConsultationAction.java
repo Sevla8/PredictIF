@@ -22,19 +22,18 @@ public class NoterConsultationAction extends Action {
     public void executer(HttpServletRequest request) {
 
         HttpSession session = request.getSession();
-        Long sessionId = (Long) session.getAttribute("id");
+        Long sessionId = (Long) session.getAttribute("idUser");
 
         if (sessionId == null) {
             request.setAttribute("ok", false);
         }
         else {
-            String consultation = request.getParameter("consultation");
-            String note = request.getParameter("note");
+            Long consultation = Long.parseLong(request.getParameter("id"));
+            int note = Integer.parseInt(request.getParameter("star"));
+            
             
             Consultation consult = service.noterConsultation(
-                    service.trouverConsultationParId(Long.parseLong(consultation)),
-                    Integer.parseInt(note)
-            );
+                    service.trouverConsultationParId(consultation), note );
 
             request.setAttribute("ok", true);
             request.setAttribute("consultation", consult);

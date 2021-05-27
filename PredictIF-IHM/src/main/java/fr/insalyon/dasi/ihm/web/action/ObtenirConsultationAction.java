@@ -22,32 +22,21 @@ public class ObtenirConsultationAction extends Action{
         
         HttpSession session = request.getSession(true);
         
-//        Long sessionId = (Long) session.getAttribute("idUser");
-        Long sessionId = 13L;
-
+        Long sessionId = (Long) session.getAttribute("idUser");
         Long idMedium = Long.parseLong(request.getParameter("idMedium"));
-        System.out.println("idMedium = " + idMedium);
-        System.out.println();
         
         Service service = new Service();
-//        
+      
         if (sessionId == null) {
             request.setAttribute("ok", false);
-            System.out.println("ça ne marche pas");
         }
         
         else {
             Client client = service.trouverClientParId(sessionId);
-            System.out.println();
-            System.out.println("client = " + client);
-            System.out.println();
-            
             Medium medium = service.trouverMediumParId(idMedium);
-            System.out.println("medium = " + medium);
             Consultation consultation = service.obtenirConsultation(client, medium);
-            System.out.println("consultation = " + consultation);
-            System.out.println();
             
+            request.setAttribute("ok", true);
             request.setAttribute("consultation", consultation);
         }
     }

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Predict'if Pro</title>
+        <link rel="stylesheet" href="./style/login.css" />
+        <!-- Librairie Javascript: jQuery (v3.4.1) -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    </head>
+    <body class="client">
+        <p> vous souhaiter attribuer la note de <span id="nte"></span>? </p>
+        <button id='commenterBoutton' class="joli-bouton"> Oui ! </button>
+
+        <script>
+            var note = window.location.search.substring(6,7);
+            $(document).ready( function () {
+                if (document.readyState === 'complete') {
+                    document.getElementById("nte").innerHTML=note;                    
+                }
+            });
+            
+            $(document).ready( function () {
+                $('#commenterBoutton').on( 'click', function () { // Fonction appelée lors du clic sur le bouton
+                    var note = window.location.search.substring(6,7);
+                    var id = window.location.search.substring(11);
+                    
+                    // Appel AJAX
+                    $.ajax({
+                        url: './ActionServlet',
+                        method: 'POST',
+                        data: {
+                            todo: 'noterConsultation',
+                            star: note,
+                            id: id
+                        },
+                        dataType: 'json'
+                    })
+                    .done( function (response) { // Fonction appelée en cas d'appel AJAX réussi
+                        console.log('Response',response);
+                        window.close();
+
+                    })
+                    .fail( function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                        console.log('Error c est note',error); // LOG dans Console Javascript
+                    })
+                    .always( function () { // Fonction toujours appelée
+                        
+                    });
+            } 
+         ); 
+            });
+        </script>
+        
+    </body>
+</html>

@@ -5,10 +5,12 @@
  */
 package fr.insalyon.dasi.ihm.web.action;
 
+import fr.insalyon.dasi.metier.modele.Client;
 import fr.insalyon.dasi.metier.modele.Medium;
 import fr.insalyon.dasi.metier.service.Service;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -19,8 +21,20 @@ public class ListerMediumsAction extends Action{
     @Override
     public void executer(HttpServletRequest request){
         
-        Service service = new Service();
         
+        HttpSession session=request.getSession(true);
+        Service service = new Service();
+        Long idUser = (Long) session.getAttribute("idUser");
+        
+        if(idUser != null)
+        {
+            request.setAttribute("connecte",true);
+            Client client=service.trouverClientParId(idUser);
+            request.setAttribute("client",client);
+            
+        }else{
+            request.setAttribute("connecte",false);            
+        }
         List<Medium> listeMediums = service.listerMediums();
         
         //System.out.println("liste des mediums = " + mediums);

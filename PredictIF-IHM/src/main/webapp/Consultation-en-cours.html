@@ -1,73 +1,134 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <meta charset="UTF-8">
         <title>Predict'if Pro</title>
-        <!-- <link rel="stylesheet" href="./style/profil.css" /> -->
+        <link rel="stylesheet" href="./style/login.css" />
         <!-- Librairie Javascript: jQuery (v3.4.1) -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     </head>
     <body class="employe">
-
-        <div id='corps'>
-            <table>
-                <thead>
-                    <tr>
-                        <th colspan="2">Vue sur la consultation 2 </th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    <tr>
-                        <td id='nomClient'>nom prenom</td>
-                        <td id='couleurPB'> Couleur porte bonheur</td>
-                    </tr>
-                    <tr>
-                        <td id='dateDeNaissance'> date de naissance </td>
-                        <td id='animalTotem'> Animal totem </td>
-                    </tr>
-                    <tr>
-                        <td id='mail'> mail </td>
-                        <td id='signeZodiaque'>Signe du zodiaque</td>
-                    </tr>
-                    <tr>
-                        <td id='adressePostale'> adresse </td>
-                        <td id='signeAstroChinois'> Signe astrologique chinois  </td>
-                    </tr>
-
-                </tbody>
-            </table>
-            <table>
-                <thead>
-                    <tr>
-                        <th colspan="3">Historique Client</th>
-                    </tr>
-                </thead>
-                <tbody id ='historique'>
-
-                </tbody>
-            </table>
-            <div >
-                <p> Medium </p>
-                <p id='mediumDenomination'> denomination </p>
-                <p id='specialite'> spécialité </p>
-                <p id='note'> note </p>
-                <p id='presentation'> presentation </p>
-
+         <header>
+            <div id="titre_principal">
+                <div id="logo">
+                    <img src="./images/logoAgence.png" alt="logo agence" />
+                </div>
+                <h1>Predict'if Pro</h1>
+                <div id="element">
+                    <div class="boutonHeader">
+                        <button id="boutonHeader" class="deconnexion">Déconnexion</button>
+                    </div>
+                </div>
             </div>
-            <div id='zoneBoutons'>
-                <button id='CommencerConsultationBouton'> Débuter la consultation </button>
-                <a id='AidePredictionBouton' href="javascript:popupPrediction('AideALaPrediction.html')">Aide à la prédiction</a>
-                <button id='FinConsultationBouton'> Finir la consultation </button>
 
+            <nav class="menu">
+                <ul class="gauche">
+                    <li><a href="./HistoriqueEmploye.html">Mes consultations</a></li>
+                    <li><a href="statistiquesAgence.html">Statistiques</a></li>
+                    <li><a href="Consultation-en-cours.html">Consultations en cours</a></li>
+                </ul>
+            </nav>
+
+        </header>
+        <div  class="onglet">Consultation en cours </div> 
+        <section id='accueil'>
+            <div id="mediumPresentation">
+                <p>Vous incarnez :</p>
+                <div id="mediumRecap">
+                    <p> Medium </p>
+                    <p id='mediumDenomination'> denomination </p>
+                    <p id='specialite'> spécialité </p>
+                    <p id='note'> note </p>
+                    <p id='presentation'> presentation </p>
+                </div>
             </div>
-        </div>
+
+            <div id="infosClient">
+                <span id="recapClientTitre">Pour</span>
+                <table id="tableauDetailsClient">
+                    <tr>
+                        <td class="sansBordure" rowspan="4" id="profilConsultation"><img id="tailleProfilConsultation" src="./images/profil.png"></td>
+                        <td class="sansBordure" id='nomClient'>nom prenom</td>
+                        <td class="sansBordure"  id='couleurPB'> Couleur porte bonheur</td>
+                    </tr>
+                    <tr>
+
+                        <td class="sansBordure"  id='dateDeNaissance'> date de naissance </td>
+                        <td class="sansBordure"  id='animalTotem'> Animal totem </td>
+                    </tr>
+                    <tr>
+                        <td class="sansBordure"  id='mail'> mail </td>
+                        <td class="sansBordure"  id='signeZodiaque'>Signe du zodiaque</td>
+                    </tr>
+                    <tr>
+                        <td class="sansBordure"  id='adressePostale'> adresse </td>
+                        <td class="sansBordure"  id='signeAstroChinois'> Signe astrologique chinois  </td>
+                    </tr>
+                </table>
+                <span id="historiqueTitre">Historique Client</span>
+                <table id="tableauHistoriqueClient">
+                    <tbody id ='historique'>
+                        <tr>
+                            <td class="historique"  > Mme Irma </td>
+                            <td class="historique">28/03/2021</td>
+                            <td class="historique"><a href="#">commentaire</a></td>
+                        </tr>
+                        <tr>
+                            <td class="historique"  > Mme Irma </td>
+                            <td class="historique">28/03/2021</td>
+                            <td class="historique"><a href="#">commentaire</a></td>
+                        </tr>
+                        <tr>
+                            <td class="historique"  > Mme Irma </td>
+                            <td class="historique">28/03/2021</td>
+                            <td class="historique"><a href="#">commentaire</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+                <div id='zoneBoutons'>
+                    <button id='CommencerConsultationBouton' class="joli-bouton"> Débuter la consultation </button>
+                    <table id="tableauBoutons">
+                        <tr>
+                            <td class="sansBordure">
+                                <button id='AidePredictionBouton' class="joli-bouton" onclick="popupPrediction('AideALaPrediction.html')">Aide à la prédiction</button>
+                            </td>
+                            <td class="sansBordure">
+                                <button id='FinConsultationBouton' class="joli-bouton"> Finir la consultation </button>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+        </section>  
         <script>
+            $('.deconnexion').on( 'click', function () {
+                // Appel AJAX
+                $.ajax({
+                    url: './ActionServlet',
+                    method: 'POST',
+                    data: {
+                        todo: 'deconnexion'                  
+                    },
+                    dataType: 'json'
+                })
+                .done( function (response) { // Fonction appelée en cas d'appel AJAX réussi
+                    console.log('Response',response); // LOG dans Console Javascript
+                    //window.location.reload();
+                    window.location="ConnexionEmploye.html";
+                })
+                .fail( function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                    console.log('Error',error); // LOG dans Console Javascript
+                    //alert("Erreur lors de l'appel AJAX");
+                })
+                .always( function () { // Fonction toujours appelée
+
+                });
+            });
+
+
             var C = null;
             var idClient=null;
             $(document).ready( function () {
@@ -107,10 +168,15 @@ and open the template in the editor.
                             var listeConsultation = $("#historique");
                             listeConsultation.empty () ; // Vider la liste HTML
 
+
                             $.each ( consult, function (i,consu) {
-                                listeConsultation.append( // Ajouter a la liste HTML
-                                "<tr> <td> "+ consu.medium + "</td> <td >"+ consu.date +"</td> <td>" + consu.note+"</td> </tr>"
-                                );
+                               listeConsultation.append( // Ajouter a la liste HTML
+                                   "<tr>"+
+                                        " <td class='historique'> "+ consu.medium + "</td> "+
+                                        " <td class='historique'>"+ consu.date +"</td> "+ 
+                                        " <td class='historique'>" + consu.note+"</td> "+
+                                  "</tr>"
+                               );
                             });
 
                             $('#mediumDenomination').html(response.medium.denomination);
@@ -118,13 +184,14 @@ and open the template in the editor.
                             $('#note').html(response.medium.note);
                             $('#specialite').html(response.medium.specialite);
                            }else{
-                               $('#corps').html("Vous n'avez pas de consultation en cours");
-                           }
+                               $('.onglet').html("  Vous n'avez pas de consultation en cours ");
+                                $('#accueil').empty();
+                            }
                      })
 
                     .fail( function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
                         console.log('Error',error); // LOG dans Console Javascript
-                        alert("Erreur lors de l'appel AJAX");
+                        window.location="ConnexionEmploye.html";
                     })
                     .always( function () { // Fonction toujours appelée
 
@@ -159,7 +226,7 @@ and open the template in the editor.
 
                 .fail( function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
                     console.log('Error',error); // LOG dans Console Javascript
-                    alert("Erreur lors de l'appel AJAX debuter consultation");
+                    //alert("Erreur lors de l'appel AJAX debuter consultation");
                 })
                 .always( function () { // Fonction toujours appelée
 
@@ -169,46 +236,43 @@ and open the template in the editor.
 
             $(document).ready( function () {
                 $('#FinConsultationBouton').on( 'click', function () { // Fonction appelée lors du clic sur le bouton
-                // Appel AJAX
-                $.ajax({
-                    url: './ActionServlet',
-                    method: 'POST',
-                    data: {
-                        todo: 'FinDeConsultation',
-                        idConsultation: idConsultation
-                    },
-                    dataType: 'json'
-                })
-                .done( function (response) { // Fonction appelée en cas d'appel AJAX réussi
-                    console.log('Response',response); // LOG dans Console Javascript
-                    if(response.fin === true)
-                    {
-                        $('#zoneBoutons').html( " FIN DE CONSULTATION");
-                        popupCommentaire("CommenterConsultation.html?idConsultation="+idConsultation);
-                    }else{
-                        $('#zoneBoutons').html("ERREUR");
-                    }
-                 })
+                    // Appel AJAX
+                    $.ajax({
+                        url: './ActionServlet',
+                        method: 'POST',
+                        data: {
+                            todo: 'FinDeConsultation',
+                            idConsultation: idConsultation
+                        },
+                        dataType: 'json'
+                    })
+                    .done( function (response) { // Fonction appelée en cas d'appel AJAX réussi
+                        console.log('Response',response); // LOG dans Console Javascript
+                        if(response.fin === true)
+                        {
+                            $('#zoneBoutons').html( " FIN DE CONSULTATION");
+                            popupCommentaire("CommenterConsultation.html?idConsultation="+idConsultation);
+                        }else{
+                            $('#zoneBoutons').html("ERREUR FIN DE CONSULTATION");
+                        }
+                     })
 
-                .fail( function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
-                    console.log('Error',error); // LOG dans Console Javascript
-                    alert("Erreur lors de l'appel AJAX");
-                })
-                .always( function () { // Fonction toujours appelée
+                    .fail( function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                        console.log('Error',error); // LOG dans Console Javascript
+                        //alert("Erreur lors de l'appel AJAX");
+                    })
+                    .always( function () { // Fonction toujours appelée
 
+                    });
                 });
-            });
-         });
-        function popupPrediction(page) {
-            var url=page+"?clientId="+idClient;
-            window.open(url,"","width=500,height=300" );
-        }
-        function popupCommentaire(page) {
-            window.open(page,"","width=500,height=300" );
-        }
-
+             });
+            function popupPrediction(page) {
+                var url=page+"?clientId="+idClient;
+                window.open(url,"","width=1000,height=700");
+            }
+            function popupCommentaire(page) {
+                window.open(page,"","width=1000,height=700" );
+            }
         </script>
-
-
     </body>
 </html>

@@ -19,12 +19,12 @@ and open the template in the editor.
         <header>
             <div id="titre_principal">
                 <div id="logo">
-                    <img src="./images/logoAgencePro.png" alt="logo agence" />
+                    <img src="./images/logoAgence.png" alt="logo agence" />
                 </div>
                 <h1>Predict'if-Pro</h1>
                 <div id="element">
                     <div class="boutonHeader">
-                        <button id="deconnexion">Déconnection</button>
+                        <button id="boutonHeader" class="deconnexion">Déconnexion</button>
                     </div>
                 </div>
             </div>
@@ -39,14 +39,14 @@ and open the template in the editor.
         </header>
         
         <div class="m-5">
-            <h2 class="text-start">Mes dernières consultations</h2>
+            <div class="onglet">Mes dernières consultations</div>
 
             <table class="table table-striped" id="historique"></table>
         </div>
         
 
         <script>
-            $('#deconnexion').on( 'click', function () {
+            $('.deconnexion').on( 'click', function () {
                 // Appel AJAX
                 $.ajax({
                     url: './ActionServlet',
@@ -115,7 +115,7 @@ and open the template in the editor.
                 })
                 .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
                     console.log('Error',error); // LOG dans Console Javascript
-                    alert("Erreur lors de l'appel AJAX");
+                    window.location="ConnexionEmploye.html";
                 })
                 .always( function () { // Fonction toujours appelée
 

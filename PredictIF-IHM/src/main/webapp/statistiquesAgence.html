@@ -20,12 +20,12 @@ and open the template in the editor.
         <header>
             <div id="titre_principal">
                 <div id="logo">
-                    <img src="./images/logoAgencePro.png" alt="logo agence" />
+                    <img src="./images/logoAgence.png" alt="logo agence" />
                 </div>
                 <h1>Predict'if Pro</h1>
                 <div id="element">
                     <div class="boutonHeader">
-                        <button id="deconnexion">Déconnection</button>
+                        <button id="boutonHeader" class="deconnexion">Déconnexion</button>
                     </div>
                 </div>
             </div>
@@ -49,7 +49,7 @@ and open the template in the editor.
         </section>
 
         <section id="top5">
-            <div id="podiumMedium"  class='podium' style="background-image:url(./images/podium.jpg)  ">
+            <div id="podiumMedium"  class='podium' style="background-image:url(./images/podium.png)  ">
                 <!--<img src="./images/podium.jpg"/>-->
                 <span  id="medium4" >Medium 4</span>
                 <span  id="medium2" >Medium 2</span>
@@ -57,7 +57,7 @@ and open the template in the editor.
                 <span id="medium3" >Medium 3</span>
                 <span  id="medium5" >Medium 5</span>
             </div>
-            <div id="podiumEmploye"  class='podium' style="background-image:url(./images/podium.jpg)  ">
+            <div id="podiumEmploye"  class='podium' style="background-image:url(./images/podium.png)  ">
                 <span  id="employe4" >Employe 4</span>
                 <span  id="employe2" >Employe 2</span>
                 <span id="employe1">Employe 1</span>
@@ -69,8 +69,6 @@ and open the template in the editor.
 
 
 
-        <!-- Lien vers l'accueil -->
-        <p><a href="index.html">Retour à la page d'Accueil</a></p>
 
         <footer>
             <div class="nousSuivre">
@@ -82,7 +80,7 @@ and open the template in the editor.
             </div>
         </footer>
     <script>
-        $('#deconnexion').on( 'click', function () {
+        $('.deconnexion').on( 'click', function () {
             // Appel AJAX
             $.ajax({
                 url: './ActionServlet',
@@ -99,7 +97,7 @@ and open the template in the editor.
             })
             .fail( function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
                 console.log('Error',error); // LOG dans Console Javascript
-                //alert("Erreur lors de l'appel AJAX");
+                
             })
             .always( function () { // Fonction toujours appelée
 
@@ -201,7 +199,7 @@ and open the template in the editor.
             })
             .fail( function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
                 console.log('Error',error); // LOG dans Console Javascript
-                alert("Erreur lors de l'appel AJAX");
+                window.location="ConnexionEmploye.html";
             })
             .always( function () { // Fonction toujours appelée
 

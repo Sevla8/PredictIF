@@ -46,6 +46,7 @@ div.drapeauHeader img{
 {
     display: flex;
     flex-direction: row;
+    margin-top: 30px;
 }
 
 #logo
@@ -53,19 +54,21 @@ div.drapeauHeader img{
     display: flex;
     flex-direction: row;
     align-items: baseline;
+    margin-top: -20px;
+    
 }
 
 #logo img
 {
     float:right;
     width: 90px;
-    height: 60px;
+    height: 90px;
 }
 
 header h1
 {
     font-family: 'Vladimir Script', serif;
-    font-size: 2.5em;
+    font-size: 3em;
     font-weight: normal;
     margin: 0 0 0 10px;
 }
@@ -81,7 +84,11 @@ h3.manuscrit
 }
 /* Corps principal de la page client*/
 body.client{
-    background-color: rgb(171,131,202); 
+    background:
+            linear-gradient(217deg, rgba(0,0,255,.8), rgba(255,0,0,0) 50.71%),
+            linear-gradient(127deg, rgb(171,131,202), rgba(0,255,0,0) 70.71%),
+            linear-gradient(336deg, rgba(255,255,255), rgba(0,0,255,0) 70.71%);
+    background-attachment: fixed;
 }
 /* Corps principal de la page employé*/
 body.employe{
@@ -111,7 +118,10 @@ div.onglet{
 /* Liens de navigation */
 nav.menu 
 {
-    background: linear-gradient(to bottom left,rgb(116,54,163),rgb(200,191,231));
+    background:
+    linear-gradient(217deg, rgba(0,0,255,.8), rgba(255,0,0,0) 50.71%),
+    linear-gradient(127deg, rgb(171,131,202), rgba(0,255,0,0) 70.71%),
+    linear-gradient(336deg, rgba(255,255,255), rgba(0,0,255,0) 70.71%);
     display: flex;
     flex-direction: row;
     margin-bottom: 50px;
@@ -260,6 +270,7 @@ nav a:hover
     border-left: 15px solid rgb(113,48,162);
 	text-align: left;
 	font-size: 1.2em;
+    background-color: rgb(171,131,202);
 }
 #champ-nomProfil{
     margin-top: 20px;
@@ -398,7 +409,7 @@ td,th{
     padding: 5px;
 }
 td,th.inscription{
-    border-right: 10px purple  solid ;
+    border-right: 10px rgb(171,131,202) solid ;
 }
 td.sansBordure,th.sansBordure {
     border-right: hidden;   
@@ -440,10 +451,6 @@ aside
     border-radius: 5px;
     padding: 10px;
     font-size: 0.9em;
-}
-
-aside div{
-    text-align: center;
 }
 
 aside h1{
@@ -529,6 +536,121 @@ h3.manuscritPetit
     margin-bottom: -10px;
 }
 
+.rating a {
+    float: right;
+    color: rgb(113,48,162);
+    text-decoration: none;
+    font-size: 3em;
+    transition: color .5s;
+ }
+ .rating a:hover,
+ .rating a:focus,
+ .rating a:hover ~ a,
+ .rating a:focus ~ a {
+    color: orange;
+    cursor: pointer;
+ }
+
+ .rated a {
+    float: right;
+ }
+ .etoileVide{
+    color: rgb(113,48,162);
+    text-decoration: none;
+    font-size: 3em;
+ }
+
+ .etoileJaune{
+    color: orange;
+    text-decoration: none;
+    font-size: 3em; 
+ }
+
+ p#test0{
+    background-image: url('etoile.jpg');
+    display: inline-block;
+    font-size: 0;
+    line-height: 0;
+ }
+#mediumPresentation{
+    margin-top: 40px;
+    text-align: center;
+    font-size: 1.2em;
+}
+#mediumRecap{
+    font-size: 1em;
+    margin-left: 100px;
+    margin-right: 100px;
+    padding: 10px 20px 10px 20px;
+    background-color: white;
+    border-radius: 20px;
+    height: 400px;
+    width: 250px;
+}
+#infosClient{
+    font-size: 1.2em;
+}
+#tableauHistoriqueClient, #tableauDetailsClient{
+    margin: auto;
+    width:700px;  
+    border-collapse: collapse;
+}
+
+#tableauHistoriqueClient{
+    text-align: center;
+    margin-bottom: 50px; 
+    margin-top: 0px; 
+}
+#recapClientTitre{
+    display: block;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-style: italic;
+    text-align: center;
+}
+
+#historiqueTitre{
+    display: block;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-style: italic;
+}
+.historique{
+    border: 1px solid;
+    border-collapse: collapse;
+}
+
+#CommencerConsultationBouton{
+    width: 700px;
+}
+#AidePredictionBouton, #CommencerConsultationBouton, #FinConsultationBouton{
+    border-radius: 20px;
+}
+
+#tableauBoutons{
+    width: 700px;
+    text-align: center;
+}
+#tailleProfilConsultation{
+    width: 100px;
+   height: 90px;
+}
+#profilConsultation{
+    width: 120px;
+}
+
+#profil{
+    width: 50px;
+    margin-right: 50px;
+}
+
+#bouleDeCristal{
+    height: 180px;
+}
+
+aside div{
+    text-align: center;
+}
 #mediumRecap2{
     font-size: 1em;
     margin-left: 50px;
@@ -538,4 +660,8 @@ h3.manuscritPetit
     border-radius: 20px;
     height: 500px;
     width: 250px;
+}
+
+#reponsePrediction{
+    width: 500px;
 }

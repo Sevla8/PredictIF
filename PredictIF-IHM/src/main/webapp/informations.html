@@ -17,8 +17,8 @@
                 <h1>Predict'if</h1>
                 <div id="element">
                     <div class="boutonHeader">
-                        <button id="boutonHeader1" onclick="window.location= 'contact.html'">Inscription</button>
-                        <button id="boutonHeader2" onclick="window.location= 'contact.html'">Connexion</button>
+                        <button id="boutonHeader1" onclick="window.location= 'accueil.html'">Inscription</button>
+                        <button id="boutonHeader2" onclick="window.location= 'accueil.html'">Connexion</button>
                     </div>
                     <div class="drapeauHeader">
                         <ul class="drapeaux">
@@ -59,27 +59,24 @@
                         </p>
                     </div>
                     <p>
-                        <img src="./images/boule.png" alt="boule de cristal"/>
+                        <img src="./images/boule.png" alt="boule de cristal" id='bouleDeCristal'/>
                     </p>
                 </div>
             </div>
-            <aside>
-                <h1>
-                    Consultations
-                    <img id="spiraleConsultation" src="./images/spiraleConsultations.png"/>
-                    </br>
-                    <img id="spiraleDisponible" src="./images/spiraleDisponibles.png"/>
-                    disponibles
-                </h1>
-                <p>Mme Irma</p>
-                <p>Mr H</p>
-                <p>Endora</p>
-                <p>Jesé Tou</p>
-            </aside>
+             <div id = nos-mediums-dispos>
+                <aside>
+                    <div>
+                        <strong>Consultations</strong>
+                        <img id="spiraleConsultation" src="./images/spiraleConsultations.png"/>
+                        </br>
+                        <img id="spiraleDisponible" src="./images/spiraleDisponibles.png"/>
+                        <strong>disponibles</strong>
+                    </div>
+                    <table id="liste-mediums-dispos"></table>
+                </aside>
+            </div>
         </section>
 
-        <!-- Lien vers l'accueil -->
-        <p><a href="index.html">Retour à la page d'Accueil</a></p>
         <footer>
             <div class="nousSuivre">
                 Nous suivre :
@@ -97,7 +94,7 @@
                 url: './ActionServlet',
                 method: 'POST',
                 data: {
-                    todo: 'quiSommesNous',                  
+                    todo: 'quiSommesNous'                  
                 },
                 dataType: 'json'
             })
@@ -122,9 +119,9 @@
                                         "</div>"+
                                         "<div id=\"bandeau\" style=\"display:none;\">"+
                                             "<ul id=\"listeOptions\">"+
-                                                "<li><button class=\"joli-bouton\" id=\"compte\">Accéder à mon compte</button></li>"+
+                                                "<li><button class=\"joli-bouton\" id=\"compte\" onclick=\"window.location='profil.html'\" >Accéder à mon compte</button></li>"+
                                                 "<li><a href=\"profil.html\">Mon historique</a></li>"+
-                                                "<li><a href=\"#\">Consulter un médium</a></li>"+
+                                                "<li><a href=\"nos-mediums.html\">Consulter un médium</a></li>"+
                                                 "<li><a href=\"profil.html\">Mon profil Astral</a></li>"+
                                                 "<li><a href=\"#\" id=\"deconnexion\">Se déconnecter</a></li>"+
                                             "</ul>"+   
@@ -196,5 +193,88 @@
             initDonneesPage();
             
         });
+        
+        
+        function consulterMedium(id){                    
+                    console.log(id);
+                    // Appel AJAX
+                    $.ajax({
+                        url: './ActionServlet',
+                        method: 'POST',
+                        data: {
+                            todo: 'obtenir-consultation',
+                            idMedium: id
+                        },
+                        dataType: 'json'
+                    })
+                    .done(function (response) { // Fonction appelée en cas d'appel AJAX réussi
+                        console.log('Response',response); // LOG dans Console Javascript
+                        if (response.connecte) {
+                            if(response.consultation)
+                            {
+                                window.alert("Nous contactons le medium, vous allez recevoir son appel");
+                            }else{
+                                window.alert("Le médium que vous cherchez à contacter n'est pas disponible pour le moment");
+                            }
+                        }
+                        else {
+                            window.location = 'accueil.html';
+                        }
+                    })
+                    .fail( function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                        console.log('Error',error); // LOG dans Console Javascript
+                        alert("Erreur lors de l'appel AJAX");
+                    })
+                    .always( function () { // Fonction toujours appelée
+
+                    });
+            }
+            
+            function appelAjax (){
+            // Appel AJAX
+                $.ajax({
+                    url: './ActionServlet',
+                    method: 'POST',
+                    data: {
+                        todo: 'nos-mediums-dispos'
+                    },
+                    dataType: 'json'
+                })
+                .done( function (response) { // Fonction appelée en cas d'appel AJAX réussi
+                    console.log('Response',response); // LOG dans Console Javascript
+                    var listeMediumsDispos = response.mediumsDispos;
+                    console.log('Response',listeMediumsDispos);
+                    $.each ( listeMediumsDispos, function (i,med) {
+                        $('#liste-mediums-dispos').append(
+                            "<tr>" +
+                                "<td class='sansBordure'>" +
+                                    "<img src='./images/medium" + med.id + ".png' width='20' height='20'>" +
+                                "</td>" +
+                                "<td class='sansBordure'>" +
+                                    med.denomination +
+                                "</td>" +
+                                "<td class='sansBordure'>" +
+                                    "<button onclick='consulterMedium(" + med.id + ")' width='35' height='25'>" +
+                                        "<img src='./images/tel.png' width='35' height='25'>" +
+                                    "</button>" +
+                                "</td>" +
+                            "</tr>" 
+                        );
+                    });
+                    //consulterMedium();
+                })
+                .fail( function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                    console.log('Error',error); // LOG dans Console Javascript
+                    alert("Erreur lors de l'appel AJAX");
+                })
+                .always( function () { // Fonction toujours appelée
+
+                });
+            }
+            
+            $(document).ready(function(){
+                appelAjax();
+            });
+        
     </script>
 </html>

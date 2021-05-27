@@ -37,6 +37,7 @@
                     console.log('Response',response); // LOG dans Console Javascript
                     $('#commentaire').html("merci ! Votre commentaire: "+response.commentaire);
                      commenterBoutton.style.display = "none";
+                     window.close();
                  })
 
                 .fail( function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX

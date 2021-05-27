@@ -29,26 +29,27 @@ public class InfosClientSerialisation extends Serialisation {
 
         Boolean connexion=(Boolean) request.getAttribute("connexion");
         
-        Client client=(Client) request.getAttribute("client");
+        if(connexion)
+        {
+            Client client=(Client) request.getAttribute("client");
+            JsonObject infosClients=new JsonObject();//Création d'un objet json pour un client
+
+            //Ajout de propriété à ce nouvel objet json
+            infosClients.addProperty("nom",client.getNom());
+            infosClients.addProperty("prenom",client.getPrenom());
+            SimpleDateFormat formater=new SimpleDateFormat("dd/MM/yy");
+            infosClients.addProperty("date",formater.format(client.getDateDeNaissance()));
+            container.add("client", infosClients);
+        }
+        
         
         container.addProperty("connecte",connexion);        
         
-        JsonObject infosClients=new JsonObject();//Création d'un objet json pour un client
-
-        //Ajout de propriété à ce nouvel objet json
-        infosClients.addProperty("nom",client.getNom());
-        infosClients.addProperty("prenom",client.getPrenom());
-        SimpleDateFormat formater=new SimpleDateFormat("dd/MM/yy");
-        infosClients.addProperty("date",formater.format(client.getDateDeNaissance()));
-
-            
-        container.add("client", infosClients);
-        
         response.setContentType("application/json;charset=UTF -8");
-        PrintWriter  out = this.getWriter (response);
-        Gson  gson = new  GsonBuilder().setPrettyPrinting().serializeNulls().create();
-        gson.toJson(container , out);
-        out.close();
+        try (PrintWriter out = this.getWriter (response)) {
+            Gson  gson = new  GsonBuilder().setPrettyPrinting().serializeNulls().create();
+            gson.toJson(container , out);
+        }
     }
     
 }

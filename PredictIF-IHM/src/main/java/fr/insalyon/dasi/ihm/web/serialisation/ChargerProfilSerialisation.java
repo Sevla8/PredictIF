@@ -36,7 +36,7 @@ public class ChargerProfilSerialisation extends Serialisation{
             
             container.addProperty ("connecte", true );
             
-            DateFormat dateFormat = new SimpleDateFormat("yyy-mm-dd");
+            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
             String dateStr = dateFormat.format(client.getDateDeNaissance());
 
              JsonObject jsonClient = new JsonObject () ;
@@ -54,10 +54,19 @@ public class ChargerProfilSerialisation extends Serialisation{
 
              JsonArray consultations = new JsonArray();
              for(Consultation consult : historique ){
+                 String dateconsult;
+                 if(consult.getDateDebut () != null)
+                 {
+                     dateconsult = dateFormat.format(consult.getDateDebut ()) ;
+                 }else{
+                     dateconsult = "null";
+                 }
+                 
                  JsonObject jsonConsult = new JsonObject();
                  jsonConsult.addProperty ("medium", consult.getMedium().getDenomination() );
-                 jsonConsult.addProperty ("date", dateFormat.format(consult.getDateDebut ()) );
+                 jsonConsult.addProperty ("date", dateconsult);
                  jsonConsult.addProperty ("note", consult.getNote () );
+                 jsonConsult.addProperty ("idConsult", consult.getId () );
                  consultations.add(jsonConsult);
              }
              container.add("consultations", consultations);

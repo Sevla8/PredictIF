@@ -74,6 +74,7 @@ public class ActionServlet extends HttpServlet {
 
         request.getSession(true);
         response.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json");
         String todo = request.getParameter("todo");
 
         Action action = null;

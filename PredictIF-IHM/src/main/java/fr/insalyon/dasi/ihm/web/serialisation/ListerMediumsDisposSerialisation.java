@@ -28,9 +28,7 @@ public class ListerMediumsDisposSerialisation extends Serialisation{
         JsonObject container = new JsonObject();
     
         List<Medium> listeMediumsDispos = (List<Medium>)request.getAttribute("mediums-dispos");
-        
-        container.addProperty("nb-mediums", listeMediumsDispos.size());
-        
+                
         JsonArray jsonListeMediumsDispos = new JsonArray();
         
         for (Medium medium : listeMediumsDispos){
@@ -40,18 +38,17 @@ public class ListerMediumsDisposSerialisation extends Serialisation{
             jsonMediumDispo.addProperty("id", medium.getId());
             jsonMediumDispo.addProperty("genre", medium.getGenre());
             jsonMediumDispo.addProperty("denomination", medium.getDenomination());
-            jsonMediumDispo.addProperty("nb-consultations", medium.getNbConsultations());
+            jsonMediumDispo.addProperty("nbConsultations", medium.getNbConsultations());
             jsonMediumDispo.addProperty("presentation", medium.getPresentation());
             
             jsonListeMediumsDispos.add(jsonMediumDispo);
         }
 
-        container.add("mediums-dispos", jsonListeMediumsDispos);
+        container.add("mediumsDispos", jsonListeMediumsDispos);
 
         try (PrintWriter out = this.getWriter(response)) {
             Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
             gson.toJson(container, out);
         }
     }
-    
 }

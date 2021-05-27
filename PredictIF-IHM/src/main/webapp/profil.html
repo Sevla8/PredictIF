@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -16,8 +16,8 @@
                 <h1>Predict'if</h1>
                 <div id="element">
                     <div class="boutonHeader">
-                        <button id="boutonHeader" onclick="window.location= 'contact.html'">Inscription</button>
-                        <button id="boutonHeader" onclick="window.location= 'contact.html'">Connexion</button>
+                        <button id="boutonHeader" onclick="window.location= 'accueil.html'">Inscription</button>
+                        <button id="boutonHeader" onclick="window.location= 'accueil.html'">Connexion</button>
                     </div>
                     <div class="drapeauHeader">
                         <ul class="drapeaux">
@@ -34,9 +34,9 @@
             <nav class="menu">
                 <ul class="gauche">
                     <li><a href="./accueil.html">Accueil</a></li>
-					<li><a href="./informations.html">Qui sommes nous?</a></li>
-					<li><a href="./nos-mediums.html">Nos médiums</a></li>
-					<li><a href="./astro.html">Astro</a></li>
+                    <li><a href="./informations.html">Qui sommes nous?</a></li>
+                    <li><a href="./nos-mediums.html">Nos médiums</a></li>
+                    <li><a href="./astro.html">Astro</a></li>
                 </ul>
                 <ul class="droite">
                     <li ><a href="partenaires.html">Partenaires</a></li>
@@ -82,11 +82,54 @@
         </br>
         <table class="TableauCentre">
             <tbody id ='historique'>
+
+                <tr> 
+                    <td  class ="bordureTabfin" > consu.medium </td> 
+                    <td  class = "bordureTabfin"> consu.date </td>
+                    <td  class = "bordureTabfin"> 
+                        
+                        <div class="rated">
+                            <a href="?star=1&id=12" id='etoileCliquee'>☆</a> 
+                            <a class="etoileVide" title="Donner 4 étoiles">☆</a>
+                            <a class="etoileVide" title="Donner 3 étoiles">☆</a>
+                            <a class="etoileVide" title="Donner 2 étoiles">☆</a>
+                            <a class="etoileJaune" title="Donner 1 étoile">☆</a>
+                        </div>    
+                    </td> 
+                </tr>
+
+                <tr> 
+                    <td  class ="bordureTabfin" > consu.medium </td> 
+                    <td  class = "bordureTabfin"> consu.date </td>
+                    <td  class = "bordureTabfin"> 
+                        <div class="rating">
+                            <a href="#5" title="Donner 5 étoiles">☆</a>
+                            <a href="#4" title="Donner 4 étoiles">☆</a>
+                            <a href="#3" title="Donner 3 étoiles">☆</a>
+                            <a href="#2" title="Donner 2 étoiles">☆</a>
+                            <a href="#1" title="Donner 1 étoile">☆</a>
+                        </div>     
+                    </td> 
+                </tr>
+
+                <tr> 
+                    <td  class ="bordureTabfin" > consu.medium </td> 
+                    <td  class = "bordureTabfin"> consu.date </td>
+                    <td  class = "bordureTabfin"> 
+                        <div class="rating">
+                            <a href="#5" title="Donner 5 étoiles" id='etoileCliquee' >☆</a>
+                            <a href="#4" title="Donner 4 étoiles">☆</a>
+                            <a href="#3" title="Donner 3 étoiles">☆</a>
+                            <a href="#2" title="Donner 2 étoiles">☆</a>
+                            <a href="#1" title="Donner 1 étoile">☆</a>
+                        </div> 
+                    </td> 
+                </tr>
               
             </tbody>
-        </table>   
-
-
+        </table>  
+        
+        </br></br></br></br>
 
         <script>
             
@@ -132,11 +175,20 @@
                 });
             }
 
+            function noter(note,id){
+                    console.log("etoile cliquee");
+                    document.location.reload();
+                    console.log(note);
+                    console.log(id);
+                    var page = "note.html?star="+note+"&id="+id;
+                    window.open(page,"","width=300,height=150" );
+                    document.location.reload();
 
+            }
 
-
+            //MAJ DE            
             $(document).ready( function () {
-                if (document.readyState === 'complete') {
+                //if (document.readyState === 'complete') {
                     console.log('HTML prêt !'); // Fonction appelée lors du chargement
                     
                     // Appel AJAX
@@ -166,14 +218,32 @@
                             var listeConsultation = $("#historique");
                             listeConsultation.empty () ; // Vider la liste HTML
                             $.each ( consult, function (i,consu) {
+                                var notation = "";
+                                if(consu.note == null){
+                                    notation = "<div class=\"rating\"> "+
+                                                "<a href=\"?star=1&id="+consu.idConsult+" \" onclick=\"return noter(5,"+consu.idConsult+");\">☆</a> "+                    
+                                                "<a href=\"?star=2&id="+consu.idConsult+" \" onclick=\"return noter(4,"+consu.idConsult+");\">☆</a> "+   
+                                                "<a href=\"?star=3&id="+consu.idConsult+" \" onclick=\"return noter(3,"+consu.idConsult+");\">☆</a> "+   
+                                                "<a href=\"?star=4&id="+consu.idConsult+" \" onclick=\"return noter(2,"+consu.idConsult+");\">☆</a> "+   
+                                                "<a href=\"?star=5id="+consu.idConsult+" \" onclick=\"return noter(1,"+consu.idConsult+");\">☆</a> "+   
+                                                "</div> ";
+                                }else{
+                                    for(var i=0 ; i<consu.note ; i++){
+                                        notation += "<a class=\"etoileJaune\" >☆</a>";
+                                    }
+                                    for(var i=consu.note ; i<5 ; i++){
+                                        notation += "<a class=\"etoileVide\" >☆</a>";
+                                    }
+                                }
                                 listeConsultation.append( // Ajouter a la liste HTML
-                                "<tr> <td  class = \"bordureTabfin\" > "+ consu.medium + "</td> <td  class = \"bordureTabfin\">"+ consu.date +"</td> <td  class = \"bordureTabfin\">" + consu.note+"</td> </tr>"
+                                    "<tr> <td  class = \"bordureTabfin\" > "+ consu.medium + "</td> <td  class = \"bordureTabfin\">"+ consu.date +
+                                    "</td> <td  class = \"bordureTabfin\">" + notation +"</td> </tr>"
                                 );
                             });
                             
                             // Message pour le paragraphe de notification
                             var nomClient=response.client.nom+" "+response.client.prenom;
-                            var dateNaissanceClient=response.client.date;
+                            var dateNaissanceClient=response.client.dateNaissance;
                             console.log(nomClient);
                             console.log(dateNaissanceClient);
 
@@ -186,10 +256,10 @@
                                                 "</div>"+
                                                 "<div id=\"bandeau\" style=\"display:none;\">"+
                                                     "<ul id=\"listeOptions\">"+
-                                                        "<li><button class=\"joli-bouton\" id=\"compte\">Accéder à mon compte</button></li>"+
-                                                        "<li><a href=\"profil.html\">Mon historique</a></li>"+
-                                                        "<li><a href=\"#\">Consulter un médium</a></li>"+
-                                                        "<li><a href=\"profil.html\">Mon profil Astral</a></li>"+
+                                                        "<li><button class=\"joli-bouton\" id=\"compte\" onclick=\"window.location='profil.html'\" >Accéder à mon compte</button></li>"+
+                                                          "<li><a href=\"profil.html\">Mon historique</a></li>"+
+                                                         "<li><a href=\"nos-mediums.html\">Consulter un médium</a></li>"+
+                                                            "<li><a href=\"profil.html\">Mon profil Astral</a></li>"+
                                                         "<li><a href=\"#\" id=\"deconnexion\">Se déconnecter</a></li>"+
                                                     "</ul>"+   
                                                 "</div>";
@@ -212,7 +282,7 @@
                     .always( function () { // Fonction toujours appelée
                         
                     });
-                };
+                //};
             });
 
 

@@ -26,6 +26,9 @@ public class ObtenirConsultationSerialisation extends Serialisation{
         JsonObject container = new JsonObject();
     
         Consultation consultation = (Consultation)request.getAttribute("consultation");
+        boolean connecte = (boolean) request.getAttribute("ok");
+        
+        container.addProperty("connecte", connecte);
         
         if(consultation != null){
             container.addProperty("consultation", true);
@@ -34,10 +37,10 @@ public class ObtenirConsultationSerialisation extends Serialisation{
             container.addProperty("consultation", false);
         }
 
-        PrintWriter out = this.getWriter(response);
-        Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
-        gson.toJson(container, out);
-        out.close();
+        try (PrintWriter out = this.getWriter(response)) {
+            Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
+            gson.toJson(container, out);
+        }
     }
     
 }

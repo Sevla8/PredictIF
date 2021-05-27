@@ -35,8 +35,8 @@ public class PreparerConsultationSerialisation extends Serialisation{
             Consultation consultation = (Consultation) request.getAttribute("consultation");
             List<Consultation> historique = (List<Consultation>) request.getAttribute("historique");
 
-            DateFormat dateFormat = new SimpleDateFormat("yyy-mm-dd");
-
+            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            
             Client client = consultation.getClient();
             String dateStr = dateFormat.format(client.getDateDeNaissance());
 

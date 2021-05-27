@@ -13,6 +13,7 @@ import com.google.gson.JsonObject;
 import fr.insalyon.dasi.metier.modele.Consultation;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,12 +31,14 @@ public class ObtenirHistoriqueEmployeSerialisation extends Serialisation {
         JsonObject container = new JsonObject(); 
         
         List<Consultation> historique = (List<Consultation>) request.getAttribute("historique");
+        SimpleDateFormat formatDate= new SimpleDateFormat("dd-MM-yyyy");
+        
         
         JsonArray jsonListeConsultations = new JsonArray();
         for (Consultation consultation : historique) {
             JsonObject jsonConsultation = new JsonObject();
             jsonConsultation.addProperty("mediumDenomination", consultation.getMedium().getDenomination());
-            jsonConsultation.addProperty("date", consultation.getDateDebut().toString());
+            jsonConsultation.addProperty("date", formatDate.format(consultation.getDateDebut()));
             jsonConsultation.addProperty("commentaire", consultation.getCommentaire());
             jsonListeConsultations.add(jsonConsultation);
         }

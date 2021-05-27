@@ -19,8 +19,8 @@
                 <h1>Predict'if</h1>
                 <div id="element">
                     <div class="boutonHeader">
-                        <button id="boutonHeader" onclick="window.location= 'contact.html'">Inscription</button>
-                        <button id="boutonHeader" onclick="window.location= 'contact.html'">Connexion</button>
+                        <button id="boutonHeader" onclick="window.location= 'accueil.html'">Inscription</button>
+                        <button id="boutonHeader" onclick="window.location= 'accueil.html'">Connexion</button>
                     </div>
                     <div class="drapeauHeader"> 
                         <ul class="drapeaux">
@@ -38,7 +38,7 @@
                 <ul class="gauche">
                     <li><a href="accueil.html">Accueil</a></li>
                     <li><a href="informations.html">Qui sommes nous?</a></li>
-                    <li><a href="#">Nos médiums</a></li>
+                    <li><a href="nos-mediums.html">Nos médiums</a></li>
                     <li><a href="astro.html">Astro</a></li>
                 </ul>
                 <ul class="droite">
@@ -73,10 +73,7 @@
             </div>
         </section>
         
-     
-        
-        <!-- Lien vers l'accueil -->
-        <p><a href="index.html">Retour à la page d'Accueil</a></p>
+           
         
         <footer>
             <div class="nousSuivre">
@@ -95,7 +92,7 @@
                 url: './ActionServlet',
                 method: 'POST',
                 data: {
-                    todo: 'partenaires',                  
+                    todo: 'partenaires'                  
                 },
                 dataType: 'json'
             })
@@ -120,9 +117,9 @@
                                         "</div>"+
                                         "<div id=\"bandeau\" style=\"display:none;\">"+
                                             "<ul id=\"listeOptions\">"+
-                                                "<li><button class=\"joli-bouton\" id=\"compte\">Accéder à mon compte</button></li>"+
+                                                "<li><button class=\"joli-bouton\" id=\"compte\" onclick=\"window.location='profil.html'\" >Accéder à mon compte</button></li>"+
                                                 "<li><a href=\"profil.html\">Mon historique</a></li>"+
-                                                "<li><a href=\"#\">Consulter un médium</a></li>"+
+                                                "<li><a href=\"nos-mediums.html\">Consulter un médium</a></li>"+
                                                 "<li><a href=\"profil.html\">Mon profil Astral</a></li>"+
                                                 "<li><a href=\"#\" id=\"deconnexion\">Se déconnecter</a></li>"+
                                             "</ul>"+   
@@ -194,5 +191,7 @@
             initDonneesPage();
             
         });
+        
+        
     </script>
 </html>

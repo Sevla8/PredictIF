@@ -26,15 +26,12 @@ public class NoterConsultationSerialisation extends Serialisation {
 
         JsonObject container = new JsonObject();
 
-        Consultation consultation = (Consultation) request.getAttribute("consultation");
-
-        container.addProperty("mediumDenomination", consultation.getMedium().getDenomination());
-        container.addProperty("date", consultation.getDateDebut().toString());
-        container.addProperty("note", consultation.getNote());
-
+        container.addProperty("ok", true);
+        
         try (PrintWriter out = this.getWriter(response)) {
             Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
             gson.toJson(container, out);
         }
     }
 }
+

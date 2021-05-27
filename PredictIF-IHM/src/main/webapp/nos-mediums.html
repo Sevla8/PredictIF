@@ -65,8 +65,8 @@
                 <h1>Predict'if</h1>
                 <div id="element">
                     <div class="boutonHeader">
-                        <button id="boutonHeader">Inscription</button>
-                        <button id="boutonHeader" >Connexion</button>
+                        <button id="boutonHeader" onclick="window.location= 'accueil.html'">Inscription</button>
+                        <button id="boutonHeader" onclick="window.location= 'accueil.html'">Connexion</button>
                     </div>
                     <div class="drapeauHeader">
                         <ul class="drapeaux">
@@ -88,15 +88,14 @@
                     <li><a href="./astro.html">Astro</a></li>
                 </ul>
                 <ul class="droite">
-                    <li ><a href="#">Partenaires</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li ><a href="partenaires.html">Partenaires</a></li>
+                    <li><a href="contact.html">Contact</a></li>
                 </ul>
             </nav>
         </header>
 
-        <div class="accroche">
-            N’attendez plus, réservez votre 1ère consultation dès maintenant avec le medium
-            qui vous correspond le mieux et obtenez la vie dont vous rêvez !!
+        <div class="onglet">
+            Nos médiums:
         </div>
 
         <section id="accueil">
@@ -111,23 +110,20 @@
                 </div>
             </div>
             
-            <aside>
-                <div>
-                    <strong>Consultations</strong>
-                    <img id="spiraleConsultation" src="./images/spiraleConsultations.png"/>
-                    </br>
-                    <img id="spiraleDisponible" src="./images/spiraleDisponibles.png"/>
-                    <strong>disponibles</strong>
-                </div>
-                <p>Mme Irma</p>
-                <p>Mr H</p>
-                <p>Endora</p>
-                <p>Jesé Tou</p>
-            </aside>
+            <div id = nos-mediums-dispos>
+                <aside>
+                    <div>
+                        <strong>Consultations</strong>
+                        <img id="spiraleConsultation" src="./images/spiraleConsultations.png"/>
+                        </br>
+                        <img id="spiraleDisponible" src="./images/spiraleDisponibles.png"/>
+                        <strong>disponibles</strong>
+                    </div>
+                    <table id="liste-mediums-dispos"></table>
+                </aside>
+            </div>
         </section>
 
-        <!-- Lien vers l'accueil -->
-        <p><a href="index.html">Retour à la page d'Accueil</a></p>
 
         <footer>
             <div class="nousSuivre">
@@ -169,31 +165,6 @@
             }    
                 
                 
-            function consulterMedium(id){
-                console.log(id);
-                // Appel AJAX
-                $.ajax({
-                    url: './ActionServlet',
-                    method: 'POST',
-                    data: {
-                        todo: 'obtenir-consultation',
-                        idMedium: id
-                    },
-                    dataType: 'json'
-                })
-                .done(function (response) { // Fonction appelée en cas d'appel AJAX réussi
-                    console.log('Response',response); // LOG dans Console Javascript
-
-                })
-                .fail( function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
-                    console.log('Error',error); // LOG dans Console Javascript
-                    alert("Erreur lors de l'appel AJAX");
-                })
-                .always( function () { // Fonction toujours appelée
-
-                });
-            }
-            
             function appelAjax (){
             // Appel AJAX
                 $.ajax({
@@ -201,7 +172,6 @@
                     method: 'POST',
                     data: {
                         todo: 'nos-mediums'
-
                     },
                     dataType: 'json'
                 })
@@ -232,6 +202,39 @@
                     $('#slide1').html(slide[numero1]);
                     $('#slide2').html(slide[numero2]);
                     $('#slide3').html(slide[numero3]);
+
+
+                    if (response.connecte) {
+                        var nomClient=response.client.nom+" "+response.client.prenom;
+                        var dateNaissanceClient=response.client.date;
+                        console.log(nomClient);
+                        console.log(dateNaissanceClient);
+
+                        var bandeauProfil="<div id=\"profilHeader\" >"+
+                                                "<input type=\"image\" src=\"./images/profil.png\" name=\"prof\" id=\"profil\" onclick=\"\">"+
+                                                "<div id=\"infosUtilisateur\" style=\"display:none;\">"+
+                                                    "<span id=\"champ-nomProfil\">M. Durant lalalalalaaaalaa</span>"+
+                                                    "<span id=\"champ-dateNaissanceProfil\">19/08/1997</span>"+
+                                                "</div> "+                          
+                                            "</div>"+
+                                            "<div id=\"bandeau\" style=\"display:none;\">"+
+                                                "<ul id=\"listeOptions\">"+
+                                                    "<li><button class=\"joli-bouton\" id=\"compte\" onclick=\"window.location='profil.html'\" >Accéder à mon compte</button></li>"+
+                                                    "<li><a href=\"profil.html\">Mon historique</a></li>"+
+                                                     "<li><a href=\"nos-mediums.html\">Consulter un médium</a></li>"+
+                                                     "<li><a href=\"profil.html\">Mon profil Astral</a></li>"+
+                                                     "<li><a href=\"#\" id=\"deconnexion\">Se déconnecter</a></li>"+
+                                                "</ul>"+   
+                                            "</div>";
+                      
+                        $('div.boutonHeader').html(bandeauProfil);
+                        $('#champ-nomProfil').html(nomClient);
+                        $('#champ-dateNaissanceProfil').html(dateNaissanceClient);
+                        bandeau();
+                        deconnexion();
+                    } else {
+                        console.log("pas ok");
+                    }
                     
                 })
                 .fail( function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
@@ -243,9 +246,138 @@
                 });
             }
             
+
+            function deconnexion(){
+                $('#deconnexion').on( 'click', function () {
+                    // Appel AJAX
+                    $.ajax({
+                        url: './ActionServlet',
+                        method: 'POST',
+                        data: {
+                            todo: 'deconnexion'                  
+                        },
+                        dataType: 'json'
+                    })
+                    .done( function (response) { // Fonction appelée en cas d'appel AJAX réussi
+                        console.log('Response',response); // LOG dans Console Javascript
+                        //window.location.reload();
+                        window.location="accueil.html";
+                    })
+                    .fail( function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                        console.log('Error',error); // LOG dans Console Javascript
+                        //alert("Erreur lors de l'appel AJAX");
+                    })
+                    .always( function () { // Fonction toujours appelée
+
+                    });
+                });
+            }
+            
+            function bandeau(){
+                var profil=document.getElementById("profil");
+                var bandeau=document.getElementById("bandeau");
+                var infosClient=document.getElementById("infosUtilisateur");
+
+                profil.addEventListener("click", () => {
+                    if(getComputedStyle(bandeau).display !== "none"){
+                        bandeau.style.display = "none";
+                        infosClient.style.display="none";
+                    } else {
+                        bandeau.style.display = "block";
+                        infosClient.style.display="flex";
+                    }
+                });
+            }
+
+
+
             $(document).ready(function() {
                 appelAjax();
             });
+            
+            /***/
+            
+        function consulterMedium(id){                    
+                    console.log(id);
+                    // Appel AJAX
+                    $.ajax({
+                        url: './ActionServlet',
+                        method: 'POST',
+                        data: {
+                            todo: 'obtenir-consultation',
+                            idMedium: id
+                        },
+                        dataType: 'json'
+                    })
+                    .done(function (response) { // Fonction appelée en cas d'appel AJAX réussi
+                        console.log('Response',response); // LOG dans Console Javascript
+                        if (response.connecte) {
+                            if(response.consultation)
+                            {
+                                window.alert("Nous contactons le medium, vous allez recevoir son appel");
+                            }else{
+                                window.alert("Le médium que vous cherchez à contacter n'est pas disponible pour le moment");
+                            }
+                        }
+                        else {
+                            window.location = 'accueil.html';
+                        }
+                    })
+                    .fail( function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                        console.log('Error',error); // LOG dans Console Javascript
+                        alert("Erreur lors de l'appel AJAX");
+                    })
+                    .always( function () { // Fonction toujours appelée
+
+                    });
+            }
+            
+            function appelAjax2 (){
+            // Appel AJAX
+                $.ajax({
+                    url: './ActionServlet',
+                    method: 'POST',
+                    data: {
+                        todo: 'nos-mediums-dispos'
+                    },
+                    dataType: 'json'
+                })
+                .done( function (response) { // Fonction appelée en cas d'appel AJAX réussi
+                    console.log('Response',response); // LOG dans Console Javascript
+                    var listeMediumsDispos = response.mediumsDispos;
+                    console.log('Response',listeMediumsDispos);
+                    $.each ( listeMediumsDispos, function (i,med) {
+                        $('#liste-mediums-dispos').append(
+                            "<tr>" +
+                                "<td class='sansBordure'>" +
+                                    "<img src='./images/medium" + med.id + ".png' width='20' height='20'>" +
+                                "</td>" +
+                                "<td class='sansBordure'>" +
+                                    med.denomination +
+                                "</td>" +
+                                "<td class='sansBordure'>" +
+                                    "<button onclick='consulterMedium(" + med.id + ")' width='35' height='25'>" +
+                                        "<img src='./images/tel.png' width='35' height='25'>" +
+                                    "</button>" +
+                                "</td>" +
+                            "</tr>" 
+                        );
+                    });
+                    //consulterMedium();
+                })
+                .fail( function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                    console.log('Error',error); // LOG dans Console Javascript
+                    alert("Erreur lors de l'appel AJAX");
+                })
+                .always( function () { // Fonction toujours appelée
+
+                });
+            }
+            
+            $(document).ready(function(){
+                appelAjax2();
+            });
+        
         </script>
     </body>
 </html>    
